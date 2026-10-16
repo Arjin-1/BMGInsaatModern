@@ -1,0 +1,136 @@
+:host {
+  display: block;
+}
+
+/* Ana sayfa kapak bölümü */
+
+.hero {
+  min-height: 680px;
+  background: var(--color-dark);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: 45px;
+
+  padding: 70px 6%;
+  overflow: hidden;
+}
+
+/* Sol taraftaki metinler */
+
+.hero-content {
+  min-width: 0;
+  max-width: 650px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.hero h1 {
+  color: var(--color-white);
+  font-size: clamp(36px, 4vw, 64px);
+  line-height: 1.12;
+  letter-spacing: -2px;
+  margin: 0 0 28px;
+}
+
+.hero p {
+  color: #d0d0d0;
+  font-size: 19px;
+  line-height: 1.8;
+  margin-bottom: 38px;
+}
+
+/* Projelerimizi Keşfedin butonu */
+
+.hero-button {
+  display: inline-block;
+  background: var(--color-primary);
+  color: var(--color-dark);
+  padding: 17px 30px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.hero-button:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-3px);
+}
+
+.hero-button:focus-visible {
+  outline: 3px solid var(--color-white)ffff;
+  outline-offset: 4px;
+}
+
+/* Sağ taraftaki proje fotoğrafı */
+
+.hero-image {
+  width: 100%;
+  min-width: 0;
+  height: 550px;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Tablet uyumu */
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding: 60px 7%;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 7vw, 56px);
+  }
+
+  .hero-image {
+    height: 450px;
+  }
+}
+
+/* Telefon uyumu */
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 50px 6%;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-image {
+    height: 350px;
+  }
+}
+
+/* Hareket azaltma tercihini destekle */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-button {
+    transition: none;
+  }
+
+  .hero-button:hover {
+    transform: none;
+  }
+}

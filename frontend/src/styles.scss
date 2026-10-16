@@ -1,0 +1,73 @@
+:root {
+  /* Kurumsal renkler */
+  --color-primary: #c69a00;
+  --color-primary-hover: #e0b52a;
+  --color-accent: #d4aa16;
+
+  /* Nötr renkler */
+  --color-dark: #252525;
+  --color-text: #292929;
+  --color-white: #ffffff;
+  --color-light: #f5f5f3;
+  --color-border: #eeeeee;
+
+  /* Tipografi */
+  --font-primary: Arial, Helvetica, sans-serif;
+
+  /* Köşe yuvarlaklıkları */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  /* Yerleşim */
+  --container-max-width: 1400px;
+
+  /* Animasyon */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+
+/* ==========================================
+   BMG İNŞAAT - GLOBAL BASE STYLES
+========================================== */
+
+/* Tutarlı kutu ölçülendirmesi */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Sayfa genel ayarları */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: var(--font-primary);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  line-height: 1.5;
+}
+
+/* Medya elemanları */
+img,
+video {
+  max-width: 100%;
+}
+
+/* Klavye erişilebilirliği */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Hareket azaltma tercihi */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -1,0 +1,7 @@
+@BMGInsaat.API_HostAddress = http://localhost:5056
+
+### Yayınlanan projeleri listele
+GET {{BMGInsaat.API_HostAddress}}/api/projects
+Accept: application/json
+
+###

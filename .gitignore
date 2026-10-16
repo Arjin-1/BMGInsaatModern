@@ -1,0 +1,44 @@
+# .NET build files
+**/bin/
+**/obj/
+**/TestResults/
+
+# IDE files
+.vs/
+.idea/
+*.user
+*.suo
+*.rsuser
+
+# Local secrets and environment files
+.env
+.env.*
+!.env.example
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.local.json
+**/secrets.json
+*.pfx
+*.p12
+*.pem
+*.key
+
+# Angular and Node.js
+**/node_modules/
+**/dist/
+**/.angular/
+**/coverage/
+**/.cache/
+
+# Logs
+*.log
+logs/
+
+# Operating system
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*~
