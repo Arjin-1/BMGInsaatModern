@@ -32,6 +32,7 @@ public static class DependencyInjection
 
         // Repository kaydi
         services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IAboutRepository, AboutRepository>();
 
         services.AddHttpClient<ITranslationService, AzureTranslationService>();
 
