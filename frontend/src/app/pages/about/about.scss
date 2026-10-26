@@ -1,0 +1,850 @@
+
+:host {
+  display: block;
+
+  --about-gold: #c4a052;
+  --about-gold-dark: #9b7738;
+  --about-dark: #272727;
+  --about-text: #414141;
+  --about-muted: #666666;
+  --about-cream: #f5f3ee;
+  --about-white: #ffffff;
+  --about-border: #e9e5df;
+}
+
+// =====================================
+// 1. GENEL SAYFA YAPISI
+// =====================================
+
+.about-page {
+  width: 100%;
+  overflow: hidden;
+  color: var(--about-text);
+  background: var(--about-white);
+}
+
+.about-page,
+.about-page * {
+  box-sizing: border-box;
+}
+
+.container {
+  width: min(1200px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+// =====================================
+// 2. HERO - BUYUK PROJE GORSELI
+// =====================================
+
+.about-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  min-height: 620px;
+  min-height: 75svh;
+  padding: 110px 0;
+
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--about-dark);
+
+  // Arka plan proje fotografi
+  &__image {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+  }
+
+  // Fotograf uzerindeki koyu katman
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background: linear-gradient(
+      90deg,
+      rgba(18, 21, 24, 0.9) 0%,
+      rgba(18, 21, 24, 0.7) 48%,
+      rgba(18, 21, 24, 0.25) 100%
+    );
+  }
+
+  // Hero ile Hakkimizda arasindaki yumusak gecis
+  &::after {
+    content: "";
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+
+    height: 230px;
+    pointer-events: none;
+
+    background: linear-gradient(
+      to bottom,
+      rgba(245, 243, 238, 0) 0%,
+      rgba(245, 243, 238, 0.18) 40%,
+      rgba(245, 243, 238, 0.65) 77%,
+      #f5f3ee 100%
+    );
+  }
+
+  // Hero icerigi
+  &__content {
+    position: relative;
+    z-index: 3;
+
+    width: min(1200px, calc(100% - 64px));
+
+    animation: hero-content-enter 0.9s ease-out both;
+  }
+
+  &__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+
+    margin-bottom: 30px;
+
+    color: var(--about-gold);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+
+    &::before {
+      content: "";
+      display: block;
+
+      width: 35px;
+      height: 2px;
+
+      background: var(--about-gold);
+    }
+  }
+
+  h1 {
+    max-width: 1050px;
+    margin: 0 0 30px;
+
+    color: var(--about-white);
+    font-size: clamp(44px, 6vw, 82px);
+    font-weight: 750;
+    line-height: 1.1;
+    letter-spacing: -2.5px;
+
+    span {
+      display: block;
+      color: var(--about-gold);
+    }
+  }
+
+  p {
+    max-width: 620px;
+    margin: 0;
+
+    color: #e6e6e6;
+    font-size: clamp(16px, 1.5vw, 19px);
+    line-height: 1.8;
+  }
+}
+
+// =====================================
+// 3. HAKKIMIZDA - SIRKET TANITIMI
+// =====================================
+
+.about-intro {
+  position: relative;
+  z-index: 4;
+
+  padding: 95px 0 55px;
+  overflow: visible;
+
+  background: linear-gradient(
+    180deg,
+    #f5f3ee 0%,
+    #faf9f6 72%,
+    #ffffff 100%
+  );
+
+  // Dekoratif cemberler
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+
+    border: 1px solid rgba(196, 160, 82, 0.15);
+    border-radius: 50%;
+
+    pointer-events: none;
+  }
+
+  &::before {
+    top: 30px;
+    right: -180px;
+
+    width: 480px;
+    height: 480px;
+  }
+
+  &::after {
+    top: 90px;
+    right: -120px;
+
+    width: 360px;
+    height: 360px;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+
+    display: grid;
+    grid-template-columns:
+      minmax(0, 0.8fr)
+      minmax(0, 1.4fr);
+
+    align-items: start;
+    gap: clamp(45px, 6vw, 100px);
+  }
+
+  // Sol taraftaki baslik
+  h2 {
+    position: relative;
+
+    margin: -135px 0 0;
+    padding-top: 50px;
+
+    color: var(--about-dark);
+    font-size: clamp(44px, 5vw, 68px);
+    font-weight: 750;
+    letter-spacing: -2px;
+    line-height: 1.12;
+
+    &::before {
+      content: "KURUMSAL / 2015";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      color: var(--about-gold-dark);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
+
+    &::after {
+      content: "";
+      display: block;
+
+      width: 75px;
+      height: 4px;
+      margin-top: 30px;
+
+      background: var(--about-gold);
+    }
+  }
+
+  // Proje fotografiyla ortusen beyaz icerik karti
+  &__content {
+    position: relative;
+    min-width: 0;
+    width: 100%;
+
+    padding: 48px 50px;
+    margin-top: -165px;
+
+    background: var(--about-white);
+
+    border: 1px solid var(--about-border);
+    border-left: 4px solid var(--about-gold);
+    border-radius: 5px;
+
+    box-shadow:
+      0 18px 45px rgba(39, 39, 39, 0.07),
+      0 30px 80px rgba(39, 39, 39, 0.06);
+
+    animation: about-card-enter 0.9s 0.15s ease-out both;
+
+    &::before {
+      content: "BMG TAAHHÜT İNŞAAT";
+
+      display: block;
+      margin-bottom: 28px;
+
+      color: var(--about-gold-dark);
+      font-size: 12px;
+      font-weight: 750;
+      letter-spacing: 2.5px;
+    }
+
+    p {
+      margin: 0;
+
+      color: #505050;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 2;
+
+      white-space: pre-line;
+      overflow-wrap: break-word;
+    }
+  }
+}
+
+// =====================================
+// 4. MISYON VE VIZYON
+// =====================================
+
+.about-purpose {
+  position: relative;
+
+  padding: 55px 0 85px;
+
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #ffffff 30%,
+    #f5f3ee 100%
+  );
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 28px;
+  }
+
+  &__item {
+    position: relative;
+
+    min-height: 240px;
+    padding: 38px 42px;
+    overflow: hidden;
+
+    background: var(--about-white);
+    border: 1px solid var(--about-border);
+    border-radius: 6px;
+
+    box-shadow: 0 12px 35px rgba(39, 39, 39, 0.04);
+
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease,
+      border-color 0.3s ease;
+
+    &::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 4px;
+
+      background: var(--about-gold);
+    }
+
+    &::after {
+      content: "";
+
+      position: absolute;
+      right: -75px;
+      bottom: -75px;
+
+      width: 190px;
+      height: 190px;
+
+      border: 1px solid rgba(196, 160, 82, 0.15);
+      border-radius: 50%;
+
+      pointer-events: none;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      border-color: #dacba9;
+
+      box-shadow:
+        0 20px 50px rgba(39, 39, 39, 0.08);
+    }
+
+    h2 {
+      position: relative;
+      z-index: 1;
+
+      margin: 0 0 24px;
+
+      color: var(--about-dark);
+      font-size: clamp(25px, 2.5vw, 32px);
+      font-weight: 750;
+      letter-spacing: -0.6px;
+      line-height: 1.25;
+
+      &::after {
+        content: "";
+        display: block;
+
+        width: 52px;
+        height: 3px;
+        margin-top: 18px;
+
+        background: var(--about-gold);
+      }
+    }
+
+    p {
+      position: relative;
+      z-index: 1;
+
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 16px;
+      line-height: 1.95;
+
+      white-space: pre-line;
+      overflow-wrap: break-word;
+    }
+  }
+
+  &__item:nth-child(2) {
+    background: #faf9f6;
+  }
+}
+
+// =====================================
+// 5. SIRKET DEGERLERI
+// =====================================
+
+.about-values {
+  position: relative;
+
+  padding: 90px 0 105px;
+  background: var(--about-cream);
+
+  h2 {
+    margin: 0 0 55px;
+
+    color: var(--about-dark);
+    font-size: clamp(34px, 4vw, 48px);
+    font-weight: 750;
+    letter-spacing: -1.3px;
+    line-height: 1.2;
+    text-align: center;
+
+    &::after {
+      content: "";
+      display: block;
+
+      width: 65px;
+      height: 4px;
+      margin: 22px auto 0;
+
+      background: var(--about-gold);
+    }
+  }
+
+  // MASAUSTU: 3 KART YAN YANA
+  &__grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    align-items: stretch;
+    gap: 26px;
+
+    > p {
+      grid-column: 1 / -1;
+      margin: 0;
+
+      color: var(--about-muted);
+      font-size: 16px;
+      line-height: 1.8;
+      text-align: center;
+    }
+  }
+}
+
+// =====================================
+// 6. SIRKET DEGER KARTLARI
+// =====================================
+
+.value-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+  min-height: 285px;
+  padding: 38px 34px;
+
+  background: var(--about-white);
+
+  border: 1px solid var(--about-border);
+  border-radius: 5px;
+
+  box-shadow: 0 10px 30px rgba(39, 39, 39, 0.035);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: var(--about-gold);
+  }
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: #dcc9a3;
+
+    box-shadow:
+      0 20px 45px rgba(39, 39, 39, 0.075);
+  }
+
+  &__number {
+    display: inline-block;
+    margin-bottom: 38px;
+
+    color: var(--about-gold-dark);
+    font-size: 13px;
+    font-weight: 750;
+    letter-spacing: 2px;
+  }
+
+  h3 {
+    margin: 0 0 20px;
+
+    color: var(--about-dark);
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+    line-height: 1.3;
+
+    overflow-wrap: break-word;
+  }
+
+  p {
+    margin: 0;
+
+    color: var(--about-muted);
+    font-size: 15px;
+    line-height: 1.85;
+
+    white-space: pre-line;
+    overflow-wrap: break-word;
+  }
+}
+
+// =====================================
+// 7. YUKLENME VE HATA DURUMLARI
+// =====================================
+
+.about-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 350px;
+  padding-block: 80px;
+
+  text-align: center;
+
+  p {
+    margin: 0;
+    color: var(--about-muted);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+}
+
+// =====================================
+// 8. GIRIS ANIMASYONLARI
+// =====================================
+
+@keyframes hero-content-enter {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes about-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =====================================
+// 9. TABLET - 900px
+// =====================================
+
+@media (max-width: 900px) {
+  .about-hero {
+    min-height: 550px;
+    padding: 85px 0;
+
+    &::after {
+      height: 160px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 65px);
+    }
+  }
+
+  .about-intro {
+    padding: 75px 0 75px;
+
+    .container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    h2 {
+      margin-top: 0;
+      padding-top: 42px;
+      font-size: 54px;
+    }
+
+    &__content {
+      margin-top: 0;
+      padding: 38px 40px;
+    }
+  }
+
+  .about-purpose {
+    padding: 65px 0;
+
+    &__grid {
+      gap: 20px;
+    }
+
+    &__item {
+      min-height: 240px;
+      padding: 34px 30px;
+    }
+  }
+
+  .about-values {
+    padding: 75px 0 90px;
+
+    // TABLET: 2 KART YAN YANA
+    &__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+  }
+
+  .value-card {
+    min-height: 260px;
+    padding: 32px 28px;
+  }
+}
+
+// =====================================
+// 10. TELEFON - 600px
+// =====================================
+
+@media (max-width: 600px) {
+  .container {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .about-hero {
+    min-height: 520px;
+    min-height: 75svh;
+    padding: 75px 0;
+
+    &__content {
+      width: calc(100% - 40px);
+    }
+
+    &__image {
+      object-position: 60% center;
+    }
+
+    &__overlay {
+      background: linear-gradient(
+        90deg,
+        rgba(18, 21, 24, 0.91),
+        rgba(18, 21, 24, 0.6)
+      );
+    }
+
+    &__eyebrow {
+      gap: 10px;
+      font-size: 10px;
+      letter-spacing: 2px;
+
+      &::before {
+        width: 24px;
+      }
+    }
+
+    h1 {
+      font-size: clamp(38px, 10vw, 54px);
+      letter-spacing: -1.5px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.75;
+    }
+  }
+
+  .about-intro {
+    padding: 65px 0 65px;
+
+    .container {
+      gap: 32px;
+    }
+
+    h2 {
+      margin-top: 0;
+      padding-top: 38px;
+
+      font-size: clamp(39px, 10vw, 48px);
+      letter-spacing: -1.5px;
+
+      &::before {
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      &::after {
+        margin-top: 24px;
+      }
+    }
+
+    &__content {
+      margin-top: 0;
+      padding: 30px 24px;
+
+      &::before {
+        margin-bottom: 22px;
+        font-size: 10px;
+        letter-spacing: 2px;
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 1.9;
+      }
+    }
+  }
+
+  .about-purpose {
+    padding: 60px 0;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    &__item {
+      min-height: auto;
+      padding: 35px 28px;
+
+      h2 {
+        font-size: 26px;
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 1.85;
+      }
+    }
+  }
+
+  .about-values {
+    padding: 70px 0 80px;
+
+    h2 {
+      margin-bottom: 40px;
+      font-size: 34px;
+    }
+
+    // TELEFON: KARTLAR ALT ALTA
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+
+  .value-card {
+    min-height: 230px;
+    padding: 30px 26px;
+
+    &__number {
+      margin-bottom: 26px;
+    }
+
+    h3 {
+      font-size: 23px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+  }
+
+  .about-status {
+    min-height: 250px;
+    padding-block: 50px;
+  }
+}
+
+// =====================================
+// 11. ERISILEBILIRLIK
+// =====================================
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hero__content,
+  .about-intro__content {
+    animation: none;
+  }
+
+  .about-purpose__item,
+  .value-card {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}

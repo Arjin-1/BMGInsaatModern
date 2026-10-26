@@ -17,11 +17,14 @@ public class AdminAboutController : ControllerBase
         _aboutService = aboutService;
     }
 
-    [HttpPut]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Save(
-        [FromBody] UpdateAboutContentRequest request,
-        CancellationToken cancellationToken)
+
+[HttpPut]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Save(
+    [FromBody] UpdateAboutContentRequest request,
+    CancellationToken cancellationToken)
+{
+    try
     {
         await _aboutService.SaveAsync(
             request,
@@ -32,4 +35,13 @@ public class AdminAboutController : ControllerBase
             message = "Hakkimizda icerigi basariyla kaydedildi."
         });
     }
+    catch (ArgumentException ex)
+    {
+        return BadRequest(new
+        {
+            message = ex.Message
+        });
+    }
+}
+
 }

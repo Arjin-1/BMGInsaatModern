@@ -1,0 +1,112 @@
+
+<main class="about-page">
+
+  @if (isLoading()) {
+    <div class="container about-status" role="status">
+      <p>Hakkımızda içerikleri yükleniyor...</p>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="container about-status" role="alert">
+      <p>{{ errorMessage() }}</p>
+    </div>
+  } @else if (aboutContent(); as content) {
+
+    
+<!-- HAKKIMIZDA HERO -->
+<section class="about-hero" aria-labelledby="about-hero-title">
+
+  <img
+    class="about-hero__image"
+    src="/images/hero-altyapi.jpg"
+    alt="BMG İnşaat altyapı projesinden görünüm"
+  />
+
+  <div class="about-hero__overlay"></div>
+
+  <div class="container about-hero__content">
+
+    <span class="about-hero__eyebrow">
+      BMG İNŞAAT / KURUMSAL
+    </span>
+
+    <h1 id="about-hero-title">
+      Mühendislikle Şekillenen
+      <span>Kalıcı Değerler.</span>
+    </h1>
+
+    <p>
+      Güven, kalite ve sürdürülebilirlik anlayışıyla
+      geleceğin altyapısını inşa ediyoruz.
+    </p>
+
+  </div>
+
+</section>
+
+
+    <!-- SIRKET TANITIMI -->
+    <section class="about-intro" aria-labelledby="about-title">
+      <div class="container">
+
+        <h2 id="about-title">Hakkımızda</h2>
+
+        <div class="about-intro__content">
+          <p>{{ content.aboutTr }}</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MISYON VE VIZYON -->
+    <section class="about-purpose">
+      <div class="container">
+
+        <div class="about-purpose__grid">
+
+          <article class="about-purpose__item">
+            <h2>Misyonumuz</h2>
+            <p>{{ content.missionTr }}</p>
+          </article>
+
+          <article class="about-purpose__item">
+            <h2>Vizyonumuz</h2>
+            <p>{{ content.visionTr }}</p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SIRKET DEGERLERI -->
+    <section class="about-values" aria-labelledby="values-title">
+      <div class="container">
+
+        <h2 id="values-title">Değerlerimiz</h2>
+
+        <div class="about-values__grid">
+
+          @for (value of companyValues(); track value.id) {
+            <article class="value-card">
+
+              <span class="value-card__number">
+                {{ $index + 1 }}
+              </span>
+
+              <h3>{{ value.titleTr }}</h3>
+
+              <p>{{ value.descriptionTr }}</p>
+
+            </article>
+          } @empty {
+            <p>Henüz yayınlanmış şirket değeri bulunmuyor.</p>
+          }
+
+        </div>
+
+      </div>
+    </section>
+
+  }
+
+</main>

@@ -74,6 +74,7 @@ public class AboutService : IAboutService
         {
             var newContent = new AboutContent
             {
+                Id = 1,
                 AboutTr = aboutTr,
                 AboutEn = aboutEn,
                 MissionTr = missionTr,

@@ -7,4 +7,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home').then((m) => m.Home),
   },
+  {
+    path: 'about',
+    title: 'Hakkımızda | BMG İnşaat',
+    loadComponent: () =>
+      import('./pages/about/about').then((m) => m.About),
+  },
 ];
+

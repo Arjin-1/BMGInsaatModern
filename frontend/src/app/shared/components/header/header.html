@@ -1,23 +1,61 @@
-<header class="site-header">
-  <div class="container header-content">
 
-    <a href="/" class="brand" aria-label="BMG İnşaat Ana Sayfa">
+<header class="site-header">
+  <div class="header-container">
+
+    <!-- BMG INSAAT LOGOSU -->
+    <a
+      href="/"
+      class="brand"
+      aria-label="BMG İnşaat Ana Sayfa"
+      (click)="closeMenu()"
+    >
       <img
         src="/images/bmg-logo.jpg"
-        alt="BMG İnşaat Logo"
+        alt="BMG İnşaat"
         class="brand-logo"
       />
     </a>
 
-    <nav class="main-nav" aria-label="Ana menü">
-      <a href="/">Ana Sayfa</a>
-      <a href="#hakkimizda">Hakkımızda</a>
-      <a href="#projeler">Projeler</a>
-      <a href="#hizmetler">Hizmetler</a>
-      <a href="#videolar">Videolar</a>
-      <a href="#sertifikalar">Sertifikalar</a>
-      <a href="#iletisim">İletişim</a>
+    <!-- MASAUSTU VE MOBIL NAVIGASYON -->
+    <nav
+      id="main-navigation"
+      class="main-nav"
+      [class.is-open]="isMenuOpen()"
+      aria-label="Ana menü"
+    >
+      <a href="/" (click)="closeMenu()">
+        Ana Sayfa
+      </a>
+
+      <a href="/about" (click)="closeMenu()">
+        Hakkımızda
+      </a>
+
+      <a href="/#faaliyetler" (click)="closeMenu()">
+        Faaliyet Alanlarımız
+      </a>
     </nav>
+
+    <!-- HEADER SAG ALAN -->
+    <div class="header-actions">
+
+      <!-- MOBIL MENU BUTONU -->
+      <button
+        type="button"
+        class="menu-toggle"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-controls="main-navigation"
+        [attr.aria-label]="isMenuOpen() ? 'Menüyü kapat' : 'Menüyü aç'"
+        (click)="toggleMenu()"
+      >
+        @if (isMenuOpen()) {
+          <span aria-hidden="true">&#10005;</span>
+        } @else {
+          <span aria-hidden="true">&#9776;</span>
+        }
+      </button>
+
+    </div>
 
   </div>
 </header>

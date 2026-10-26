@@ -62,7 +62,10 @@ namespace BMGInsaat.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AboutContents");
+                    b.ToTable("AboutContents", t =>
+                        {
+                            t.HasCheckConstraint("CK_AboutContents_SingleRecord", "\"Id\" = 1");
+                        });
                 });
 
             modelBuilder.Entity("BMGInsaat.Domain.Entities.CompanyValue", b =>

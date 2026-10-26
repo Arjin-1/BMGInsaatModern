@@ -1,28 +1,242 @@
-<main>
-  <section class="hero" aria-labelledby="hero-title">
+<main class="home-page">
+
+  <!-- HERO: ANA KAPAK -->
+  
+<!-- HERO SLIDER -->
+<section class="hero" aria-labelledby="hero-title">
+
+  @if (activeSlide(); as slide) {
+
+
+<!-- GERCEK BMG PROJE FOTOGRAFLARI -->
+<div class="hero-image">
+  @for (item of slides; track item.image) {
+    <img
+      class="hero-slide-image"
+      [class.is-active]="activeSlideIndex() === $index"
+      [src]="item.image"
+      [alt]="activeSlideIndex() === $index ? item.imageAlt : ''"
+      [attr.aria-hidden]="activeSlideIndex() === $index ? null : 'true'"
+      [attr.fetchpriority]="$index === 0 ? 'high' : null"
+    />
+  }
+</div>
+
+
+    <!-- FOTOGRAF UZERINDEKI KOYU KATMAN -->
+    <div class="hero-overlay"></div>
+
+
+<!-- DINAMIK VE ANIMASYONLU SLIDER METINLERI -->
+@for (item of slides; track item.image) {
+  @if (activeSlideIndex() === $index) {
+
     <div class="hero-content">
-      <span class="eyebrow">BMG İNŞAAT</span>
+
+      <span class="hero-eyebrow">
+        {{ item.eyebrow }}
+      </span>
 
       <h1 id="hero-title">
-        Geleceği Güvenle İnşa Ediyoruz.
+        {{ item.title }}
+        <span>{{ item.highlightedTitle }}</span>
       </h1>
 
       <p>
-        Altyapı ve üstyapı projelerinde kalite,
-        güven ve sürdürülebilirlik.
+        {{ item.description }}
       </p>
 
-      <a href="#projeler" class="hero-button">
-        Projelerimizi Keşfedin
-      </a>
+      <div class="hero-actions">
+
+        <a
+          href="#faaliyetler"
+          class="hero-button hero-button--primary"
+        >
+          Faaliyet Alanlarımız
+          <span aria-hidden="true">↗</span>
+        </a>
+
+        <a
+          href="/about"
+          class="hero-button hero-button--secondary"
+        >
+          Bizi Tanıyın
+          <span aria-hidden="true">→</span>
+        </a>
+
+      </div>
+
     </div>
 
-    <div class="hero-image">
-      <img
-        src="/images/hero-altyapi.jpg"
-        alt="BMG İnşaat altyapı projesinde vinç ve boru çalışması"
-        fetchpriority="high"
-      />
+  }
+}
+
+
+  }
+
+  
+<!-- HERO SLIDER KONTROLLERI -->
+<div
+  class="hero-slider-controls"
+  aria-label="Proje görselleri kontrolü"
+>
+  <div class="hero-slider-arrows">
+
+    <button
+      type="button"
+      class="hero-slider-arrow"
+      aria-label="Önceki görsel"
+      (click)="previousSlide()"
+    >
+      <span aria-hidden="true">&#8592;</span>
+    </button>
+
+    <button
+      type="button"
+      class="hero-slider-arrow"
+      aria-label="Sonraki görsel"
+      (click)="nextSlide()"
+    >
+      <span aria-hidden="true">&#8594;</span>
+    </button>
+
+  </div>
+
+  <span class="hero-slider-counter" aria-live="polite">
+    {{ activeSlideIndex() + 1 }} / {{ slides.length }}
+  </span>
+</div>
+
+
+  <!-- HERO ALT KATEGORILER -->
+  <div class="hero-bottom">
+    <span>ALTYAPI</span>
+    <span class="hero-bottom__separator"></span>
+
+    <span>TAAHHÜT</span>
+    <span class="hero-bottom__separator"></span>
+
+    <span>MÜHENDİSLİK</span>
+  </div>
+
+</section>
+
+
+
+  <!-- KURUMSAL GÜÇLÜ YÖNLER -->
+  <section class="highlights" aria-label="Kurumsal yaklaşımımız">
+
+    <div class="highlights-container">
+
+      <div class="highlight-item">
+        <span class="highlight-number">01</span>
+        <h2>Güven</h2>
+        <p>Taahhütlerimize bağlılık</p>
+      </div>
+
+      <div class="highlight-item">
+        <span class="highlight-number">02</span>
+        <h2>Kalite</h2>
+        <p>Mühendislik odaklı yaklaşım</p>
+      </div>
+
+      <div class="highlight-item">
+        <span class="highlight-number">03</span>
+        <h2>Sürdürülebilirlik</h2>
+        <p>Geleceğe değer katan projeler</p>
+      </div>
+
     </div>
+
   </section>
+
+
+  <!-- HAKKIMIZDA TANITIM -->
+  <section class="home-about">
+
+    <div class="home-container">
+
+      <span class="section-eyebrow">
+        BMG İNŞAAT'I TANIYIN
+      </span>
+
+      <h2>
+        Sağlam Temeller Üzerine
+        <span>Güçlü Bir Gelecek.</span>
+      </h2>
+
+      <p>
+        BMG İnşaat, altyapı ve taahhüt projelerinde
+        mühendislik ilkelerini, kaliteyi ve güveni
+        ön planda tutan bir çalışma anlayışı benimser.
+      </p>
+
+      <a href="/about" class="section-link">
+        Hakkımızda
+        <span aria-hidden="true">↗</span>
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- FAALIYET ALANLARI -->
+  <section
+    id="faaliyetler"
+    class="home-services"
+    aria-labelledby="services-title"
+  >
+
+    <div class="home-container">
+
+      <div class="section-heading">
+
+        <div>
+          <span class="section-eyebrow">
+            FAALİYET ALANLARIMIZ
+          </span>
+
+          <h2 id="services-title">
+            Uzmanlık Alanlarımız
+          </h2>
+        </div>
+
+      </div>
+
+      <div class="services-grid">
+
+        <article class="service-card">
+          <span class="service-card__number">01</span>
+          <h3>Baraj ve Sulama</h3>
+          <p>
+            Su kaynaklarının etkin kullanımına
+            yönelik altyapı ve sulama projeleri.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <span class="service-card__number">02</span>
+          <h3>İçme Suyu Altyapısı</h3>
+          <p>
+            İçme suyu depoları ve ilgili
+            altyapı sistemlerinin yapımı.
+          </p>
+        </article>
+
+        <article class="service-card">
+          <span class="service-card__number">03</span>
+          <h3>Taşkın Kontrolü</h3>
+          <p>
+            Taşkın kontrolü ve dere ıslahına
+            yönelik mühendislik uygulamaları.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+
+  </section>
+
 </main>

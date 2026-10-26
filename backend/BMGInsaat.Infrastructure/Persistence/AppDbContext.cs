@@ -81,6 +81,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
         {
             entity.HasKey(a => a.Id);
 
+            entity.ToTable(table =>
+                table.HasCheckConstraint(
+                "CK_AboutContents_SingleRecord",
+                "\"Id\" = 1"));
+
             entity.Property(a => a.AboutTr)
                 .IsRequired()
                 .HasColumnType("text");
