@@ -1,0 +1,52 @@
+
+<main class="admin-login">
+  <section class="login-card">
+    <div class="login-heading">
+      <span class="login-eyebrow">BMG İNŞAAT</span>
+      <h1>Yönetim Paneli</h1>
+      <p>Devam etmek için yönetici hesabınızla giriş yapın.</p>
+    </div>
+
+    <form class="login-form" (ngSubmit)="onSubmit()">
+      <div class="form-field">
+        <label for="username">Kullanıcı Adı</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          [(ngModel)]="username"
+          placeholder="Kullanıcı adınızı girin"
+          autocomplete="username"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label for="password">Şifre</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          placeholder="Şifrenizi girin"
+          autocomplete="current-password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="login-button" [disabled]="loading || !username.trim() || !password">
+        {{ loading ? 'Giriş Yapılıyor...' : 'Giriş Yap' }}
+      </button>
+      @if (errorMessage) {
+  <p class="login-error" role="alert">
+    {{ errorMessage }}
+  </p>
+}
+    </form>
+
+    <p class="login-footer">
+      © 2026 BMG İnşaat. Yetkili kullanıcı erişimi.
+    </p>
+  </section>
+</main>
+

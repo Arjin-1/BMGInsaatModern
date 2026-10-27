@@ -29,6 +29,11 @@ public class ProjectsController : ControllerBase
             project.DescriptionTr,
             project.DescriptionEn,
             project.City,
+            project.EmployerTr,
+            project.EmployerEn,
+            project.StartDate,
+            project.EndDate,
+            project.IsFeatured,
             project.Status,
 
             Images = project.Images

@@ -40,6 +40,7 @@ public class ProjectRepository : IProjectRepository
         CancellationToken cancellationToken = default)
     {
         return await _context.Projects
+            .Include(p => p.Images)
             .FirstOrDefaultAsync(
                 p => p.Id == id,
                 cancellationToken);

@@ -1,0 +1,168 @@
+
+:host {
+  display: block;
+}
+
+.admin-login {
+  min-height: 100dvh;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 20px;
+
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(193, 150, 35, 0.13),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #171b20 0%, #292f36 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 48px 42px;
+
+  background: #ffffff;
+  border: 1px solid rgba(193, 150, 35, 0.2);
+  border-radius: 16px;
+
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+}
+
+.login-heading {
+  margin-bottom: 36px;
+  text-align: center;
+
+  .login-eyebrow {
+    display: inline-block;
+    margin-bottom: 16px;
+
+    color: #b58b19;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  h1 {
+    margin: 0 0 12px;
+
+    color: #23272d;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.7px;
+  }
+
+  p {
+    margin: 0;
+
+    color: #777d85;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+
+  label {
+    color: #353a41;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    box-sizing: border-box;
+
+    background: #fafafa;
+    border: 1px solid #dce0e4;
+    border-radius: 8px;
+
+    color: #252a30;
+    font: inherit;
+    font-size: 14px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &::placeholder {
+      color: #a2a6ab;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: #b99227;
+      box-shadow: 0 0 0 3px rgba(185, 146, 39, 0.13);
+    }
+  }
+}
+
+.login-button {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 8px;
+
+  background: #b99227;
+  border: none;
+  border-radius: 8px;
+
+  color: #ffffff;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      background: #a5801e;
+      transform: translateY(-1px);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+}
+
+.login-footer {
+  margin: 34px 0 0;
+
+  color: #999da3;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .admin-login {
+    min-height: 100dvh;
+    padding: 32px 16px;
+  }
+
+  .login-card {
+    padding: 36px 24px;
+  }
+
+  .login-heading h1 {
+    font-size: 26px;
+  }
+}

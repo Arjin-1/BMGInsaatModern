@@ -1,0 +1,633 @@
+
+:host {
+  display: block;
+  background: #f4f5f7;
+}
+
+.admin-project-edit {
+  padding: 32px 24px 36px;
+  box-sizing: border-box;
+}
+
+.edit-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.edit-header {
+  margin-bottom: 22px;
+
+  .eyebrow {
+    color: #ae841b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    margin: 12px 0;
+    color: #20252b;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: #777e87;
+    font-size: 14px;
+  }
+}
+
+.edit-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e7e9ed;
+  border-radius: 14px;
+  box-shadow: 0 8px 35px rgba(25, 31, 38, 0.04);
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 32px;
+  border-bottom: 1px solid #edf0f2;
+
+  h2 {
+    margin: 0;
+    color: #232830;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  span {
+    color: #8a9098;
+    font-size: 12px;
+  }
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 36px 32px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+
+  label {
+    color: #353a41;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+
+    background: #fafbfc;
+    border: 1px solid #dce0e4;
+    border-radius: 8px;
+
+    color: #252a30;
+    font: inherit;
+    font-size: 14px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #b99227;
+      box-shadow: 0 0 0 3px rgba(185, 146, 39, 0.12);
+    }
+  }
+
+  input,
+  select {
+    min-height: 50px;
+  }
+
+  textarea {
+    min-height: 135px;
+    line-height: 1.7;
+    resize: vertical;
+  }
+}
+
+.date-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.state-message {
+  padding: 60px 24px;
+  color: #737a84;
+  font-size: 14px;
+  text-align: center;
+
+  &.error {
+    color: #b42318;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-project-edit {
+    padding: 32px 16px 60px;
+  }
+
+  .edit-header {
+    margin-bottom: 26px;
+  }
+
+  .card-heading {
+    padding: 22px 20px;
+  }
+
+  .edit-form {
+    padding: 26px 20px;
+    gap: 22px;
+  }
+
+  .date-fields {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+}
+
+
+/* PROJE YAYINLAMA SECENEKLERI */
+
+.project-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  padding: 20px;
+  background: #fafbfc;
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #b99227;
+  }
+
+  input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    flex-shrink: 0;
+
+    accent-color: #b99227;
+    cursor: pointer;
+  }
+
+  span {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  strong {
+    color: #272c32;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  small {
+    color: #7b828b;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* PROJE KAYDETME ALANI */
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+
+  padding-top: 24px;
+  border-top: 1px solid #e7e9ed;
+}
+
+.save-button {
+  min-height: 48px;
+  padding: 13px 28px;
+
+  background: #b99227;
+  border: 1px solid #b99227;
+  border-radius: 8px;
+
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #a5801e;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(185, 146, 39, 0.35);
+    outline-offset: 3px;
+  }
+}
+
+.save-message {
+  width: 100%;
+  margin: 0;
+  padding: 13px 16px;
+  box-sizing: border-box;
+
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.6;
+
+  &.success {
+    background: #eaf7ef;
+    color: #277449;
+  }
+
+  &.error {
+    background: #fff0ef;
+    color: #b42318;
+  }
+}
+
+@media (max-width: 600px) {
+  .save-button {
+    width: 100%;
+  }
+}
+
+
+/* PROJE FOTOGRAF GALERISI */
+
+.project-images {
+  padding-top: 26px;
+  border-top: 1px solid #e7e9ed;
+
+  h3 {
+    margin: 0 0 20px;
+    color: #252a30;
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+
+.images-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.image-card {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+
+  background: #edf0f2;
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.04);
+  }
+}
+
+.cover-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  padding: 7px 11px;
+
+  background: #b99227;
+  border-radius: 5px;
+
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.no-images {
+  margin: 0;
+  padding: 28px 20px;
+
+  background: #f8f9fa;
+  border: 1px dashed #dce0e4;
+  border-radius: 8px;
+
+  color: #818791;
+  font-size: 13px;
+  text-align: center;
+}
+
+.image-count {
+  margin: 18px 0 0;
+  color: #777e87;
+  font-size: 12px;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .images-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .images-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* PROJE FOTOGRAF YUKLEME ALANI */
+
+.image-upload-area {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+
+  label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+    padding: 10px 18px;
+    box-sizing: border-box;
+
+    background: #fffaf0;
+    border: 1px solid #d8bb70;
+    border-radius: 8px;
+
+    color: #97711a;
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease;
+
+    &:hover {
+      background: #b99227;
+      color: #ffffff;
+    }
+  }
+
+  input[type='file'] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+  }
+
+  input[type='file']:focus-visible + small {
+    outline: 2px solid #b99227;
+    outline-offset: 3px;
+  }
+
+  small {
+    color: #818791;
+    font-size: 12px;
+  }
+}
+
+.upload-message {
+  margin: 0 0 18px;
+  padding: 12px 16px;
+
+  background: #f0f3f7;
+  border-radius: 8px;
+
+  color: #596575;
+  font-size: 13px;
+
+  &.success {
+    background: #eaf7ef;
+    color: #277449;
+  }
+
+  &.error {
+    background: #fff0ef;
+    color: #b42318;
+  }
+}
+
+@media (max-width: 600px) {
+  .image-upload-area {
+    align-items: stretch;
+    flex-direction: column;
+
+    label {
+      width: 100%;
+    }
+  }
+}
+/* Fotoğraf silme butonu */
+.image-card {
+  position: relative;
+}
+
+.delete-image-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+
+  background: #b91c1c;
+  color: #fff;
+
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.delete-image-button:hover:not(:disabled) {
+  background: #991b1b;
+}
+
+.delete-image-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+.delete-image-button:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+
+/* Fotoğraf silme onay ekranı */
+.image-delete-confirmation {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  padding: 16px;
+  background: rgba(15, 23, 42, 0.94);
+  border-radius: 8px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+  }
+}
+
+.confirmation-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.confirm-delete-button,
+.cancel-delete-button {
+  padding: 9px 12px;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.confirm-delete-button {
+  background: #b91c1c;
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.cancel-delete-button {
+  background: #475569;
+
+  &:hover {
+    background: #64748b;
+  }
+}
+
+.confirm-delete-button:focus-visible,
+.cancel-delete-button:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+
+/* Kapak fotoğrafı belirleme butonu */
+.set-cover-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+
+  padding: 7px 12px;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+
+  background: rgba(15, 23, 42, 0.92);
+  color: #f5d77b;
+
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.set-cover-button:hover:not(:disabled) {
+  background: #d4af37;
+  color: #111827;
+}
+
+.set-cover-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.set-cover-button:focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 2px;
+}
+
+
+

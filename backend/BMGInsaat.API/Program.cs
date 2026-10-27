@@ -1,4 +1,3 @@
-
 using BMGInsaat.Application;
 using BMGInsaat.Infrastructure;
 using Microsoft.AspNetCore.Identity;
@@ -71,7 +70,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 

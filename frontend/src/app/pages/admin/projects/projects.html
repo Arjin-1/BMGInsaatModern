@@ -1,0 +1,243 @@
+
+<main class="admin-projects">
+    @if (successMessage) {
+  <div class="admin-toast" role="status">
+    <span class="toast-icon">✓</span>
+    <span>{{ successMessage }}</span>
+
+    <button
+      type="button"
+      class="toast-close"
+      aria-label="Bildirimi kapat"
+      (click)="successMessage = ''"
+    >
+      &times;
+    </button>
+  </div>
+}
+  <div class="projects-container">
+
+    <header class="projects-header">
+      <div>
+        <span class="eyebrow">BMG İNŞAAT / YÖNETİM PANELİ</span>
+        <h1>Proje Yönetimi</h1>
+        <p>Şirket projelerini ve yayın durumlarını yönetin.</p>
+      </div>
+      <button
+  type="button"
+  class="create-project-button"
+  (click)="openCreateModal()"
+>
+  <span aria-hidden="true">+</span>
+  Yeni Proje Ekle
+</button>
+    </header>
+
+    @if (loading) {
+      <div class="state-message">
+        Projeler yükleniyor...
+      </div>
+    } @else if (errorMessage) {
+      <div class="state-message error" role="alert">
+        {{ errorMessage }}
+      </div>
+    } @else {
+      <section class="projects-section">
+
+        <div class="section-heading">
+          <h2>Projeler</h2>
+          <span class="project-count">
+            {{ projects.length }} kayıt
+          </span>
+        </div>
+
+        @if (projects.length === 0) {
+          <div class="state-message">
+            Henüz kayıtlı proje bulunmuyor.
+          </div>
+        } @else {
+          <div class="table-wrapper">
+            <table class="projects-table">
+              <thead>
+                <tr>
+                  <th>Proje Adı</th>
+                  <th>Şehir</th>
+                  <th>Proje Durumu</th>
+                  <th>Yayın</th>
+                  <th>Öne Çıkan</th>
+                  <th>Fotoğraf</th>
+                  <th>İşlemler</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (project of projects; track project.id) {
+                  <tr>
+                    <td class="project-name">
+                      {{ project.nameTr }}
+                    </td>
+
+                    <td>
+                      {{ project.city || '—' }}
+                    </td>
+
+                    <td>
+                      <span
+                        class="status"
+                        [class.ongoing]="project.status === 1"
+                        [class.completed]="project.status === 2"
+                      >
+                        {{
+                          project.status === 1
+                            ? 'Devam Ediyor'
+                            : project.status === 2
+                              ? 'Tamamlandı'
+                              : 'Belirtilmedi'
+                        }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <span
+                        class="status"
+                        [class.published]="project.isPublished"
+                        [class.draft]="!project.isPublished"
+                      >
+                        {{ project.isPublished ? 'Yayında' : 'Taslak' }}
+                      </span>
+                    </td>
+
+                    <td>
+                      {{ project.isFeatured ? 'Evet' : 'Hayır' }}
+                    </td>
+
+                    <td>
+                      {{ project.images.length }} fotoğraf
+                    </td>
+                   <td>
+                     <div class="project-actions">
+                        <button
+                            type="button"
+                            class="edit-link"
+                            (click)="openEditModal(project.id)"
+                        >
+                            Düzenle
+                        </button>
+                    <button
+      type="button"
+      class="delete-link"
+      (click)="openDeleteConfirm(project)"
+    >
+      Sil
+    </button>
+     </div>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </section>
+    }
+
+  </div>
+  
+@if (selectedProjectId; as projectId) {
+  <div class="modal-overlay">
+    <section
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Proje düzenleme"
+    >
+      <button
+        type="button"
+        class="modal-close"
+        aria-label="Pencereyi kapat"
+        (click)="closeEditModal()"
+      >
+        &times;
+      </button>
+
+      <app-project-edit [projectId]="projectId" (saved)="onProjectSaved()" />
+    </section>
+  </div>
+}
+
+@if (showCreateModal) {
+  <div class="modal-overlay">
+    <section
+      class="modal-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Yeni proje ekleme"
+    >
+      <button
+        type="button"
+        class="modal-close"
+        aria-label="Pencereyi kapat"
+        (click)="closeCreateModal()"
+      >
+        &times;
+      </button>
+
+      <app-project-create (created)="onProjectCreated()" />
+    </section>
+  </div>
+}
+
+
+@if (projectToDelete; as project) {
+  <div class="modal-overlay">
+    <section
+      class="delete-dialog"
+      role="alertdialog"
+      aria-modal="true"
+      aria-labelledby="delete-title"
+      aria-describedby="delete-description"
+    >
+      <div class="delete-icon" aria-hidden="true">!</div>
+
+      <h2 id="delete-title">Projeyi Sil</h2>
+
+      <p id="delete-description">
+        <strong>{{ project.nameTr }}</strong>
+        projesini silmek istediğinize emin misiniz?
+      </p>
+
+      <div class="delete-warning">
+        Bu işlem geri alınamaz.
+        Projeye ait {{ project.images.length }} fotoğraf da silinecektir.
+      </div>
+      @if (deleteError) {
+  <p class="save-message error" role="alert">
+    {{ deleteError }}
+  </p>
+}
+
+      <div class="delete-actions">
+        <button
+          type="button"
+          class="cancel-delete-button"
+          (click)="closeDeleteConfirm()"
+        >
+          Vazgeç
+        </button>
+
+        <button
+          type="button"
+          class="confirm-delete-button"
+           [disabled]="deleting"
+           (click)="deleteProject()"
+        >
+          {{ deleting ? 'Siliniyor...' : 'Projeyi Sil' }}
+        </button>
+      </div>
+    </section>
+  </div>
+}
+
+
+</main>
+

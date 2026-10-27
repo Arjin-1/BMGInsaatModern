@@ -39,6 +39,28 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(p => p.City)
                 .IsRequired()
                 .HasMaxLength(100);
+            
+            
+            // Projenin isvereni / ilgili kurum
+            entity.Property(p => p.EmployerTr)
+                .IsRequired()
+                .HasMaxLength(250);
+
+            entity.Property(p => p.EmployerEn)
+                .HasMaxLength(250);
+
+            // Projenin baslangic ve bitis tarihleri
+            entity.Property(p => p.StartDate)
+                .HasColumnType("date");
+
+            entity.Property(p => p.EndDate)
+                .HasColumnType("date");
+
+            // Ana sayfada one cikan proje
+            entity.Property(p => p.IsFeatured)
+                .IsRequired()
+                .HasDefaultValue(false);
+
 
             entity.Property(p => p.DescriptionTr)
                 .HasColumnType("text");
@@ -52,19 +74,6 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
                 .OnDelete(DeleteBehavior.Cascade);
         });
 
-        modelBuilder.Entity<ProjectImage>(entity =>
-        {
-            entity.HasKey(i => i.Id);
-
-            entity.Property(i => i.ImageUrl)
-                .IsRequired()
-                .HasMaxLength(1000);
-
-            entity.HasIndex(i => new { i.ProjectId, i.DisplayOrder });
-        });
-
-
-        
         modelBuilder.Entity<ProjectImage>(entity =>
         {
             entity.HasKey(i => i.Id);

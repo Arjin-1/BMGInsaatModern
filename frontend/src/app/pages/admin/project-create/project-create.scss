@@ -1,0 +1,272 @@
+
+:host {
+  display: block;
+  background: #f4f5f7;
+}
+
+.admin-project-create {
+  padding: 32px 24px 36px;
+  box-sizing: border-box;
+}
+
+.create-container {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.create-header {
+  margin-bottom: 22px;
+
+  .eyebrow {
+    color: #ae841b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    margin: 12px 0;
+    color: #20252b;
+    font-size: clamp(28px, 3vw, 38px);
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: #777e87;
+    font-size: 14px;
+  }
+}
+
+.create-card {
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid #e7e9ed;
+  border-radius: 14px;
+  box-shadow: 0 8px 35px rgba(25, 31, 38, 0.04);
+}
+
+.card-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 32px;
+  border-bottom: 1px solid #edf0f2;
+
+  h2 {
+    margin: 0;
+    color: #232830;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  span {
+    color: #8a9098;
+    font-size: 12px;
+  }
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding: 36px 32px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+
+  label {
+    color: #353a41;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 16px;
+
+    background: #fafbfc;
+    border: 1px solid #dce0e4;
+    border-radius: 8px;
+
+    color: #252a30;
+    font: inherit;
+    font-size: 14px;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #b99227;
+      box-shadow: 0 0 0 3px rgba(185, 146, 39, 0.12);
+    }
+  }
+
+  input,
+  select {
+    min-height: 50px;
+  }
+
+  textarea {
+    min-height: 135px;
+    line-height: 1.7;
+    resize: vertical;
+  }
+}
+
+.date-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.project-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.option-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px;
+
+  background: #fafbfc;
+  border: 1px solid #e1e5e9;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: border-color 0.2s ease;
+
+  &:hover {
+    border-color: #b99227;
+  }
+
+  input[type='checkbox'] {
+    width: 18px;
+    height: 18px;
+    margin: 2px 0 0;
+    flex-shrink: 0;
+    accent-color: #b99227;
+    cursor: pointer;
+  }
+
+  span {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  strong {
+    color: #272c32;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  small {
+    color: #7b828b;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-project-create {
+    padding: 32px 16px 36px;
+  }
+
+  .card-heading {
+    padding: 22px 20px;
+  }
+
+  .create-form {
+    padding: 26px 20px;
+    gap: 22px;
+  }
+
+  .date-fields,
+  .project-options {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+
+/* YENI PROJE OLUSTURMA BUTONU */
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+
+  padding-top: 24px;
+  border-top: 1px solid #e7e9ed;
+}
+
+.save-button {
+  min-height: 48px;
+  padding: 13px 28px;
+
+  background: #b99227;
+  border: 1px solid #b99227;
+  border-radius: 8px;
+
+  color: #ffffff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #a5801e;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(185, 146, 39, 0.35);
+    outline-offset: 3px;
+  }
+}
+
+.save-message {
+  width: 100%;
+  margin: 0;
+  padding: 13px 16px;
+  box-sizing: border-box;
+
+  background: #fff0ef;
+  border-radius: 8px;
+
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .save-button {
+    width: 100%;
+  }
+}

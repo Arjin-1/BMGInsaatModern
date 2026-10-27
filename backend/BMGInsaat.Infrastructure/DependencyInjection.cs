@@ -8,7 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BMGInsaat.Infrastructure.Services;
-
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 namespace BMGInsaat.Infrastructure;
 
 public static class DependencyInjection
@@ -34,6 +35,11 @@ public static class DependencyInjection
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IAboutRepository, AboutRepository>();
         services.AddScoped<ICompanyValueRepository, CompanyValueRepository>();
+
+        // Proje fotograflarini sunucuda saklama
+        services.AddScoped<IProjectImageStorage>(provider =>
+            new LocalProjectImageStorage(
+                provider.GetRequiredService<IHostEnvironment>().ContentRootPath));
 
         services.AddHttpClient<ITranslationService, AzureTranslationService>();
 

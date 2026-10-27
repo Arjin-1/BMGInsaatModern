@@ -1,0 +1,150 @@
+
+<main class="admin-project-create">
+  <div class="create-container">
+
+    <header class="create-header">
+      <span class="eyebrow">BMG İNŞAAT / YÖNETİM PANELİ</span>
+      <h1>Yeni Proje Ekle</h1>
+      <p>Yeni projenin bilgilerini aşağıdaki alanlara girin.</p>
+    </header>
+
+    <section class="create-card">
+      <div class="card-heading">
+        <h2>Proje Bilgileri</h2>
+        <span>Yeni Kayıt</span>
+      </div>
+
+      <div class="create-form">
+
+        <div class="form-field">
+          <label for="createNameTr">Proje Adı *</label>
+          <input
+            id="createNameTr"
+            name="nameTr"
+            type="text"
+            [(ngModel)]="project.nameTr"
+            maxlength="200"
+            placeholder="Projenin adını girin"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="createCity">Şehir *</label>
+          <input
+            id="createCity"
+            name="city"
+            type="text"
+            [(ngModel)]="project.city"
+            maxlength="100"
+            placeholder="Örn: Ankara"
+            required
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="createEmployerTr">İşveren Kurum</label>
+          <input
+            id="createEmployerTr"
+            name="employerTr"
+            type="text"
+            [(ngModel)]="project.employerTr"
+            maxlength="250"
+            placeholder="Örn: DSİ Genel Müdürlüğü"
+          />
+        </div>
+
+        <div class="form-field">
+          <label for="createDescriptionTr">Proje Açıklaması</label>
+          <textarea
+            id="createDescriptionTr"
+            name="descriptionTr"
+            rows="5"
+            [(ngModel)]="project.descriptionTr"
+            placeholder="Proje hakkında açıklama girin"
+          ></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="createStatus">Proje Durumu</label>
+          <select
+            id="createStatus"
+            name="status"
+            [(ngModel)]="project.status"
+          >
+            <option [ngValue]="1">Devam Ediyor</option>
+            <option [ngValue]="2">Tamamlandı</option>
+          </select>
+        </div>
+
+        <div class="date-fields">
+          <div class="form-field">
+            <label for="createStartDate">Başlangıç Tarihi</label>
+            <input
+              id="createStartDate"
+              name="startDate"
+              type="date"
+              [(ngModel)]="project.startDate"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="createEndDate">Bitiş Tarihi</label>
+            <input
+              id="createEndDate"
+              name="endDate"
+              type="date"
+              [(ngModel)]="project.endDate"
+            />
+          </div>
+        </div>
+
+        <div class="project-options">
+          <label class="option-item">
+            <input
+              type="checkbox"
+              name="isPublished"
+              [(ngModel)]="project.isPublished"
+            />
+            <span>
+              <strong>Web Sitesinde Yayınla</strong>
+              <small>Proje ziyaretçilere gösterilir.</small>
+            </span>
+          </label>
+
+          <label class="option-item">
+            <input
+              type="checkbox"
+              name="isFeatured"
+              [(ngModel)]="project.isFeatured"
+            />
+            <span>
+              <strong>Ana Sayfada Öne Çıkar</strong>
+              <small>Projeyi öne çıkanlar arasında işaretler.</small>
+            </span>
+          </label>
+        </div>
+
+<div class="form-actions">
+  @if (saveError) {
+    <p class="save-message error" role="alert">
+      {{ saveError }}
+    </p>
+  }
+
+  <button
+    type="button"
+    class="save-button"
+    [disabled]="saving || !project.nameTr.trim() || !project.city.trim()"
+    (click)="createProject()"
+  >
+    {{ saving ? 'Oluşturuluyor...' : 'Projeyi Oluştur' }}
+  </button>
+</div>
+
+      </div>
+    </section>
+
+  </div>
+</main>
+

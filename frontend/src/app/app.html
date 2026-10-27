@@ -1,3 +1,5 @@
-<app-header />
+@if (!router.url.startsWith('/admin')) {
+    <app-header />
+}
 
 <router-outlet />
