@@ -1,0 +1,254 @@
+<main class="contact-page">
+
+    <!-- ILETISIM HERO -->
+    <section class="contact-hero" aria-labelledby="contact-title">
+        <div class="contact-container">
+
+            <span class="contact-hero__eyebrow">
+                {{ language() === 'tr'
+                ? 'BMG İNŞAAT / İLETİŞİM'
+                : 'BMG CONSTRUCTION / CONTACT' }}
+            </span>
+
+            <h1 id="contact-title">
+                {{ language() === 'tr'
+                ? 'Bizimle İletişime Geçin'
+                : 'Get in Touch With Us' }}
+            </h1>
+
+            <p>
+                {{ language() === 'tr'
+                ? 'Sorularınız, iş birlikleri ve proje talepleriniz için bizimle iletişime geçebilirsiniz.'
+                : 'Contact us for your questions, collaborations and project inquiries.' }}
+            </p>
+
+        </div>
+    </section>
+
+    <!-- ILETISIM ICERIGI -->
+    <section class="contact-section">
+        <div class="contact-container">
+
+            <div class="contact-grid">
+
+                <!-- SOL: ILETISIM BILGILERI -->
+                <div class="contact-info">
+
+                    <span class="contact-eyebrow">
+                        {{ language() === 'tr'
+                        ? 'BİZE ULAŞIN'
+                        : 'REACH US' }}
+                    </span>
+
+                    <h2>
+                        {{ language() === 'tr'
+                        ? 'İletişim Bilgileri'
+                        : 'Contact Information' }}
+                    </h2>
+
+                    <p class="contact-info__intro">
+                        {{ language() === 'tr'
+                        ? 'BMG İnşaat ile iletişime geçmek için aşağıdaki kanalları kullanabilirsiniz.'
+                        : 'You can use the following channels to contact BMG Construction.' }}
+                    </p>
+
+                    <div class="contact-info__items">
+
+                        <!-- ADRES -->
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon" aria-hidden="true">
+                                📍
+                            </div>
+
+                            <div>
+                                <h3>
+                                    {{ language() === 'tr' ? 'Adres' : 'Address' }}
+                                </h3>
+
+                                <p>
+                                    Turan Güneş Bulvarı 55/1
+                                    <br />
+                                    Çankaya / Ankara
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- TELEFON -->
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon" aria-hidden="true">
+                                ☎
+                            </div>
+
+                            <div>
+                                <h3>
+                                    {{ language() === 'tr' ? 'Telefon' : 'Phone' }}
+                                </h3>
+
+                                <p>
+                                    <a href="tel:+903124916974">
+                                        0312 491 69 74
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- E-POSTA -->
+                        <div class="contact-info__item">
+                            <div class="contact-info__icon" aria-hidden="true">
+                                ✉
+                            </div>
+
+                            <div>
+                                <h3>
+                                    {{ language() === 'tr' ? 'E-posta' : 'Email' }}
+                                </h3>
+
+                                <p>
+                                    <a href="mailto:bmginsaat@hotmail.com">
+                                        bmginsaat@hotmail.com
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SAG: ILETISIM FORMU - SMTP HAZIR OLANA KADAR GIZLI -->
+                @if (false) {
+                <div class="contact-form-card">
+
+                    <span class="contact-eyebrow">
+                        {{ language() === 'tr'
+                        ? 'MESAJ GÖNDERİN'
+                        : 'SEND A MESSAGE' }}
+                    </span>
+
+                    <h2>
+                        {{ language() === 'tr'
+                        ? 'Size Nasıl Yardımcı Olabiliriz?'
+                        : 'How Can We Help You?' }}
+                    </h2>
+
+                    <p class="contact-form-card__intro">
+                        {{ language() === 'tr'
+                        ? 'Aşağıdaki formu doldurarak bize mesajınızı iletebilirsiniz.'
+                        : 'Fill out the form below to send us your message.' }}
+                    </p>
+
+                    <form class="contact-form">
+
+                        <!-- AD SOYAD -->
+                        <div class="contact-form__field">
+                            <label for="contact-name">
+                                {{ language() === 'tr' ? 'Ad Soyad' : 'Full Name' }}
+                            </label>
+
+                            <input id="contact-name" name="fullName" type="text" autocomplete="name" required
+                                [placeholder]="language() === 'tr'
+                  ? 'Adınız ve soyadınız'
+                  : 'Your full name'" />
+                        </div>
+
+                        <!-- E-POSTA -->
+                        <div class="contact-form__field">
+                            <label for="contact-email">
+                                {{ language() === 'tr' ? 'E-posta Adresi' : 'Email Address' }}
+                            </label>
+
+                            <input id="contact-email" name="email" type="email" autocomplete="email" required
+                                [placeholder]="language() === 'tr'
+                  ? 'ornek@eposta.com'
+                  : 'example@email.com'" />
+                        </div>
+
+                        <!-- TELEFON -->
+                        <div class="contact-form__field">
+                            <label for="contact-phone">
+                                {{ language() === 'tr' ? 'Telefon' : 'Phone' }}
+                            </label>
+
+                            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" [placeholder]="language() === 'tr'
+                  ? 'Telefon numaranız (isteğe bağlı)'
+                  : 'Your phone number (optional)'" />
+                        </div>
+
+                        <!-- KONU -->
+                        <div class="contact-form__field">
+                            <label for="contact-subject">
+                                {{ language() === 'tr' ? 'Konu' : 'Subject' }}
+                            </label>
+
+                            <input id="contact-subject" name="subject" type="text" required [placeholder]="language() === 'tr'
+                  ? 'Mesajınızın konusu'
+                  : 'Subject of your message'" />
+                        </div>
+
+                        <!-- MESAJ -->
+                        <div class="contact-form__field">
+                            <label for="contact-message">
+                                {{ language() === 'tr' ? 'Mesajınız' : 'Your Message' }}
+                            </label>
+
+                            <textarea id="contact-message" name="message" rows="6" required [placeholder]="language() === 'tr'
+                  ? 'Mesajınızı buraya yazın...'
+                  : 'Write your message here...'"></textarea>
+                        </div>
+
+                        <!-- GONDER BUTONU -->
+                        <button type="button" class="contact-form__submit" disabled>
+                            {{ language() === 'tr'
+                            ? 'Mesaj Gönder'
+                            : 'Send Message' }}
+                            <span aria-hidden="true">↗</span>
+                        </button>
+
+                        <p class="contact-form__notice">
+                            {{ language() === 'tr'
+                            ? 'Mesaj gönderme özelliği henüz etkinleştirilmedi.'
+                            : 'Message sending is not enabled yet.' }}
+                        </p>
+
+                    </form>
+
+                </div>
+                }
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HARITA ALANI -->
+    <section class="contact-map" aria-label="Location">
+        <div class="contact-container">
+
+            <span class="contact-eyebrow">
+                {{ language() === 'tr'
+                ? 'KONUMUMUZ'
+                : 'OUR LOCATION' }}
+            </span>
+
+            <h2>
+                {{ language() === 'tr'
+                ? 'Bizi Nerede Bulabilirsiniz?'
+                : 'Where Can You Find Us?' }}
+            </h2>
+
+
+            <!-- GOOGLE HARITALAR -->
+            <div class="contact-map__frame">
+                <iframe
+                    src="https://www.google.com/maps?q=Turan%20G%C3%BCne%C5%9F%20Bulvar%C4%B1%2055%2F1%2C%20%C3%87ankaya%2C%20Ankara%2C%20T%C3%BCrkiye&output=embed"
+                    [attr.title]="language() === 'tr'
+      ? 'BMG İnşaat Ankara konumu'
+      : 'BMG Construction Ankara location'" width="100%" height="420" style="border: 0" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+
+
+        </div>
+    </section>
+
+</main>

@@ -1,0 +1,466 @@
+
+<main class="project-detail-page">
+
+  <!-- YUKLENME DURUMU -->
+  @if (isLoading()) {
+
+    <div class="project-detail-status" role="status">
+      {{ language() === 'tr'
+        ? 'Proje bilgileri yükleniyor...'
+        : 'Loading project details...' }}
+    </div>
+
+  } @else if (errorMessage()) {
+
+    <!-- HATA DURUMU -->
+    <div
+      class="project-detail-status project-detail-status--error"
+      role="alert"
+    >
+
+      <h1>
+        {{ language() === 'tr'
+          ? 'Proje Görüntülenemiyor'
+          : 'Project Unavailable' }}
+      </h1>
+
+      <p>
+        {{ language() === 'tr'
+          ? errorMessage()
+          : 'The project could not be found or loaded.' }}
+      </p>
+
+      <a href="/projects">
+        {{ language() === 'tr'
+          ? 'Projelere Dön'
+          : 'Back to Projects' }}
+      </a>
+
+    </div>
+
+  } @else if (project(); as project) {
+
+    <!-- ======================================= -->
+    <!-- PROJE BASLIGI                          -->
+    <!-- ======================================= -->
+
+    <section class="project-detail-hero">
+
+      <div class="project-detail-container">
+
+        <a href="/projects" class="project-detail-back">
+          <span aria-hidden="true">←</span>
+
+          {{ language() === 'tr'
+            ? 'Tüm Projeler'
+            : 'All Projects' }}
+        </a>
+
+        <span class="project-detail-hero__eyebrow">
+          {{ language() === 'tr'
+            ? 'BMG İNŞAAT / PROJELER'
+            : 'BMG CONSTRUCTION / PROJECTS' }}
+        </span>
+
+        <h1>
+          {{ language() === 'tr'
+            ? project.nameTr
+            : (project.nameEn || project.nameTr) }}
+        </h1>
+
+        <div class="project-detail-hero__meta">
+
+          <span>
+            {{ project.city }}
+          </span>
+
+          <span
+            class="project-detail-status-badge"
+            [class.is-completed]="project.status === 2"
+          >
+            {{ project.status === 1
+              ? (language() === 'tr' ? 'Devam Eden' : 'Ongoing')
+              : (language() === 'tr' ? 'Tamamlanan' : 'Completed') }}
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================= -->
+    <!-- ANA PROJE FOTOGRAFI                    -->
+    <!-- ======================================= -->
+
+    @if (coverImage(); as cover) {
+
+      <section class="project-detail-cover">
+
+        <div class="project-detail-container">
+
+          <button
+            #coverButton
+            type="button"
+            class="project-detail-cover__button"
+            (click)="openImage(project.images.indexOf(cover), coverButton)"
+            [attr.aria-label]="language() === 'tr'
+              ? 'Kapak fotoğrafını büyüt'
+              : 'Enlarge cover photo'"
+          >
+
+            <img
+              [src]="'http://localhost:5056' + cover.imageUrl"
+              [alt]="language() === 'tr'
+                ? project.nameTr
+                : (project.nameEn || project.nameTr)"
+              decoding="async"
+            />
+
+          </button>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <!-- ======================================= -->
+    <!-- PROJE BILGILERI                        -->
+    <!-- ======================================= -->
+
+    <section class="project-detail-info">
+
+      <div class="project-detail-container">
+
+        <div class="project-detail-info__grid">
+
+          <!-- PROJE ACIKLAMASI -->
+
+          <div class="project-detail-description">
+
+            <span class="project-detail-eyebrow">
+              {{ language() === 'tr'
+                ? 'PROJE DETAYLARI'
+                : 'PROJECT DETAILS' }}
+            </span>
+
+            <h2>
+              {{ language() === 'tr'
+                ? 'Proje Hakkında'
+                : 'About the Project' }}
+            </h2>
+
+            @if (
+              language() === 'tr'
+                ? project.descriptionTr
+                : (project.descriptionEn || project.descriptionTr)
+            ) {
+
+              <p>
+                {{ language() === 'tr'
+                  ? project.descriptionTr
+                  : (project.descriptionEn || project.descriptionTr) }}
+              </p>
+
+            } @else {
+
+              <p class="project-detail-description__empty">
+                {{ language() === 'tr'
+                  ? 'Bu proje için henüz açıklama eklenmemiştir.'
+                  : 'No description has been added for this project yet.' }}
+              </p>
+
+            }
+
+          </div>
+
+
+          <!-- PROJE KUNYESI -->
+
+          <aside class="project-detail-facts">
+
+            <h2>
+              {{ language() === 'tr'
+                ? 'Proje Künyesi'
+                : 'Project Information' }}
+            </h2>
+
+            <!-- SEHIR -->
+
+            <div class="project-detail-fact">
+              <span>
+                {{ language() === 'tr' ? 'Şehir' : 'City' }}
+              </span>
+
+              <strong>
+                {{ project.city }}
+              </strong>
+            </div>
+
+            <!-- PROJE DURUMU -->
+
+            <div class="project-detail-fact">
+              <span>
+                {{ language() === 'tr' ? 'Durum' : 'Status' }}
+              </span>
+
+              <strong>
+                {{ project.status === 1
+                  ? (language() === 'tr' ? 'Devam Eden' : 'Ongoing')
+                  : (language() === 'tr' ? 'Tamamlanan' : 'Completed') }}
+              </strong>
+            </div>
+
+            <!-- ISVEREN -->
+
+            @if (project.employerTr || project.employerEn) {
+
+              <div class="project-detail-fact">
+
+                <span>
+                  {{ language() === 'tr' ? 'İşveren' : 'Employer' }}
+                </span>
+
+                <strong>
+                  {{ language() === 'tr'
+                    ? (project.employerTr || project.employerEn)
+                    : (project.employerEn || project.employerTr) }}
+                </strong>
+
+              </div>
+
+            }
+
+            <!-- BASLANGIC TARIHI -->
+
+            @if (project.startDate) {
+
+              <div class="project-detail-fact">
+
+                <span>
+                  {{ language() === 'tr'
+                    ? 'Başlangıç Tarihi'
+                    : 'Start Date' }}
+                </span>
+
+                <strong>
+                  {{ project.startDate.slice(0, 10) }}
+                </strong>
+
+              </div>
+
+            }
+
+            <!-- BITIS TARIHI -->
+
+            @if (project.endDate) {
+
+              <div class="project-detail-fact">
+
+                <span>
+                  {{ language() === 'tr'
+                    ? 'Bitiş Tarihi'
+                    : 'End Date' }}
+                </span>
+
+                <strong>
+                  {{ project.endDate.slice(0, 10) }}
+                </strong>
+
+              </div>
+
+            }
+
+          </aside>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ======================================= -->
+    <!-- PROJE FOTOGRAF GALERISI                -->
+    <!-- ======================================= -->
+
+    @if (project.images.length > 0) {
+
+      <section class="project-detail-gallery">
+
+        <div class="project-detail-container">
+
+          <span class="project-detail-eyebrow">
+            {{ language() === 'tr'
+              ? 'SAHADAN KARELER'
+              : 'FROM THE SITE' }}
+          </span>
+
+          <h2>
+            {{ language() === 'tr'
+              ? 'Proje Fotoğrafları'
+              : 'Project Gallery' }}
+          </h2>
+
+          <div class="project-detail-gallery__grid">
+
+            @for (image of project.images; track image.id) {
+
+              <div class="project-detail-gallery__item">
+
+                <button
+                  #galleryButton
+                  type="button"
+                  class="project-detail-gallery__button"
+                  (click)="openImage($index, galleryButton)"
+                  [attr.aria-label]="language() === 'tr'
+                    ? 'Fotoğrafı büyüt: ' + ($index + 1)
+                    : 'Enlarge photo: ' + ($index + 1)"
+                >
+
+                  <img
+                    [src]="'http://localhost:5056' + image.imageUrl"
+                    [alt]="
+                      (language() === 'tr'
+                        ? project.nameTr
+                        : (project.nameEn || project.nameTr))
+                      + ' - ' + ($index + 1)
+                    "
+                    loading="lazy"
+                    decoding="async"
+                  />
+
+                </button>
+
+              </div>
+
+            }
+
+          </div>
+
+        </div>
+
+      </section>
+
+    }
+
+
+    <!-- ======================================= -->
+    <!-- BUYUK FOTOGRAF PENCERESI - LIGHTBOX    -->
+    <!-- ======================================= -->
+
+    @if (selectedImageIndex() !== null) {
+
+      <div
+        class="project-lightbox"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="language() === 'tr'
+          ? 'Proje fotoğraf galerisi'
+          : 'Project photo gallery'"
+      >
+
+        <!-- KAPATMA BUTONU -->
+
+        <button
+          #lightboxClose
+          type="button"
+          class="project-lightbox__close"
+          (click)="closeImage()"
+          [attr.aria-label]="language() === 'tr'
+            ? 'Fotoğrafı kapat'
+            : 'Close photo'"
+        >
+          &times;
+        </button>
+
+
+        <!-- ONCEKI FOTOGRAF -->
+
+        <button
+          type="button"
+          class="project-lightbox__arrow project-lightbox__arrow--prev"
+          (click)="previousImage()"
+          [attr.aria-label]="language() === 'tr'
+            ? 'Önceki fotoğraf'
+            : 'Previous photo'"
+        >
+          &#8592;
+        </button>
+
+
+        <!-- SECILI FOTOGRAF -->
+
+        @for (image of project.images; track image.id) {
+
+          @if (selectedImageIndex() === $index) {
+
+            <img
+              class="project-lightbox__image"
+              [src]="'http://localhost:5056' + image.imageUrl"
+              [alt]="
+                (language() === 'tr'
+                  ? project.nameTr
+                  : (project.nameEn || project.nameTr))
+                + ' - ' + ($index + 1)
+              "
+            />
+
+          }
+
+        }
+
+
+        <!-- SONRAKI FOTOGRAF -->
+
+        <button
+          type="button"
+          class="project-lightbox__arrow project-lightbox__arrow--next"
+          (click)="nextImage()"
+          [attr.aria-label]="language() === 'tr'
+            ? 'Sonraki fotoğraf'
+            : 'Next photo'"
+        >
+          &#8594;
+        </button>
+
+
+        <!-- FOTOGRAF SAYACI -->
+
+        <div class="project-lightbox__counter">
+          {{ selectedImageIndex()! + 1 }} / {{ project.images.length }}
+        </div>
+
+      </div>
+
+    }
+
+
+    <!-- ======================================= -->
+    <!-- PROJELERE DON                          -->
+    <!-- ======================================= -->
+
+    <section class="project-detail-footer">
+
+      <div class="project-detail-container">
+
+        <a href="/projects" class="project-detail-footer__link">
+
+          <span aria-hidden="true">←</span>
+
+          {{ language() === 'tr'
+            ? 'Diğer Projelerimizi İnceleyin'
+            : 'Explore Our Other Projects' }}
+
+        </a>
+
+      </div>
+
+    </section>
+
+  }
+
+</main>

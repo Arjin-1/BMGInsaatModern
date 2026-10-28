@@ -3,6 +3,7 @@ import { forkJoin } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AboutApiService } from '../../core/services/about-api.service';
+import { LanguageService } from '../../core/services/language.service';
 
 import {
   AboutContent,
@@ -17,6 +18,9 @@ import {
 })
 export class About {
   private readonly aboutApi = inject(AboutApiService);
+  private readonly languageService = inject(LanguageService);
+
+  readonly language = this.languageService.language;
 
   readonly aboutContent = signal<AboutContent | null>(null);
   readonly companyValues = signal<CompanyValue[]>([]);

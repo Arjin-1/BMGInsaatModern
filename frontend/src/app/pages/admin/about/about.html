@@ -1,0 +1,110 @@
+<main class="admin-about-page">
+    <div class="about-container">
+
+
+        <header class="about-header">
+            <span class="eyebrow">
+                BMG İNŞAAT YÖNETİM PANELİ
+            </span>
+
+            <h1>Hakkımızda Yönetimi</h1>
+
+            <p>
+                Şirket tanıtımını, misyonunu ve vizyonunu
+                bu sayfadan düzenleyebilirsiniz.
+            </p>
+        </header>
+
+
+        @if (loading) {
+        <div class="state-message" role="status">
+            Hakkımızda bilgileri yükleniyor...
+        </div>
+        } @else if (errorMessage) {
+        <div class="state-message error" role="alert">
+            {{ errorMessage }}
+        </div>
+        } @else {
+
+        <section class="about-card">
+
+            <div class="card-heading">
+                <h2>Şirket Bilgileri</h2>
+                <p>
+                    Türkçe içerikleri düzenleyin.
+                    İngilizce içerikler otomatik çeviri sistemiyle
+                    güncellenebilecek.
+                </p>
+            </div>
+
+            <div class="about-form">
+
+                <!-- ŞİRKET TANITIMI -->
+                <div class="form-field">
+                    <label for="aboutTr">
+                        Şirket Tanıtımı (Türkçe)
+                    </label>
+
+                    <textarea id="aboutTr" name="aboutTr" rows="7" [(ngModel)]="content.aboutTr"
+                        placeholder="BMG İnşaat hakkında bilgi girin..." required></textarea>
+                </div>
+
+                <!-- MİSYON -->
+                <div class="form-field">
+                    <label for="missionTr">
+                        Misyonumuz (Türkçe)
+                    </label>
+
+                    <textarea id="missionTr" name="missionTr" rows="5" [(ngModel)]="content.missionTr"
+                        placeholder="Şirketimizin misyonunu yazın..." required></textarea>
+                </div>
+
+                <!-- VİZYON -->
+                <div class="form-field">
+                    <label for="visionTr">
+                        Vizyonumuz (Türkçe)
+                    </label>
+
+                    <textarea id="visionTr" name="visionTr" rows="5" [(ngModel)]="content.visionTr"
+                        placeholder="Şirketimizin vizyonunu yazın..." required></textarea>
+                </div>
+
+                <div class="translation-info">
+                    <h3>İngilizce Dil Desteği</h3>
+                    <p>
+                        Türkçe içerikleri kaydettiğinizde İngilizce
+                        karşılıkları Azure çeviri sistemi üzerinden
+                        oluşturulacak veya güncellenecek.
+                    </p>
+                </div>
+
+
+                <!-- KAYDETME MESAJLARI -->
+                @if (saveError) {
+                <p class="save-message error" role="alert">
+                    {{ saveError }}
+                </p>
+                }
+
+                @if (saveSuccess) {
+                <p class="save-message success" role="status">
+                    {{ saveSuccess }}
+                </p>
+                }
+
+                <!-- KAYDET BUTONU -->
+                <div class="form-actions">
+                    <button type="button" class="save-button" [disabled]="saving" (click)="saveAbout()">
+                        {{ saving ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet' }}
+                    </button>
+                </div>
+
+
+            </div>
+
+        </section>
+
+        }
+
+    </div>
+</main>

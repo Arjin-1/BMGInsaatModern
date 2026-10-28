@@ -1,0 +1,53 @@
+
+<div class="admin-layout">
+
+  <!-- ORTAK YÖNETİM PANELİ ÜST MENÜSÜ -->
+  <header class="admin-navbar">
+    <div class="admin-navbar-container">
+
+      <a routerLink="/admin/projects" class="admin-brand">
+        <span class="brand-name">BMG İNŞAAT</span>
+        <span class="brand-subtitle">Yönetim Paneli</span>
+      </a>
+
+      <nav class="admin-nav" aria-label="Yönetim paneli menüsü">
+
+        <a
+          routerLink="/admin/projects"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: false }">
+          Projeler
+        </a>
+
+        <a
+          routerLink="/admin/about"
+          routerLinkActive="active">
+          Hakkımızda
+        </a>
+
+      </nav>
+
+      <button
+        type="button"
+        class="admin-logout-button"
+        [disabled]="loggingOut"
+        (click)="logout()">
+        {{ loggingOut ? 'Çıkış Yapılıyor...' : 'Çıkış Yap' }}
+      </button>
+
+    </div>
+
+    @if (logoutError) {
+      <div class="admin-logout-error" role="alert">
+        {{ logoutError }}
+      </div>
+    }
+
+  </header>
+
+  <!-- SEÇİLEN YÖNETİM SAYFASI -->
+  <main class="admin-content">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

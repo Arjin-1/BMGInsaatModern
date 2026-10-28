@@ -1,0 +1,357 @@
+
+:host {
+  display: block;
+}
+
+.projects-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #20252b;
+}
+
+.projects-container {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+// SAYFA BASLIGI
+.projects-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 145px 0 95px;
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(196, 160, 82, 0.12),
+      transparent 35%
+    ),
+    linear-gradient(135deg, #18232d 0%, #263745 100%);
+  color: #fff;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -110px;
+    bottom: -190px;
+    width: 430px;
+    height: 430px;
+    border: 1px solid rgba(196, 160, 82, 0.2);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #c4a052;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0 0 22px;
+    font-size: clamp(42px, 6vw, 76px);
+    font-weight: 750;
+    line-height: 1.1;
+    letter-spacing: -2px;
+  }
+
+  p {
+    max-width: 650px;
+    margin: 0;
+    color: #d6dce0;
+    font-size: clamp(15px, 1.5vw, 18px);
+    line-height: 1.85;
+  }
+}
+
+// PROJE LISTESI
+.projects-section {
+  padding: 100px 0 120px;
+
+  &__heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 45px;
+
+    h2 {
+      margin: 12px 0 0;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 750;
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+  }
+
+  &__eyebrow {
+    color: #ab8540;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+  }
+}
+
+.projects-count {
+  flex-shrink: 0;
+  padding: 10px 18px;
+  border: 1px solid #e0e2e4;
+  border-radius: 30px;
+  background: #fff;
+  color: #5d646b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+// PROJE KARTLARI
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.project-card {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #e9eaec;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(20, 32, 43, 0.04);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: rgba(196, 160, 82, 0.35);
+    box-shadow: 0 20px 45px rgba(20, 32, 43, 0.12);
+  }
+
+  &__media {
+    position: relative;
+    height: 245px;
+    overflow: hidden;
+    background: #e7eaed;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+  }
+
+  &:hover &__media img {
+    transform: scale(1.06);
+  }
+
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #8b939a;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+
+  &__body {
+    padding: 26px 25px 30px;
+  }
+
+  &__city {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #ad8746;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  &__title {
+    margin: 0;
+    color: #222d36;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+}
+
+// YUKLENME / HATA / BOS LISTE
+.projects-status {
+  padding: 70px 24px;
+  border: 1px solid #e9eaec;
+  border-radius: 12px;
+  background: #fff;
+  color: #68717a;
+  font-size: 16px;
+  text-align: center;
+
+  &--error {
+    color: #b73b3b;
+  }
+}
+
+// TABLET
+@media (max-width: 1000px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+// MOBIL
+@media (max-width: 640px) {
+  .projects-container {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .projects-hero {
+    padding: 105px 0 70px;
+
+    h1 {
+      letter-spacing: -1px;
+    }
+
+    &__eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+  }
+
+  .projects-section {
+    padding: 65px 0 85px;
+
+    &__heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .project-card {
+    &__media {
+      height: 235px;
+    }
+
+    &__body {
+      padding: 22px;
+    }
+
+    &__title {
+      font-size: 18px;
+    }
+  }
+}
+
+// HAREKET AZALTMA TERCIHI
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card__media img {
+    transition: none;
+  }
+
+  .project-card:hover {
+    transform: none;
+  }
+
+  .project-card:hover .project-card__media img {
+    transform: none;
+  }
+}
+
+
+/* PROJE DURUMU FILTRELERI */
+
+.projects-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 38px;
+}
+
+.projects-filter {
+  appearance: none;
+  padding: 13px 22px;
+  border: 1px solid #dce0e4;
+  border-radius: 8px;
+  background: #fff;
+  color: #34424d;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    border-color: #c4a052;
+    color: #a17a32;
+  }
+
+  &.is-active {
+    border-color: #243746;
+    background: #243746;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(36, 55, 70, 0.14);
+  }
+
+  &:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: 3px;
+  }
+}
+
+@media (max-width: 640px) {
+  .projects-filters {
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+
+  .projects-filter {
+    flex: 1 1 auto;
+    padding: 11px 14px;
+    font-size: 12px;
+    text-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .projects-filter {
+    transition: none;
+  }
+}
+
+// PROJE DETAY BAGLANTISI
+.project-card__link {
+  display: block;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: -3px;
+    border-radius: 12px;
+  }
+}

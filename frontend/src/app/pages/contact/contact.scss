@@ -1,0 +1,593 @@
+
+:host {
+  display: block;
+}
+
+.contact-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #20252b;
+}
+
+.contact-container {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+/* ==========================================
+   ILETISIM HERO
+   ========================================== */
+
+.contact-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 145px 0 95px;
+
+  background:
+    radial-gradient(
+      circle at 85% 20%,
+      rgba(196, 160, 82, 0.13),
+      transparent 36%
+    ),
+    linear-gradient(135deg, #18232d 0%, #263745 100%);
+
+  color: #fff;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    bottom: -200px;
+    width: 450px;
+    height: 450px;
+    border: 1px solid rgba(196, 160, 82, 0.2);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    display: inline-block;
+    margin-bottom: 22px;
+    color: #c4a052;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+  }
+
+  h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 24px;
+    font-size: clamp(38px, 5.5vw, 70px);
+    font-weight: 750;
+    line-height: 1.12;
+    letter-spacing: -1.8px;
+  }
+
+  p {
+    position: relative;
+    z-index: 1;
+    max-width: 670px;
+    margin: 0;
+    color: #d6dce0;
+    font-size: 17px;
+    line-height: 1.9;
+  }
+}
+
+/* ==========================================
+   ILETISIM ANA ALANI
+   ========================================== */
+
+.contact-section {
+  padding: 100px 0 120px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 75px;
+}
+
+.contact-eyebrow {
+  display: inline-block;
+  margin-bottom: 15px;
+  color: #ab8540;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+/* ==========================================
+   SOL: ILETISIM BILGILERI
+   ========================================== */
+
+.contact-info {
+  min-width: 0;
+
+  h2 {
+    margin: 0 0 24px;
+    color: #202d37;
+    font-size: clamp(30px, 3.5vw, 42px);
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -1px;
+  }
+
+  &__intro {
+    margin: 0 0 42px;
+    color: #65717b;
+    font-size: 16px;
+    line-height: 1.9;
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 22px;
+    padding: 25px;
+
+    border: 1px solid #e8eaed;
+    border-radius: 12px;
+    background: #fff;
+
+    transition:
+      border-color 0.25s ease,
+      box-shadow 0.25s ease;
+
+    &:hover {
+      border-color: rgba(196, 160, 82, 0.45);
+      box-shadow: 0 12px 30px rgba(20, 32, 43, 0.05);
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      color: #253540;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    p {
+      margin: 0;
+      color: #65717b;
+      font-size: 15px;
+      line-height: 1.8;
+      overflow-wrap: anywhere;
+    }
+
+    a {
+      color: #4a5d6c;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #ac843b;
+        text-decoration: underline;
+      }
+
+      &:focus-visible {
+        outline: 2px solid #c4a052;
+        outline-offset: 4px;
+      }
+    }
+  }
+
+  &__icon {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    border-radius: 10px;
+    background: rgba(196, 160, 82, 0.12);
+    color: #ab8540;
+
+    font-size: 23px;
+  }
+}
+
+/* ==========================================
+   SAG: ILETISIM FORMU
+   ========================================== */
+
+.contact-form-card {
+  min-width: 0;
+  padding: 45px;
+
+  border: 1px solid #e8eaed;
+  border-top: 4px solid #c4a052;
+  border-radius: 12px;
+
+  background: #fff;
+  box-shadow: 0 16px 50px rgba(20, 32, 43, 0.06);
+
+  h2 {
+    margin: 0 0 17px;
+    color: #243746;
+    font-size: clamp(26px, 3vw, 35px);
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: -0.7px;
+  }
+
+  &__intro {
+    margin: 0 0 35px;
+    color: #66717a;
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+      color: #33434f;
+      font-size: 14px;
+      font-weight: 650;
+    }
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 15px 17px;
+
+      border: 1px solid #dce1e5;
+      border-radius: 8px;
+
+      background: #fff;
+      color: #263745;
+
+      font: inherit;
+      font-size: 15px;
+      line-height: 1.5;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &::placeholder {
+        color: #9aa3aa;
+      }
+
+      &:hover {
+        border-color: #b7c0c8;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: #c4a052;
+        box-shadow: 0 0 0 3px rgba(196, 160, 82, 0.13);
+      }
+    }
+
+    textarea {
+      min-height: 155px;
+      resize: vertical;
+    }
+  }
+
+  &__submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    min-height: 54px;
+    padding: 15px 26px;
+
+    border: 1px solid #243746;
+    border-radius: 8px;
+
+    background: #243746;
+    color: #fff;
+
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+      background-color 0.25s ease,
+      transform 0.25s ease;
+
+    &:not(:disabled):hover {
+      background: #354e61;
+      transform: translateY(-2px);
+    }
+
+    &:disabled {
+      border-color: #a9b0b6;
+      background: #a9b0b6;
+      color: #fff;
+      cursor: not-allowed;
+    }
+
+    &:focus-visible {
+      outline: 3px solid #c4a052;
+      outline-offset: 4px;
+    }
+
+    span {
+      font-size: 20px;
+    }
+  }
+
+  &__notice {
+    margin: -10px 0 0;
+    color: #88939c;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: center;
+  }
+}
+
+/* ==========================================
+   HARITA ALANI
+   ========================================== */
+
+.contact-map {
+  padding: 95px 0 115px;
+  background: #fff;
+
+  h2 {
+    margin: 0 0 35px;
+    color: #202d37;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 750;
+    letter-spacing: -1px;
+  }
+
+  &__placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 360px;
+    padding: 35px;
+
+    border: 1px solid #e5e9ec;
+    border-radius: 12px;
+
+    background:
+      linear-gradient(
+        135deg,
+        #f2f4f5 0%,
+        #e9edf0 100%
+      );
+
+    text-align: center;
+
+    p {
+      max-width: 480px;
+      margin: 0;
+      color: #65717b;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+  }
+}
+
+/* ==========================================
+   TABLET
+   ========================================== */
+
+@media (max-width: 1000px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+  }
+
+  .contact-form-card {
+    padding: 30px;
+  }
+}
+
+@media (max-width: 780px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 55px;
+  }
+
+  .contact-info__items {
+    gap: 14px;
+  }
+}
+
+/* ==========================================
+   MOBIL
+   ========================================== */
+
+@media (max-width: 640px) {
+  .contact-container {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .contact-hero {
+    padding: 105px 0 70px;
+
+    h1 {
+      letter-spacing: -1px;
+    }
+
+    p {
+      font-size: 15px;
+    }
+
+    &__eyebrow {
+      font-size: 10px;
+      letter-spacing: 2px;
+    }
+  }
+
+  .contact-section {
+    padding: 65px 0 80px;
+  }
+
+  .contact-info {
+    &__intro {
+      margin-bottom: 30px;
+    }
+
+    &__item {
+      gap: 15px;
+      padding: 20px;
+    }
+
+    &__icon {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+    }
+  }
+
+  .contact-form-card {
+    padding: 25px 20px;
+  }
+
+  .contact-form {
+    gap: 20px;
+
+    &__submit {
+      width: 100%;
+    }
+  }
+
+  .contact-map {
+    padding: 65px 0 85px;
+
+    &__placeholder {
+      min-height: 260px;
+      padding: 25px;
+    }
+  }
+}
+
+/* ==========================================
+   HAREKET AZALTMA TERCIHI
+   ========================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-info__item,
+  .contact-info__item a,
+  .contact-form__field input,
+  .contact-form__field textarea,
+  .contact-form__submit {
+    transition: none;
+  }
+
+  .contact-form__submit:hover {
+    transform: none;
+  }
+}
+
+// GOOGLE HARITALAR
+.contact-map__frame {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #e5e9ec;
+  border-radius: 12px;
+  background: #e9edf0;
+  box-shadow: 0 12px 35px rgba(20, 32, 43, 0.06);
+
+  iframe {
+    display: block;
+    width: 100%;
+    height: 420px;
+    border: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-map__frame iframe {
+    height: 300px;
+  }
+}
+
+
+/* ==========================================
+   SMTP KAPALI - SADELESTIRILMIS ILETISIM
+   ========================================== */
+
+.contact-section {
+  padding: 85px 0 100px;
+}
+
+.contact-grid {
+  grid-template-columns: minmax(0, 800px);
+  justify-content: center;
+  gap: 0;
+}
+
+.contact-info {
+  width: 100%;
+
+  h2,
+  &__intro {
+    text-align: center;
+  }
+
+  .contact-eyebrow {
+    display: block;
+    text-align: center;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  &__item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px 20px;
+  }
+}
+
+/* Form, e-posta gonderimi etkinlestirilene kadar gizli */
+.contact-form-card {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-info__items {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-info__item {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact-section {
+    padding: 65px 0 80px;
+  }
+}

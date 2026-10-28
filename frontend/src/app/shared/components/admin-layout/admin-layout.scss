@@ -1,0 +1,175 @@
+
+/* BMG İNŞAAT — ORTAK YÖNETİM PANELİ */
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.admin-layout {
+  min-height: 100vh;
+  background: #f5f6f8;
+}
+
+/* ÜST MENÜ */
+
+.admin-navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e6ec;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
+}
+
+.admin-navbar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 18px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* MARKA */
+
+.admin-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  color: #bd9326;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.brand-subtitle {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* YÖNETİM MENÜSÜ */
+
+.admin-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-nav a {
+  padding: 11px 18px;
+  border-radius: 8px;
+
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.admin-nav a:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.admin-nav a.active {
+  background: #fdf6e4;
+  color: #967019;
+}
+
+/* ÇIKIŞ BUTONU */
+
+.admin-logout-button {
+  padding: 11px 22px;
+
+  background: #b42318;
+  color: #ffffff;
+
+  border: 1px solid #b42318;
+  border-radius: 8px;
+
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  transition: background-color 0.2s;
+}
+
+.admin-logout-button:hover:not(:disabled) {
+  background: #912018;
+}
+
+.admin-logout-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ERİŞİLEBİLİRLİK */
+
+.admin-nav a:focus-visible,
+.admin-brand:focus-visible,
+.admin-logout-button:focus-visible {
+  outline: 3px solid #bd9326;
+  outline-offset: 3px;
+}
+
+/* HATA MESAJI */
+
+.admin-logout-error {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px 16px;
+
+  color: #b42318;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* SAYFA İÇERİĞİ */
+
+.admin-content {
+  min-height: calc(100vh - 90px);
+}
+
+/* MOBİL UYUM */
+
+@media (max-width: 768px) {
+  .admin-navbar-container {
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .admin-nav {
+    order: 3;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-nav a {
+    padding: 10px 14px;
+  }
+
+  .admin-logout-button {
+    padding: 10px 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .brand-name {
+    font-size: 15px;
+  }
+
+  .admin-logout-button {
+    font-size: 12px;
+    padding: 10px;
+  }
+}

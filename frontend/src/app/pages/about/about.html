@@ -1,111 +1,112 @@
-
 <main class="about-page">
 
   @if (isLoading()) {
-    <div class="container about-status" role="status">
-      <p>Hakkımızda içerikleri yükleniyor...</p>
-    </div>
+  <div class="container about-status" role="status">
+    <p>Hakkımızda içerikleri yükleniyor...</p>
+  </div>
   } @else if (errorMessage()) {
-    <div class="container about-status" role="alert">
-      <p>{{ errorMessage() }}</p>
-    </div>
+  <div class="container about-status" role="alert">
+    <p>{{ errorMessage() }}</p>
+  </div>
   } @else if (aboutContent(); as content) {
 
-    
-<!-- HAKKIMIZDA HERO -->
-<section class="about-hero" aria-labelledby="about-hero-title">
 
-  <img
-    class="about-hero__image"
-    src="/images/hero-altyapi.jpg"
-    alt="BMG İnşaat altyapı projesinden görünüm"
-  />
+  <!-- HAKKIMIZDA HERO -->
+  <section class="about-hero" aria-labelledby="about-hero-title">
 
-  <div class="about-hero__overlay"></div>
+    <img class="about-hero__image" src="/images/hero-altyapi.jpg" alt="BMG İnşaat altyapı projesinden görünüm" />
 
-  <div class="container about-hero__content">
+    <div class="about-hero__overlay"></div>
 
-    <span class="about-hero__eyebrow">
-      BMG İNŞAAT / KURUMSAL
-    </span>
+    <div class="container about-hero__content">
 
-    <h1 id="about-hero-title">
-      Mühendislikle Şekillenen
-      <span>Kalıcı Değerler.</span>
-    </h1>
+      <span class="about-hero__eyebrow">
+        {{ language() === 'tr' ? 'BMG İNŞAAT / KURUMSAL' : 'BMG CONSTRUCTION / CORPORATE' }}
+      </span>
 
-    <p>
-      Güven, kalite ve sürdürülebilirlik anlayışıyla
-      geleceğin altyapısını inşa ediyoruz.
-    </p>
+      <h1 id="about-hero-title">
+        {{ language() === 'tr' ? 'Mühendislikle Şekillenen' : 'Shaped by Engineering' }}
+        <span>{{ language() === 'tr' ? 'Kalıcı Değerler.' : 'Lasting Values.' }}</span>
+      </h1>
 
-  </div>
+      <p>
+        {{
+        language() === 'tr'
+        ? 'Güven, kalite ve sürdürülebilirlik anlayışıyla geleceğin altyapısını inşa ediyoruz.'
+        : 'We build the infrastructure of tomorrow with a commitment to trust, quality and sustainability.'
+        }}
+      </p>
 
-</section>
+    </div>
+
+  </section>
 
 
-    <!-- SIRKET TANITIMI -->
-    <section class="about-intro" aria-labelledby="about-title">
-      <div class="container">
+  <!-- SIRKET TANITIMI -->
+  <section class="about-intro" aria-labelledby="about-title">
+    <div class="container">
 
-        <h2 id="about-title">Hakkımızda</h2>
+      <h2 id="about-title" [attr.data-corporate-label]="language() === 'tr' ? 'KURUMSAL / 2015' : 'CORPORATE / 2015'">{{
+        language() === 'tr' ? 'Hakkımızda' : 'About Us' }}</h2>
 
-        <div class="about-intro__content">
-          <p>{{ content.aboutTr }}</p>
-        </div>
+      <div class="about-intro__content" [attr.data-company-label]="language() === 'tr'
+    ? 'BMG TAAHHÜT İNŞAAT'
+    : 'BMG CONTRACTING & CONSTRUCTION'">
+        <p>{{ language() === 'tr' ? content.aboutTr : content.aboutEn }}</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MISYON VE VIZYON -->
+  <section class="about-purpose">
+    <div class="container">
+
+      <div class="about-purpose__grid">
+
+        <article class="about-purpose__item">
+          <h2>{{ language() === 'tr' ? 'Misyonumuz' : 'Our Mission' }}</h2>
+          <p>{{ language() === 'tr' ? content.missionTr : content.missionEn }}</p>
+        </article>
+
+        <article class="about-purpose__item">
+          <h2>{{ language() === 'tr' ? 'Vizyonumuz' : 'Our Vision' }}</h2>
+          <p>{{ language() === 'tr' ? content.visionTr : content.visionEn }}</p>
+        </article>
 
       </div>
-    </section>
 
-    <!-- MISYON VE VIZYON -->
-    <section class="about-purpose">
-      <div class="container">
+    </div>
+  </section>
 
-        <div class="about-purpose__grid">
+  <!-- SIRKET DEGERLERI -->
+  <section class="about-values" aria-labelledby="values-title">
+    <div class="container">
 
-          <article class="about-purpose__item">
-            <h2>Misyonumuz</h2>
-            <p>{{ content.missionTr }}</p>
-          </article>
+      <h2 id="values-title">{{ language() === 'tr' ? 'Değerlerimiz' : 'Our Values' }}</h2>
 
-          <article class="about-purpose__item">
-            <h2>Vizyonumuz</h2>
-            <p>{{ content.visionTr }}</p>
-          </article>
+      <div class="about-values__grid">
 
-        </div>
+        @for (value of companyValues(); track value.id) {
+        <article class="value-card">
 
-      </div>
-    </section>
+          <span class="value-card__number">
+            {{ $index + 1 }}
+          </span>
 
-    <!-- SIRKET DEGERLERI -->
-    <section class="about-values" aria-labelledby="values-title">
-      <div class="container">
+          <h3>{{ language() === 'tr' ? value.titleTr : value.titleEn }}</h3>
 
-        <h2 id="values-title">Değerlerimiz</h2>
+          <p>{{ language() === 'tr' ? value.descriptionTr : value.descriptionEn }}</p>
 
-        <div class="about-values__grid">
-
-          @for (value of companyValues(); track value.id) {
-            <article class="value-card">
-
-              <span class="value-card__number">
-                {{ $index + 1 }}
-              </span>
-
-              <h3>{{ value.titleTr }}</h3>
-
-              <p>{{ value.descriptionTr }}</p>
-
-            </article>
-          } @empty {
-            <p>Henüz yayınlanmış şirket değeri bulunmuyor.</p>
-          }
-
-        </div>
+        </article>
+        } @empty {
+        <p>Henüz yayınlanmış şirket değeri bulunmuyor.</p>
+        }
 
       </div>
-    </section>
+
+    </div>
+  </section>
 
   }
 

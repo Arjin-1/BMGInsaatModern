@@ -1,10 +1,18 @@
 using BMGInsaat.Application;
 using BMGInsaat.Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using BMGInsaat.Application.Interfaces;
+using BMGInsaat.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+// Oturum güvenlik damgasını her istekte kontrol et.
+// Eski oturumları geçersiz kılmak için gereklidir.
+builder.Services.Configure<SecurityStampValidatorOptions>(options =>
+{
+    options.ValidationInterval = TimeSpan.Zero;
+});
 
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -58,6 +66,9 @@ builder.Services.AddAntiforgery(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddOpenApi();
+
+// Iletisim formu e-posta gonderim servisi
+builder.Services.AddScoped<IContactEmailService, SmtpContactEmailService>();
 
 var app = builder.Build();
 

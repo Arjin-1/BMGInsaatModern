@@ -1,0 +1,730 @@
+
+:host {
+  display: block;
+}
+
+.project-detail-page {
+  min-height: 100vh;
+  background: #f8f9fa;
+  color: #20252b;
+}
+
+.project-detail-container {
+  width: min(1200px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+// PROJE BASLIK ALANI
+.project-detail-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 135px 0 85px;
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(196, 160, 82, 0.13),
+      transparent 36%
+    ),
+    linear-gradient(135deg, #18232d 0%, #263745 100%);
+  color: #fff;
+
+  &::after {
+    content: "";
+    position: absolute;
+    right: -130px;
+    bottom: -190px;
+    width: 440px;
+    height: 440px;
+    border: 1px solid rgba(196, 160, 82, 0.18);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &__eyebrow {
+    display: block;
+    margin-bottom: 22px;
+    color: #c4a052;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+  }
+
+  h1 {
+    position: relative;
+    z-index: 1;
+    max-width: 1000px;
+    margin: 0;
+    font-size: clamp(32px, 4.5vw, 58px);
+    font-weight: 750;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+    overflow-wrap: anywhere;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 32px;
+    color: #e1e5e8;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+// PROJELERE DON BAGLANTISI
+.project-detail-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 45px;
+  color: #d9dfe3;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.25s ease;
+
+  span {
+    font-size: 22px;
+    transition: transform 0.25s ease;
+  }
+
+  &:hover {
+    color: #c4a052;
+
+    span {
+      transform: translateX(-5px);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid #c4a052;
+    outline-offset: 5px;
+  }
+}
+
+// PROJE DURUM ETIKETI
+.project-detail-status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border: 1px solid rgba(196, 160, 82, 0.45);
+  border-radius: 30px;
+  background: rgba(196, 160, 82, 0.12);
+  color: #e4c17a;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  &.is-completed {
+    border-color: rgba(122, 190, 145, 0.45);
+    background: rgba(72, 150, 99, 0.15);
+    color: #9dd4ae;
+  }
+}
+
+// ANA PROJE FOTOGRAFI
+.project-detail-cover {
+  padding: 55px 0 0;
+  background: #f8f9fa;
+
+  img {
+    display: block;
+    width: 100%;
+    max-height: 620px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 18px 55px rgba(20, 32, 43, 0.12);
+  }
+}
+
+// PROJE ACIKLAMASI VE KUNYESI
+.project-detail-info {
+  padding: 95px 0 110px;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(300px, 1fr);
+    align-items: start;
+    gap: 80px;
+  }
+}
+
+.project-detail-eyebrow {
+  display: inline-block;
+  color: #aa8542;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+}
+
+.project-detail-description {
+  min-width: 0;
+
+  h2 {
+    margin: 15px 0 28px;
+    color: #202d37;
+    font-size: clamp(27px, 3vw, 39px);
+    font-weight: 750;
+    letter-spacing: -1px;
+  }
+
+  p {
+    margin: 0;
+    color: #596570;
+    font-size: 16px;
+    line-height: 2;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
+  &__empty {
+    font-style: italic;
+    color: #8a939b !important;
+  }
+}
+
+// PROJE KUNYESI KARTI
+.project-detail-facts {
+  padding: 34px;
+  border: 1px solid #e8eaed;
+  border-top: 4px solid #c4a052;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(20, 32, 43, 0.05);
+
+  h2 {
+    margin: 0 0 28px;
+    color: #243746;
+    font-size: 23px;
+    font-weight: 750;
+  }
+}
+
+.project-detail-fact {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px 0;
+  border-bottom: 1px solid #edf0f2;
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  > span {
+    color: #8a949d;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  strong {
+    color: #253540;
+    font-size: 15px;
+    font-weight: 650;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
+
+// PROJE FOTOGRAF GALERISI
+.project-detail-gallery {
+  padding: 90px 0 105px;
+  background: #fff;
+
+  h2 {
+    margin: 15px 0 40px;
+    color: #202d37;
+    font-size: clamp(28px, 3.3vw, 42px);
+    font-weight: 750;
+    letter-spacing: -1px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  &__item {
+    overflow: hidden;
+    border-radius: 10px;
+    background: #e8ecef;
+    aspect-ratio: 4 / 3;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.06);
+    }
+  }
+}
+
+// ALT PROJELERE DON ALANI
+.project-detail-footer {
+  padding: 45px 0;
+  background: #243746;
+
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: color 0.25s ease;
+
+    span {
+      color: #c4a052;
+      font-size: 26px;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover {
+      color: #e2bc72;
+
+      span {
+        transform: translateX(-6px);
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid #c4a052;
+      outline-offset: 5px;
+    }
+  }
+}
+
+// YUKLENME VE HATA DURUMLARI
+.project-detail-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 65vh;
+  padding: 130px 24px 80px;
+  color: #66727b;
+  text-align: center;
+
+  h1 {
+    margin: 0;
+    color: #243746;
+    font-size: clamp(28px, 4vw, 42px);
+  }
+
+  p {
+    margin: 0;
+    line-height: 1.8;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 13px 25px;
+    border-radius: 8px;
+    background: #243746;
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      background: #354d5f;
+    }
+  }
+
+  &--error {
+    color: #9a4b4b;
+  }
+}
+
+// TABLET
+@media (max-width: 1000px) {
+  .project-detail-info__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.85fr);
+    gap: 35px;
+  }
+
+  .project-detail-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+// MOBIL
+@media (max-width: 700px) {
+  .project-detail-container {
+    width: min(100% - 32px, 1200px);
+  }
+
+  .project-detail-hero {
+    padding: 105px 0 65px;
+
+    h1 {
+      font-size: clamp(29px, 7vw, 40px);
+      letter-spacing: -0.7px;
+    }
+
+    &__eyebrow {
+      font-size: 10px;
+      letter-spacing: 1.7px;
+    }
+
+    &__meta {
+      margin-top: 24px;
+    }
+  }
+
+  .project-detail-back {
+    margin-bottom: 35px;
+  }
+
+  .project-detail-cover {
+    padding-top: 25px;
+
+    img {
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+    }
+  }
+
+  .project-detail-info {
+    padding: 65px 0 75px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 45px;
+    }
+  }
+
+  .project-detail-facts {
+    padding: 26px;
+  }
+
+  .project-detail-gallery {
+    padding: 65px 0 75px;
+
+    &__grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    h2 {
+      margin-bottom: 28px;
+    }
+  }
+
+  .project-detail-footer {
+    padding: 35px 0;
+  }
+}
+
+// HAREKET AZALTMA TERCIHI
+@media (prefers-reduced-motion: reduce) {
+  .project-detail-back,
+  .project-detail-back span,
+  .project-detail-footer__link,
+  .project-detail-footer__link span,
+  .project-detail-gallery__item img {
+    transition: none;
+  }
+
+  .project-detail-gallery__item:hover img,
+  .project-detail-back:hover span,
+  .project-detail-footer__link:hover span {
+    transform: none;
+  }
+}
+
+
+/* ==========================================
+   PROJE FOTOGRAF GALERISI - TIKLANABILIR KART
+   ========================================== */
+
+.project-detail-gallery__button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: -3px;
+  }
+}
+
+/* ==========================================
+   BUYUK FOTOGRAF PENCERESI - LIGHTBOX
+   ========================================== */
+
+.project-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 70px 95px;
+
+  background: rgba(9, 16, 23, 0.96);
+  backdrop-filter: blur(12px);
+
+  animation: lightbox-enter 0.25s ease-out;
+
+  &__image {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+    border-radius: 5px;
+
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.35);
+  }
+
+  /* KAPATMA BUTONU */
+  &__close {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+
+    font-size: 30px;
+    line-height: 1;
+
+    cursor: pointer;
+    transition:
+      background 0.2s ease,
+      transform 0.2s ease;
+
+    &:hover {
+      background: #c4a052;
+      transform: rotate(90deg);
+    }
+  }
+
+  /* ILERI / GERI OKLARI */
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 54px;
+    height: 54px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+
+    font-size: 25px;
+    cursor: pointer;
+
+    transform: translateY(-50%);
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      background: #c4a052;
+      border-color: #c4a052;
+    }
+
+    &--prev {
+      left: 25px;
+    }
+
+    &--next {
+      right: 25px;
+    }
+  }
+
+  /* FOTOGRAF SAYACI */
+  &__counter {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding: 9px 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+  }
+
+  button:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: 4px;
+  }
+}
+
+/* ACILIS ANIMASYONU */
+
+@keyframes lightbox-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* TABLET */
+
+@media (max-width: 900px) {
+  .project-lightbox {
+    padding: 75px 70px;
+
+    &__arrow {
+      width: 44px;
+      height: 44px;
+
+      &--prev {
+        left: 12px;
+      }
+
+      &--next {
+        right: 12px;
+      }
+    }
+  }
+}
+
+/* MOBIL */
+
+@media (max-width: 600px) {
+  .project-lightbox {
+    padding: 85px 12px 105px;
+
+    &__image {
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    &__close {
+      top: 20px;
+      right: 18px;
+      width: 42px;
+      height: 42px;
+    }
+
+    &__arrow {
+      top: auto;
+      bottom: 30px;
+      width: 44px;
+      height: 44px;
+      transform: none;
+
+      &--prev {
+        left: 20px;
+      }
+
+      &--next {
+        right: 20px;
+      }
+    }
+
+    &__counter {
+      bottom: 38px;
+      padding: 7px 14px;
+      font-size: 12px;
+    }
+  }
+}
+
+/* HAREKET AZALTMA TERCIHI */
+
+@media (prefers-reduced-motion: reduce) {
+  .project-lightbox {
+    animation: none;
+  }
+
+  .project-lightbox__close,
+  .project-lightbox__arrow {
+    transition: none;
+  }
+
+  .project-lightbox__close:hover {
+    transform: none;
+  }
+}
+
+.project-detail-cover__button {
+  position: relative;
+  z-index: 1;
+
+  display: block;
+  width: 100%;
+  padding: 0;
+
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+
+  cursor: zoom-in;
+  pointer-events: auto;
+
+  img {
+    display: block;
+    width: 100%;
+    max-height: 620px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: 5px;
+  }
+}

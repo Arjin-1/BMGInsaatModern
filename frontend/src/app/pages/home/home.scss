@@ -131,6 +131,7 @@
   font-size: 14px;
   font-weight: 700;
   text-decoration: none;
+
   transition:
     background-color 0.25s ease,
     transform 0.25s ease,
@@ -341,6 +342,7 @@
   overflow: hidden;
   background: var(--home-white);
   border: 1px solid #e9e5df;
+
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
@@ -387,26 +389,36 @@
   }
 }
 
-
-/* =======================================
-   HERO SLIDER KONTROLLERI
-   ======================================= */
+// =======================================
+// 5. HERO SLIDER KONTROLLERI
+// =======================================
 
 .hero-slider-controls {
   position: absolute;
   z-index: 5;
   right: 6%;
-  bottom: 80px;
+  bottom: 75px;
 
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
+
+  padding: 10px 16px;
+
+  background: rgba(24, 27, 30, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
 }
 
 .hero-slider-arrows {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .hero-slider-arrow {
@@ -414,18 +426,16 @@
   align-items: center;
   justify-content: center;
 
-  width: 52px;
-  height: 52px;
+  width: 42px;
+  height: 42px;
 
   color: #ffffff;
-  background: rgba(39, 39, 39, 0.45);
-  border: 1px solid rgba(196, 160, 82, 0.8);
+  background: transparent;
+  border: 1px solid transparent;
   border-radius: 4px;
 
   font-size: 22px;
   cursor: pointer;
-
-  backdrop-filter: blur(8px);
 
   transition:
     background-color 0.25s ease,
@@ -433,9 +443,8 @@
     transform 0.25s ease;
 
   &:hover {
-    color: #272727;
-    background: #c4a052;
-    transform: translateY(-3px);
+    background: var(--home-gold);
+    color: var(--home-dark);
   }
 
   &:focus-visible {
@@ -445,62 +454,33 @@
 }
 
 .hero-slider-counter {
-  min-width: 50px;
-  color: #ffffff;
-  font-size: 15px;
+  position: relative;
+  min-width: 52px;
+  padding-left: 20px;
+
+  color: var(--home-gold);
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   font-variant-numeric: tabular-nums;
-}
 
-/* Tablet */
-@media (max-width: 900px) {
-  .hero-slider-controls {
-    right: 7%;
-    bottom: 90px;
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+
+    width: 1px;
+    height: 26px;
+
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%);
   }
 }
 
-/* Telefon */
-@media (max-width: 600px) {
-  .hero-slider-controls {
-    right: 24px;
-    bottom: 68px;
-    gap: 12px;
-  }
-
-  .hero-slider-arrows {
-    gap: 8px;
-  }
-
-  .hero-slider-arrow {
-    width: 42px;
-    height: 42px;
-    font-size: 19px;
-  }
-
-  .hero-slider-counter {
-    min-width: 42px;
-    font-size: 12px;
-    letter-spacing: 1px;
-  }
-}
-
-/* Hareket azaltma tercihi */
-@media (prefers-reduced-motion: reduce) {
-  .hero-slider-arrow {
-    transition: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
-}
-
-
-/* =========================================
-   HERO SLIDER - YUMUSAK FOTOGRAF GECISI
-   ========================================= */
+// =======================================
+// 6. HERO SLIDER - FOTOGRAF GECISI
+// =======================================
 
 .hero-image {
   position: absolute;
@@ -535,17 +515,9 @@
   visibility: visible;
 }
 
-/* Hareket azaltma tercihine saygi */
-@media (prefers-reduced-motion: reduce) {
-  .hero-image .hero-slide-image {
-    transition: none;
-  }
-}
-
-
-/* =========================================
-   HERO SLIDER - METIN GIRIS ANIMASYONLARI
-   ========================================= */
+// =======================================
+// 7. HERO SLIDER - METIN ANIMASYONLARI
+// =======================================
 
 @keyframes heroTextReveal {
   from {
@@ -560,7 +532,6 @@
 }
 
 .hero-content {
-
   .hero-eyebrow {
     animation: heroTextReveal 0.7s ease-out both;
     animation-delay: 0.1s;
@@ -582,22 +553,9 @@
   }
 }
 
-/* Hareket azaltma tercihi */
-@media (prefers-reduced-motion: reduce) {
-  .hero-content {
-    .hero-eyebrow,
-    h1,
-    p,
-    .hero-actions {
-      animation: none;
-    }
-  }
-}
-
-
-/* =========================================
-   HERO SLIDER GOSTERGELERI
-   ========================================= */
+// =======================================
+// 8. HERO SLIDER GOSTERGELERI
+// =======================================
 
 .hero-slide-indicators {
   position: absolute;
@@ -640,16 +598,17 @@
     font-size: 11px;
     font-weight: 700;
     text-align: left;
+
     transition: color 0.3s ease;
   }
 
   &.is-active {
     .hero-slide-indicator__line {
-      background: #c4a052;
+      background: var(--home-gold);
     }
 
     .hero-slide-indicator__number {
-      color: #c4a052;
+      color: var(--home-gold);
     }
   }
 
@@ -663,122 +622,151 @@
   }
 }
 
-@media (max-width: 600px) {
-  .hero-slide-indicators {
-    left: 24px;
-    bottom: 135px;
-    width: min(260px, calc(100% - 48px));
-    gap: 8px;
-  }
+// =======================================
+// 9. ÖNE ÇIKAN PROJELER
+// =======================================
 
-  .hero-slide-indicator {
-    gap: 6px;
-
-    &__number {
-      font-size: 10px;
-    }
-  }
+.home-projects {
+  padding: 100px 0;
+  background: #f5f6f8;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-slide-indicator__line,
-  .hero-slide-indicator__number {
-    transition: none;
+.home-projects .section-heading {
+  margin-bottom: 36px;
+
+  h2 {
+    margin-top: 10px;
+    color: #172033;
   }
 }
 
+.featured-projects-grid {
+  display: grid;
 
-/* =========================================
-   HERO SLIDER - PREMIUM KONTROL PANELI
-   ========================================= */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(100%, 260px), 340px)
+  );
 
-.hero-slider-controls {
-  right: 6%;
-  bottom: 75px;
-  gap: 20px;
-
-  padding: 10px 16px;
-
-  background: rgba(24, 27, 30, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
-
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  gap: 24px;
+  align-items: start;
 }
 
-.hero-slider-arrows {
-  gap: 6px;
-}
+.featured-project-card {
+  width: 100%;
+  max-width: 340px;
+  min-width: 0;
 
-.hero-slider-arrow {
-  width: 42px;
-  height: 42px;
+  overflow: hidden;
+  background: #ffffff;
 
-  background: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
 
-  color: #ffffff;
-  font-size: 22px;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 
   &:hover {
-    background: #c4a052;
-    color: #272727;
-    transform: none;
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
   }
 }
 
-.hero-slider-counter {
-  position: relative;
-  min-width: 52px;
-  padding-left: 20px;
+.featured-project-card__media {
+  width: 100%;
+  height: 220px;
 
-  color: #c4a052;
-  font-size: 13px;
+  overflow: hidden;
+  background: #e2e8f0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.4s ease;
+  }
+}
+
+.featured-project-card:hover
+.featured-project-card__media img {
+  transform: scale(1.04);
+}
+
+.featured-project-card__placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  background: #172033;
+  color: #d4af37;
+
+  font-size: 18px;
+  font-weight: 700;
   letter-spacing: 2px;
+}
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
+.featured-project-card__body {
+  padding: 18px 20px;
 
-    width: 1px;
-    height: 26px;
+  h3 {
+    margin: 10px 0 0;
+    color: #172033;
 
-    background: rgba(255, 255, 255, 0.3);
-    transform: translateY(-50%);
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
   }
 }
 
-@media (max-width: 600px) {
-  .hero-slider-controls {
-    right: 16px;
-    bottom: 65px;
-    gap: 12px;
-    padding: 7px 10px;
-  }
-
-  .hero-slider-arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 19px;
-  }
-
-  .hero-slider-counter {
-    min-width: 44px;
-    padding-left: 13px;
-    font-size: 11px;
-  }
+.featured-project-card__city {
+  color: #b99227;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
 }
 
+.projects-message {
+  padding: 24px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  color: #64748b;
+  text-align: center;
+}
 
 // =======================================
-// 5. TABLET
+// 10. TABLET
 // =======================================
+
+@media (max-width: 992px) {
+  .featured-projects-grid {
+    grid-template-columns: repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+    gap: 20px;
+  }
+
+  .featured-project-card {
+    max-width: 100%;
+  }
+}
 
 @media (max-width: 900px) {
   .hero {
@@ -816,7 +804,7 @@
 }
 
 // =======================================
-// 6. MOBİL
+// 11. MOBIL
 // =======================================
 
 @media (max-width: 600px) {
@@ -866,6 +854,7 @@
   .hero-actions {
     align-items: stretch;
     flex-direction: column;
+
     max-width: 285px;
     margin-top: 30px;
   }
@@ -878,6 +867,7 @@
     bottom: 26px;
     left: 24px;
     gap: 9px;
+
     font-size: 9px;
     letter-spacing: 1px;
   }
@@ -920,21 +910,104 @@
       margin-bottom: 28px;
     }
   }
+
+  // Hero slider kontrol paneli
+
+  .hero-slider-controls {
+    right: 16px;
+    bottom: 65px;
+
+    gap: 12px;
+    padding: 7px 10px;
+  }
+
+  .hero-slider-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 19px;
+  }
+
+  .hero-slider-counter {
+    min-width: 44px;
+    padding-left: 13px;
+    font-size: 11px;
+  }
+
+  // Slider göstergeleri
+
+  .hero-slide-indicators {
+    left: 24px;
+    bottom: 135px;
+
+    width: min(260px, calc(100% - 48px));
+    gap: 8px;
+  }
+
+  .hero-slide-indicator {
+    gap: 6px;
+
+    &__number {
+      font-size: 10px;
+    }
+  }
+
+  // Öne çıkan projeler
+
+  .home-projects {
+    padding: 60px 0;
+  }
+
+  .featured-projects-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .featured-project-card {
+    max-width: 100%;
+  }
+
+  .featured-project-card__media {
+    height: 210px;
+  }
+
+  .featured-project-card__body {
+    padding: 20px;
+
+    h3 {
+      font-size: 17px;
+    }
+  }
 }
 
 // =======================================
-// ERİŞİLEBİLİRLİK
+// 12. ERISILEBILIRLIK
 // =======================================
 
 @media (prefers-reduced-motion: reduce) {
   .hero-button,
   .section-link,
-  .service-card {
+  .service-card,
+  .hero-slider-arrow,
+  .hero-image .hero-slide-image,
+  .hero-slide-indicator__line,
+  .hero-slide-indicator__number,
+  .featured-project-card,
+  .featured-project-card__media img {
     transition: none;
   }
 
   .hero-button:hover,
-  .service-card:hover {
+  .service-card:hover,
+  .featured-project-card:hover {
     transform: none;
+  }
+
+  .hero-content {
+    .hero-eyebrow,
+    h1,
+    p,
+    .hero-actions {
+      animation: none;
+    }
   }
 }

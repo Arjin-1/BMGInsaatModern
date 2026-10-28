@@ -1,57 +1,65 @@
-
 <header class="site-header">
   <div class="header-container">
 
     <!-- BMG INSAAT LOGOSU -->
-    <a
-      href="/"
-      class="brand"
-      aria-label="BMG İnşaat Ana Sayfa"
-      (click)="closeMenu()"
-    >
-      <img
-        src="/images/bmg-logo.jpg"
-        alt="BMG İnşaat"
-        class="brand-logo"
-      />
+    <a href="/" class="brand" aria-label="BMG İnşaat Ana Sayfa" (click)="closeMenu()">
+      <img src="/images/bmg-logo.jpg" alt="BMG İnşaat" class="brand-logo" />
     </a>
 
     <!-- MASAUSTU VE MOBIL NAVIGASYON -->
-    <nav
-      id="main-navigation"
-      class="main-nav"
-      [class.is-open]="isMenuOpen()"
-      aria-label="Ana menü"
-    >
+
+    <nav id="main-navigation" class="main-nav" [class.is-open]="isMenuOpen()"
+      [attr.aria-label]="language() === 'tr' ? 'Ana menü' : 'Main navigation'">
+
       <a href="/" (click)="closeMenu()">
-        Ana Sayfa
+        {{ language() === 'tr' ? 'Ana Sayfa' : 'Home' }}
       </a>
 
       <a href="/about" (click)="closeMenu()">
-        Hakkımızda
+        {{ language() === 'tr' ? 'Hakkımızda' : 'About Us' }}
       </a>
 
-      <a href="/#faaliyetler" (click)="closeMenu()">
-        Faaliyet Alanlarımız
+      <a href="/projects" (click)="closeMenu()">
+        {{ language() === 'tr' ? 'Projelerimiz' : 'Our Projects' }}
       </a>
+
+      <a href="/contact" (click)="closeMenu()">
+        {{ language() === 'tr' ? 'İletişim' : 'Contact' }}
+      </a>
+
+
     </nav>
+
 
     <!-- HEADER SAG ALAN -->
     <div class="header-actions">
 
+
+      <!-- TURKCE / INGILIZCE DIL SECIMI -->
+      <div class="language-switcher" role="group" aria-label="Site dili">
+        <button type="button" class="language-button" [class.is-active]="language() === 'tr'"
+          [attr.aria-pressed]="language() === 'tr'" (click)="changeLanguage('tr')">
+          TR
+        </button>
+
+        <span class="language-separator" aria-hidden="true">
+          /
+        </span>
+
+        <button type="button" class="language-button" [class.is-active]="language() === 'en'"
+          [attr.aria-pressed]="language() === 'en'" (click)="changeLanguage('en')">
+          EN
+        </button>
+      </div>
+
+
       <!-- MOBIL MENU BUTONU -->
-      <button
-        type="button"
-        class="menu-toggle"
-        [attr.aria-expanded]="isMenuOpen()"
-        aria-controls="main-navigation"
-        [attr.aria-label]="isMenuOpen() ? 'Menüyü kapat' : 'Menüyü aç'"
-        (click)="toggleMenu()"
-      >
+      <button type="button" class="menu-toggle" [attr.aria-expanded]="isMenuOpen()" aria-controls="main-navigation"
+        [attr.aria-label]="isMenuOpen() ? 'Menüyü kapat' : 'Menüyü aç'" (click)="toggleMenu()">
         @if (isMenuOpen()) {
-          <span aria-hidden="true">&#10005;</span>
+        <span aria-hidden="true">&#10005;</span>
         } @else {
-          <span aria-hidden="true">&#9776;</span>
+        <span aria-hidden="true">&#9776;</span>
         }
       </button>
 

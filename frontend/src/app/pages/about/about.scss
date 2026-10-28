@@ -232,7 +232,7 @@
     line-height: 1.12;
 
     &::before {
-      content: "KURUMSAL / 2015";
+      content: attr(data-corporate-label);
 
       position: absolute;
       top: 0;
@@ -278,7 +278,7 @@
     animation: about-card-enter 0.9s 0.15s ease-out both;
 
     &::before {
-      content: "BMG TAAHHÜT İNŞAAT";
+      content: attr(data-company-label);
 
       display: block;
       margin-bottom: 28px;

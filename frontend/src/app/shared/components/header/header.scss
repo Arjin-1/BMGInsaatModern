@@ -279,3 +279,105 @@
     transform: none;
   }
 }
+
+
+/* ========================================
+   TR / EN DİL SEÇİMİ
+======================================== */
+
+.language-switcher {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 8px;
+
+  padding: 7px 11px;
+  border: 1px solid rgba(196, 160, 82, 0.45);
+  border-radius: 6px;
+
+  background: rgba(25, 25, 25, 0.25);
+}
+
+.language-button {
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 4px;
+
+  background: transparent;
+  color: #b8b8b8;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover:not(.is-active) {
+    color: #ffffff;
+  }
+
+  &.is-active {
+    background: #c4a052;
+    color: #191919;
+  }
+
+  &:focus-visible {
+    outline: 2px solid #c4a052;
+    outline-offset: 3px;
+  }
+}
+
+.language-separator {
+  color: #a3a3a3;
+  font-size: 12px;
+  user-select: none;
+}
+
+@media (max-width: 600px) {
+  .language-switcher {
+    gap: 4px;
+    padding: 5px 7px;
+  }
+
+  .language-button {
+    padding: 5px 6px;
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-button {
+    transition: none;
+  }
+}
+
+/* Beyaz Header için TR / EN renk düzeltmesi */
+
+.language-switcher {
+  background: #f5f3ee;
+  border: 1px solid #d8c6a0;
+}
+
+.language-button {
+  color: #333333;
+
+  &:hover:not(.is-active) {
+    background: #e8dfca;
+    color: #191919;
+  }
+
+  &.is-active {
+    background: #c4a052;
+    color: #191919;
+  }
+}
+
+.language-separator {
+  color: #777777;
+}
+

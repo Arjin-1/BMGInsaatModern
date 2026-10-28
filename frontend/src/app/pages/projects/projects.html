@@ -1,0 +1,167 @@
+<main class="projects-page">
+
+    <!-- SAYFA BASLIGI -->
+    <section class="projects-hero" aria-labelledby="projects-title">
+        <div class="projects-container">
+
+            <span class="projects-hero__eyebrow">
+                {{ language() === 'tr'
+                ? 'BMG TAAHHÜT İNŞAAT'
+                : 'BMG CONTRACTING & CONSTRUCTION' }}
+            </span>
+
+            <h1 id="projects-title">
+                {{ language() === 'tr' ? 'Projelerimiz' : 'Our Projects' }}
+            </h1>
+
+            <p>
+                {{ language() === 'tr'
+                ? 'Mühendislik, kalite ve güven anlayışıyla hayata geçirdiğimiz projeleri keşfedin.'
+                : 'Explore the projects we deliver with a commitment to engineering, quality and trust.' }}
+            </p>
+
+        </div>
+    </section>
+
+    <!-- PROJE LISTESI -->
+    <section class="projects-section" aria-labelledby="projects-list-title">
+        <div class="projects-container">
+
+            <div class="projects-section__heading">
+
+                <div>
+                    <span class="projects-section__eyebrow">
+                        {{ language() === 'tr'
+                        ? 'ÇALIŞMALARIMIZ'
+                        : 'OUR WORK' }}
+                    </span>
+
+                    <h2 id="projects-list-title">
+                        {{ language() === 'tr'
+                        ? 'Hayata Geçirdiğimiz Projeler'
+                        : 'Projects We Have Delivered' }}
+                    </h2>
+                </div>
+
+                @if (!isLoading() && !errorMessage()) {
+                <span class="projects-count">
+                    {{ filteredProjects().length }}
+                    {{ language() === 'tr' ? 'Proje' : 'Projects' }}
+                </span>
+                }
+
+            </div>
+
+
+            <!-- PROJE DURUMU FILTRELERI -->
+            <div class="projects-filters" role="group"
+                [attr.aria-label]="language() === 'tr' ? 'Proje durumu filtresi' : 'Project status filter'">
+
+                <button type="button" class="projects-filter" [class.is-active]="selectedFilter() === 'all'"
+                    [attr.aria-pressed]="selectedFilter() === 'all'" (click)="setFilter('all')">
+                    {{ language() === 'tr' ? 'Tüm Projeler' : 'All Projects' }}
+                </button>
+
+                <button type="button" class="projects-filter" [class.is-active]="selectedFilter() === 'ongoing'"
+                    [attr.aria-pressed]="selectedFilter() === 'ongoing'" (click)="setFilter('ongoing')">
+                    {{ language() === 'tr' ? 'Devam Eden Projeler' : 'Ongoing Projects' }}
+                </button>
+
+                <button type="button" class="projects-filter" [class.is-active]="selectedFilter() === 'completed'"
+                    [attr.aria-pressed]="selectedFilter() === 'completed'" (click)="setFilter('completed')">
+                    {{ language() === 'tr' ? 'Tamamlanan Projeler' : 'Completed Projects' }}
+                </button>
+
+            </div>
+
+
+            <!-- YUKLENIYOR -->
+            @if (isLoading()) {
+
+            <p class="projects-status" role="status">
+                {{ language() === 'tr'
+                ? 'Projeler yükleniyor...'
+                : 'Loading projects...' }}
+            </p>
+
+            } @else if (errorMessage()) {
+
+            <!-- HATA -->
+            <p class="projects-status projects-status--error" role="alert">
+                {{ language() === 'tr'
+                ? errorMessage()
+                : 'An error occurred while loading projects.' }}
+            </p>
+
+            } @else if (filteredProjects().length === 0) {
+
+            <!-- BOS LISTE -->
+            <p class="projects-status">
+                {{ language() === 'tr'
+                ? 'Henüz yayınlanmış proje bulunmuyor.'
+                : 'No published projects are available yet.' }}
+            </p>
+
+            } @else {
+
+            <!-- GERCEK PROJE KARTLARI -->
+            <div class="projects-grid">
+
+                @for (project of filteredProjects(); track project.id) {
+
+                <article class="project-card">
+                    <a class="project-card__link" [href]="'/projects/' + project.id" [attr.aria-label]="
+    (language() === 'tr' ? project.nameTr : (project.nameEn || project.nameTr))
+    + (language() === 'tr' ? ' projesini incele' : ' - View project')
+  ">
+
+                        <div class="project-card__media">
+
+                            @if (project.images.length === 0) {
+
+                            <div class="project-card__placeholder">
+                                BMG İNŞAAT
+                            </div>
+
+                            } @else {
+
+                            @for (image of project.images; track image.id) {
+
+                            @if (image.isCover) {
+                            <img [src]="'http://localhost:5056' + image.imageUrl" [alt]="language() === 'tr'
+                          ? project.nameTr
+                          : (project.nameEn || project.nameTr)" loading="lazy" decoding="async" />
+                            }
+
+                            }
+
+                            }
+
+                        </div>
+
+                        <div class="project-card__body">
+
+                            <span class="project-card__city">
+                                {{ project.city }}
+                            </span>
+
+                            <h3 class="project-card__title">
+                                {{ language() === 'tr'
+                                ? project.nameTr
+                                : (project.nameEn || project.nameTr) }}
+                            </h3>
+
+                        </div>
+                    </a>
+                </article>
+
+                }
+
+            </div>
+
+            }
+
+        </div>
+    </section>
+
+</main>

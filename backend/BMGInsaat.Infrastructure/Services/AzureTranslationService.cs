@@ -65,13 +65,19 @@ public class AzureTranslationService : ITranslationService
             cancellationToken);
 
         if (!response.IsSuccessStatusCode)
-{
-    var errorDetails = await response.Content.ReadAsStringAsync(
-        cancellationToken);
+        {
+            var errorDetails = await response.Content.ReadAsStringAsync(
+                cancellationToken);
 
-    throw new HttpRequestException(
-        $"Azure Translator HTTP {(int)response.StatusCode}: {errorDetails}");
-}
+            var contentType = response.Content.Headers.ContentType?.ToString()
+                ?? "Unknown";
+
+            throw new HttpRequestException(
+                $"TRANSLATOR_DIAGNOSTIC_V2 | " +
+                $"HTTP {(int)response.StatusCode} | " +
+                $"Content-Type: {contentType} | " +
+                $"Response: {errorDetails}");
+        }
 
         await using var stream =
             await response.Content.ReadAsStreamAsync(
