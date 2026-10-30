@@ -1,0 +1,138 @@
+<main class="certificates-page">
+
+  <!-- SAYFA BAŞLIĞI -->
+  <section class="certificates-hero">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/">
+          {{ language() === 'tr' ? 'Ana Sayfa' : 'Home' }}
+        </a>
+
+        <span>/</span>
+
+        <span>
+          {{ language() === 'tr' ? 'Sertifikalarımız' : 'Certificates' }}
+        </span>
+      </nav>
+
+      <div class="hero-content">
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'KALİTE VE GÜVENCE'
+            : 'QUALITY AND ASSURANCE' }}
+        </span>
+
+        <h1>
+          {{ language() === 'tr'
+            ? 'Sertifikalarımız'
+            : 'Our Certificates' }}
+        </h1>
+
+        <p>
+          {{ language() === 'tr'
+            ? 'Kalite, güven ve sürdürülebilirlik anlayışımızı destekleyen belgelerimiz.'
+            : 'Our certificates reflecting our commitment to quality, trust and sustainability.' }}
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SERTİFİKALAR -->
+  <section class="certificates-section">
+    <div class="container">
+
+      <div class="section-heading">
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'KURUMSAL BELGELERİMİZ'
+            : 'OUR CORPORATE CERTIFICATES' }}
+        </span>
+
+        <h2>
+          {{ language() === 'tr'
+            ? 'Belgelerimiz'
+            : 'Our Documents' }}
+        </h2>
+      </div>
+
+      @if (loading()) {
+        <div class="state-message" role="status">
+          <p>
+            {{ language() === 'tr'
+              ? 'Sertifikalar yükleniyor...'
+              : 'Loading certificates...' }}
+          </p>
+        </div>
+      } @else if (error()) {
+        <div class="state-message" role="alert">
+          <p>
+            {{ language() === 'tr'
+              ? 'Sertifikalar yüklenirken bir hata oluştu.'
+              : 'An error occurred while loading certificates.' }}
+          </p>
+
+          <button type="button" (click)="loadCertificates()">
+            {{ language() === 'tr' ? 'Tekrar Dene' : 'Try Again' }}
+          </button>
+        </div>
+      } @else if (certificates().length === 0) {
+        <div class="state-message">
+          <p>
+            {{ language() === 'tr'
+              ? 'Henüz yayınlanmış sertifika bulunmuyor.'
+              : 'No published certificates are available yet.' }}
+          </p>
+        </div>
+      } @else {
+
+        <div class="certificates-grid">
+
+          @for (certificate of certificates(); track certificate.id) {
+
+            <article class="certificate-card">
+
+              <div class="certificate-image">
+
+                @if (certificate.imageUrl; as imageUrl) {
+                  <img
+                    [src]="getImageSrc(imageUrl)"
+                    [alt]="language() === 'tr'
+                      ? certificate.nameTr
+                      : (certificate.nameEn || certificate.nameTr)"
+                    loading="lazy"
+                  />
+                } @else {
+                  <div class="image-placeholder">
+                    <span>
+                      {{ language() === 'tr'
+                        ? 'Görsel bulunmuyor'
+                        : 'No image available' }}
+                    </span>
+                  </div>
+                }
+
+              </div>
+
+              <div class="certificate-info">
+                <h3>
+                  {{ language() === 'tr'
+                    ? certificate.nameTr
+                    : (certificate.nameEn?.trim() || certificate.nameTr) }}
+                </h3>
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+  </section>
+
+</main>
+

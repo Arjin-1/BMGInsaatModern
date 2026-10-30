@@ -1,4 +1,3 @@
-
 using BMGInsaat.Application.Interfaces;
 using BMGInsaat.Infrastructure.Identity;
 using BMGInsaat.Infrastructure.Persistence;
@@ -8,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BMGInsaat.Infrastructure.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 namespace BMGInsaat.Infrastructure;
 
@@ -35,11 +33,27 @@ public static class DependencyInjection
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IAboutRepository, AboutRepository>();
         services.AddScoped<ICompanyValueRepository, CompanyValueRepository>();
+        services.AddScoped<ICertificateRepository, CertificateRepository>();
+        services.AddScoped<IConstructionServiceRepository, ConstructionServiceRepository>();
+
 
         // Proje fotograflarini sunucuda saklama
         services.AddScoped<IProjectImageStorage>(provider =>
             new LocalProjectImageStorage(
                 provider.GetRequiredService<IHostEnvironment>().ContentRootPath));
+
+
+        // Sertifika gorsellerini ayri klasorde saklama
+        services.AddScoped<ICertificateImageStorage>(provider =>
+            new LocalCertificateImageStorage(
+                provider.GetRequiredService<IHostEnvironment>().ContentRootPath));
+
+
+        // Hizmet gorsellerini ayri klasorde saklama
+        services.AddScoped<IConstructionServiceImageStorage>(provider =>
+            new LocalConstructionServiceImageStorage(
+                provider.GetRequiredService<IHostEnvironment>().ContentRootPath));
+
 
         services.AddHttpClient<ITranslationService, AzureTranslationService>();
 

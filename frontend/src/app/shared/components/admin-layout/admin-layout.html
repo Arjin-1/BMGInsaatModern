@@ -1,4 +1,3 @@
-
 <div class="admin-layout">
 
   <!-- ORTAK YÖNETİM PANELİ ÜST MENÜSÜ -->
@@ -12,35 +11,32 @@
 
       <nav class="admin-nav" aria-label="Yönetim paneli menüsü">
 
-        <a
-          routerLink="/admin/projects"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: false }">
+        <a routerLink="/admin/projects" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
           Projeler
         </a>
 
-        <a
-          routerLink="/admin/about"
-          routerLinkActive="active">
+        <a routerLink="/admin/about" routerLinkActive="active">
           Hakkımızda
         </a>
 
+
+        <a routerLink="/admin/certificates" routerLinkActive="active">
+          Sertifikalar
+        </a>
+
+
       </nav>
 
-      <button
-        type="button"
-        class="admin-logout-button"
-        [disabled]="loggingOut"
-        (click)="logout()">
+      <button type="button" class="admin-logout-button" [disabled]="loggingOut" (click)="logout()">
         {{ loggingOut ? 'Çıkış Yapılıyor...' : 'Çıkış Yap' }}
       </button>
 
     </div>
 
     @if (logoutError) {
-      <div class="admin-logout-error" role="alert">
-        {{ logoutError }}
-      </div>
+    <div class="admin-logout-error" role="alert">
+      {{ logoutError }}
+    </div>
     }
 
   </header>

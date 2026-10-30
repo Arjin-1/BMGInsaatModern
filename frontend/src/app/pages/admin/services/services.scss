@@ -1,0 +1,447 @@
+
+:host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+// ANA SAYFA
+.admin-services {
+  --gold: #c4a052;
+  --dark: #202a35;
+  --muted: #707985;
+  --border: #e6e8ec;
+
+  width: 100%;
+  min-width: 0;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px;
+  color: var(--dark);
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+// SAYFA BASLIGI
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  margin-bottom: 35px;
+  padding: 32px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.035);
+
+  h1 {
+    margin: 12px 0;
+    color: var(--dark);
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  p {
+    max-width: 580px;
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+.page-label {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+// TOPLAM HIZMET
+.service-count {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 145px;
+  padding: 20px;
+
+  background: #f8f6f0;
+  border: 1px solid #e9dfc9;
+  border-radius: 12px;
+
+  span {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  strong {
+    color: var(--dark);
+    font-size: 30px;
+    font-weight: 800;
+  }
+}
+
+// LISTE BASLIGI
+.services-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  margin-bottom: 25px;
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  span {
+    color: var(--muted);
+    font-size: 13px;
+  }
+}
+
+// HIZMET KARTLARI
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(100%, 330px), 1fr)
+  );
+  gap: 25px;
+}
+
+.service-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.045);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(196, 160, 82, 0.5);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.09);
+  }
+}
+
+// HIZMET GORSELI
+.service-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 230px;
+  overflow: hidden;
+
+  background: #f2f3f4;
+  border-bottom: 1px solid var(--border);
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.35s ease;
+  }
+
+  .service-card:hover & img {
+    transform: scale(1.035);
+  }
+}
+
+.image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+
+  color: #9aa0a6;
+  font-size: 14px;
+  text-align: center;
+}
+
+// HIZMET ICERIGI
+.service-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  padding: 24px;
+}
+
+// YAYIN DURUMU
+.service-status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 12px;
+  border-radius: 30px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  &::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  &.published {
+    color: #227348;
+    background: #e8f5ec;
+  }
+
+  &.draft {
+    color: #996b20;
+    background: #fff3db;
+  }
+}
+
+.display-order {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+// BASLIKLAR
+.service-titles {
+  margin-bottom: 20px;
+
+  h3 {
+    margin: 0 0 8px;
+    color: var(--dark);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .english-title {
+    margin: 0;
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
+
+// ACIKLAMALAR
+.service-descriptions {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+
+  div {
+    min-width: 0;
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #555e68;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+  }
+}
+
+// KART ALT BILGISI
+.service-meta {
+  margin-top: auto;
+  padding-top: 20px;
+
+  span {
+    display: block;
+    padding-top: 14px;
+
+    color: #9299a2;
+    font-size: 11px;
+
+    border-top: 1px solid var(--border);
+  }
+}
+
+// YUKLENME / HATA / BOS LISTE
+.state-message {
+  padding: 65px 25px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  text-align: center;
+
+  h2 {
+    margin: 0 0 12px;
+    color: var(--dark);
+    font-size: 22px;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  &.empty {
+    border: 1px dashed #d5d9df;
+  }
+
+  &.error {
+    border-color: #f0c5c5;
+    background: #fffafa;
+  }
+
+  button {
+    margin-top: 22px;
+    padding: 12px 24px;
+
+    background: var(--dark);
+    color: #ffffff;
+
+    border: 0;
+    border-radius: 7px;
+
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    &:hover {
+      background: #35465a;
+    }
+
+    &:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+  }
+}
+
+// TABLET
+@media (max-width: 992px) {
+  .admin-services {
+    padding: 22px;
+  }
+
+  .page-header {
+    padding: 25px;
+  }
+
+  .services-grid {
+    gap: 20px;
+  }
+}
+
+// MOBIL
+@media (max-width: 600px) {
+  .admin-services {
+    padding: 15px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px;
+
+    h1 {
+      font-size: 26px;
+    }
+  }
+
+  .service-count {
+    width: 100%;
+  }
+
+  .services-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .service-image {
+    height: 210px;
+  }
+
+  .service-content {
+    padding: 20px;
+  }
+
+  .services-list-header {
+    h2 {
+      font-size: 20px;
+    }
+  }
+
+  .state-message {
+    padding: 45px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card,
+  .service-image img {
+    transition: none;
+  }
+
+  .service-card:hover {
+    transform: none;
+  }
+}

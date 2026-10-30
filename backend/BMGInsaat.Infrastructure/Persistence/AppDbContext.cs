@@ -20,6 +20,11 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
     public DbSet<AboutContent> AboutContents => Set<AboutContent>();
 
     public DbSet<CompanyValue> CompanyValues => Set<CompanyValue>();
+    public DbSet<Certificate> Certificates => Set<Certificate>();
+
+    public DbSet<ConstructionService> ConstructionServices
+        => Set<ConstructionService>();
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,8 +44,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
             entity.Property(p => p.City)
                 .IsRequired()
                 .HasMaxLength(100);
-            
-            
+
+
             // Projenin isvereni / ilgili kurum
             entity.Property(p => p.EmployerTr)
                 .IsRequired()
@@ -120,7 +125,7 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
                 .IsRequired();
         });
 
-        
+
         // Şirket değerleri yapılandırması
         modelBuilder.Entity<CompanyValue>(entity =>
         {
@@ -152,6 +157,93 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
             entity.HasIndex(v => v.DisplayOrder);
         });
+
+
+        // Sertifika yapılandırması
+        modelBuilder.Entity<Certificate>(entity =>
+        {
+            entity.HasKey(c => c.Id);
+
+            entity.Property(c => c.NameTr)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(c => c.NameEn)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(c => c.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            entity.Property(c => c.IsPublished)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            entity.Property(c => c.DisplayOrder)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            entity.Property(c => c.CreatedAtUtc)
+                .IsRequired();
+
+            entity.HasIndex(c => c.DisplayOrder);
+        });
+
+
+        // Hizmetler yapılandırması
+        modelBuilder.Entity<ConstructionService>(entity =>
+        {
+            entity.HasKey(s => s.Id);
+
+            // Türkçe ve İngilizce başlıklar
+            entity.Property(s => s.TitleTr)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(s => s.TitleEn)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            // Hizmet açıklamaları
+            entity.Property(s => s.DescriptionTr)
+                .IsRequired()
+                .HasColumnType("text");
+
+            entity.Property(s => s.DescriptionEn)
+                .IsRequired()
+                .HasColumnType("text");
+
+            // Hizmet görseli
+            entity.Property(s => s.ImageUrl)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            // Yayın durumu
+            entity.Property(s => s.IsPublished)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            // Görüntülenme sırası
+            entity.Property(s => s.DisplayOrder)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            // Kayıt tarihleri
+            entity.Property(s => s.CreatedAtUtc)
+                .IsRequired();
+
+            entity.Property(s => s.UpdatedAtUtc);
+
+            // Yayınlanmış hizmetlerin sıralı listelenmesi
+            entity.HasIndex(s => new
+            {
+                s.IsPublished,
+                s.DisplayOrder
+            });
+        });
+
+
 
     }
 }

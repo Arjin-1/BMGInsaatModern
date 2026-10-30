@@ -1,0 +1,441 @@
+<section class="certificates-admin">
+
+  <div class="page-heading">
+    <div>
+      <h1>Sertifikalar Yönetimi</h1>
+      <p>
+        Şirket sertifikalarını ekleyebilir, görüntüleyebilir,
+        düzenleyebilir ve yayın durumlarını yönetebilirsiniz.
+      </p>
+    </div>
+  </div>
+
+  <!-- YENI SERTIFIKA EKLEME FORMU -->
+  <div class="certificate-form-card">
+
+    <div class="form-heading">
+      <h2>Yeni Sertifika Ekle</h2>
+      <p>
+        Sertifika bilgilerini girin. Görseli kayıt
+        oluşturulduktan sonra yükleyebileceksiniz.
+      </p>
+    </div>
+
+    @if (formError) {
+    <div class="form-message form-message-error" role="alert">
+      {{ formError }}
+    </div>
+    }
+
+    <form class="certificate-form" (submit)="createCertificate(); $event.preventDefault()">
+
+      <div class="form-grid">
+
+        <div class="form-field">
+          <label for="certificate-name-tr">
+            Sertifika Adı (Türkçe)
+          </label>
+
+          <input id="certificate-name-tr" type="text" placeholder="Örn: Kalite Yönetim Sistemi Belgesi" maxlength="200"
+            autocomplete="off" [value]="nameTr" (input)="nameTr = nameTrInput.value" #nameTrInput />
+        </div>
+
+        <div class="form-field">
+          <label for="certificate-name-en">
+            Sertifika Adı (İngilizce)
+          </label>
+
+          <input id="certificate-name-en" type="text" placeholder="Örn: Quality Management System Certificate"
+            maxlength="200" autocomplete="off" [value]="nameEn" (input)="nameEn = nameEnInput.value" #nameEnInput />
+        </div>
+
+        <div class="form-field">
+          <label for="certificate-display-order">
+            Görüntülenme Sırası
+          </label>
+
+          <input id="certificate-display-order" type="number" min="0" step="1" [value]="displayOrder"
+            (input)="displayOrder = orderInput.valueAsNumber" #orderInput />
+
+          <small>
+            Küçük sıra numarasına sahip sertifikalar
+            önce görüntülenir.
+          </small>
+        </div>
+
+      </div>
+
+      <div class="form-footer">
+
+        <p class="form-info">
+          Yeni sertifika başlangıçta yayında olmayacaktır.
+        </p>
+
+        <button class="create-button" type="submit" [disabled]="saving">
+
+          {{ saving ? 'Kaydediliyor...' : 'Sertifika Oluştur' }}
+
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+  <!-- SERTIFIKA LISTESI -->
+  <div class="certificates-content">
+
+
+    @if (imageError) {
+    <div class="form-message form-message-error" role="alert">
+      {{ imageError }}
+    </div>
+    }
+
+
+    @if (publishError) {
+    <div class="form-message form-message-error" role="alert">
+      {{ publishError }}
+    </div>
+    }
+
+    @if (loading) {
+
+    <p class="state-message">
+      Sertifikalar yükleniyor...
+    </p>
+
+    } @else if (errorMessage) {
+
+    <div class="error-message" role="alert">
+      <p>{{ errorMessage }}</p>
+
+      <button type="button" (click)="loadCertificates()">
+        Tekrar Dene
+      </button>
+    </div>
+
+    } @else if (certificates.length === 0) {
+
+    <div class="empty-state">
+      <h2>Henüz sertifika eklenmedi</h2>
+      <p>
+        Şirketinize ait sertifikalar eklendiğinde
+        burada listelenecektir.
+      </p>
+    </div>
+
+    } @else {
+
+    <div class="list-heading">
+      <h2>Sertifika Listesi</h2>
+
+      <span>
+        Toplam {{ certificates.length }} sertifika
+      </span>
+    </div>
+
+    <div class="table-wrapper">
+
+      <table class="certificates-table">
+
+        <thead>
+          <tr>
+            <th>Görsel</th>
+            <th>Sertifika Adı</th>
+            <th>Sıra</th>
+            <th>Yayın Durumu</th>
+            <th>Görsel İşlemleri</th>
+            <th>Yayın İşlemleri</th>
+            <th>Düzenleme</th>
+            <th>Silme</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          @for (certificate of certificates; track certificate.id) {
+
+          <tr>
+
+            <td>
+              @if (certificate.imageUrl) {
+
+              <img class="certificate-thumbnail" [src]="certificate.imageUrl" [alt]="certificate.nameTr"
+                loading="lazy" />
+
+              } @else {
+
+              <span class="no-image">
+                Görsel yok
+              </span>
+
+              }
+            </td>
+
+            <td>
+              <strong>
+                {{ certificate.nameTr }}
+              </strong>
+
+              <span class="certificate-name-en">
+                {{ certificate.nameEn }}
+              </span>
+            </td>
+
+            <td>
+              {{ certificate.displayOrder }}
+            </td>
+
+            <td>
+              @if (certificate.isPublished) {
+
+              <span class="status status-published">
+                Yayında
+              </span>
+
+              } @else {
+
+              <span class="status status-draft">
+                Yayında Değil
+              </span>
+
+              }
+            </td>
+
+
+            <td>
+              <input #certificateImageInput type="file" accept=".jpg,.jpeg,.png,.webp" hidden
+                [disabled]="uploadingCertificateId !== null" (change)="uploadCertificateImage(
+                      certificate.id,
+                      certificateImageInput
+                    )" />
+
+              <button type="button" class="image-upload-button" [disabled]="uploadingCertificateId !== null"
+                (click)="certificateImageInput.click()">
+
+                @if (uploadingCertificateId === certificate.id) {
+                Yükleniyor...
+                } @else if (certificate.imageUrl) {
+                Görseli Değiştir
+                } @else {
+                Görsel Yükle
+                }
+
+              </button>
+            </td>
+
+
+            <!-- SERTIFIKA YAYINLAMA / YAYINDAN KALDIRMA -->
+            <td>
+              <button type="button" class="publish-button" [class.unpublish-button]="certificate.isPublished"
+                [disabled]="publishingCertificateId !== null ||
+                uploadingCertificateId !== null ||
+                (!certificate.isPublished && !certificate.imageUrl)"
+                (click)="toggleCertificatePublication(certificate)">
+
+                @if (publishingCertificateId === certificate.id) {
+                İşleniyor...
+                } @else if (certificate.isPublished) {
+                Yayından Kaldır
+                } @else {
+                Yayınla
+                }
+
+              </button>
+            </td>
+
+
+            <!-- SERTIFIKA DUZENLEME BUTONU -->
+            <td>
+              <button type="button" class="edit-button" [disabled]="updating" (click)="startEditing(certificate)">
+                Düzenle
+              </button>
+            </td>
+
+            <!-- SERTIFIKA SILME BUTONU -->
+            <td>
+              <button type="button" class="delete-button" [disabled]="deletingCertificateId !== null ||
+                updating ||
+                uploadingCertificateId !== null ||
+                publishingCertificateId !== null" (click)="deleteCertificate(certificate)">
+
+                @if (deletingCertificateId === certificate.id) {
+                Siliniyor...
+                } @else {
+                Sil
+                }
+
+              </button>
+            </td>
+          </tr>
+
+
+          @if (editingCertificateId === certificate.id) {
+
+          <tr class="edit-row">
+            <td colspan="8">
+
+              <div class="certificate-edit-panel">
+
+                <h3>Sertifika Bilgilerini Düzenle</h3>
+
+                @if (editingError) {
+                <div class="form-message form-message-error" role="alert">
+                  {{ editingError }}
+                </div>
+                }
+
+                <form class="certificate-edit-form" (submit)="updateCertificate(certificate); $event.preventDefault()">
+
+                  <div class="form-grid">
+
+                    <div class="form-field">
+                      <label for="edit-name-tr">
+                        Sertifika Adı (Türkçe)
+                      </label>
+
+                      <input id="edit-name-tr" type="text" maxlength="200" [value]="editNameTr"
+                        (input)="editNameTr = editTrInput.value" #editTrInput />
+                    </div>
+
+                    <div class="form-field">
+                      <label for="edit-name-en">
+                        Sertifika Adı (İngilizce)
+                      </label>
+
+                      <input id="edit-name-en" type="text" maxlength="200" [value]="editNameEn"
+                        (input)="editNameEn = editEnInput.value" #editEnInput />
+                    </div>
+
+                    <div class="form-field">
+                      <label for="edit-display-order">
+                        Görüntülenme Sırası
+                      </label>
+
+                      <input id="edit-display-order" type="number" min="0" step="1" [value]="editDisplayOrder"
+                        (input)="editDisplayOrder = editOrderInput.valueAsNumber" #editOrderInput />
+                    </div>
+
+                  </div>
+
+                  <div class="edit-actions">
+
+                    <button type="button" class="cancel-edit-button" [disabled]="updating" (click)="cancelEditing()">
+                      İptal
+                    </button>
+
+                    <button type="submit" class="save-edit-button" [disabled]="updating">
+                      {{ updating ? 'Kaydediliyor...' : 'Değişiklikleri Kaydet' }}
+                    </button>
+
+                  </div>
+
+                </form>
+
+              </div>
+
+            </td>
+
+          </tr>
+
+          }
+
+
+          }
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    }
+
+  </div>
+
+
+  <!-- MODERN SERTIFIKA SILME ONAY PENCERESI -->
+  @if (pendingDeleteCertificate; as certificate) {
+
+  <div class="delete-modal-overlay">
+
+    <div class="delete-modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title"
+      aria-describedby="delete-modal-description">
+
+      <div class="delete-modal-icon">
+        !
+      </div>
+
+      <h2 id="delete-modal-title">
+        Sertifikayı Silmek İstiyor Musunuz?
+      </h2>
+
+      <p id="delete-modal-description" class="delete-modal-description">
+        <strong>{{ certificate.nameTr }}</strong>
+        sertifikası ve ona ait görsel kalıcı olarak silinecektir.
+      </p>
+
+      <p class="delete-modal-warning">
+        Bu işlem geri alınamaz.
+      </p>
+
+      <div class="delete-modal-actions">
+
+        <button type="button" class="delete-modal-cancel" [disabled]="deletingCertificateId !== null"
+          (click)="cancelDeleteCertificate()">
+          Vazgeç
+        </button>
+
+        <button type="button" class="delete-modal-confirm" [disabled]="deletingCertificateId !== null"
+          (click)="confirmDeleteCertificate()">
+
+          @if (deletingCertificateId !== null) {
+          Siliniyor...
+          } @else {
+          Evet, Sil
+          }
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  }
+
+  <!-- SAG UST TOAST BILDIRIMI -->
+  @if (toastMessage) {
+
+  <div class="certificate-toast" [class.toast-success]="toastType === 'success'"
+    [class.toast-error]="toastType === 'error'" role="status" aria-live="polite">
+
+    <div class="toast-icon">
+      @if (toastType === 'success') {
+      ✓
+      } @else {
+      !
+      }
+    </div>
+
+    <div class="toast-content">
+      <strong>
+        {{ toastType === 'success' ? 'İşlem Başarılı' : 'İşlem Uyarısı' }}
+      </strong>
+
+      <p>{{ toastMessage }}</p>
+    </div>
+
+    <button type="button" class="toast-close" aria-label="Bildirimi kapat" (click)="closeToast()">
+      ×
+    </button>
+
+  </div>
+
+  }
+
+
+</section>

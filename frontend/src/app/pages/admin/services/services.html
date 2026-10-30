@@ -1,0 +1,142 @@
+
+<section class="admin-services">
+
+  <!-- SAYFA BASLIGI -->
+  <div class="page-header">
+    <div>
+      <span class="page-label">
+        BMG İNŞAAT YÖNETİM PANELİ
+      </span>
+
+      <h1>Hizmetler Yönetimi</h1>
+
+      <p>
+        Şirketinizin sunduğu hizmetleri ve
+        yayın durumlarını buradan yönetebilirsiniz.
+      </p>
+    </div>
+
+    <div class="service-count">
+      <span>Toplam Hizmet</span>
+      <strong>{{ services.length }}</strong>
+    </div>
+  </div>
+
+  <!-- YUKLENME DURUMU -->
+  @if (loading) {
+    <div class="state-message" role="status">
+      <p>Hizmetler yükleniyor...</p>
+    </div>
+  }
+
+  <!-- HATA DURUMU -->
+  @else if (errorMessage) {
+    <div class="state-message error" role="alert">
+      <p>{{ errorMessage }}</p>
+
+      <button
+        type="button"
+        (click)="loadServices()">
+        Tekrar Dene
+      </button>
+    </div>
+  }
+
+  <!-- BOS LISTE -->
+  @else if (services.length === 0) {
+    <div class="state-message empty">
+      <h2>Henüz hizmet eklenmemiş</h2>
+
+      <p>
+        Hizmetleriniz eklendiğinde burada
+        listelenecektir.
+      </p>
+    </div>
+  }
+
+  <!-- HIZMET LISTESI -->
+  @else {
+    <div class="services-list-header">
+      <h2>Mevcut Hizmetler</h2>
+
+      <span>
+        {{ services.length }} hizmet listeleniyor
+      </span>
+    </div>
+
+    <div class="services-grid">
+
+      @for (service of services; track service.id) {
+
+        <article class="service-card">
+
+          <!-- HIZMET GORSELI -->
+          <div class="service-image">
+
+            @if (service.imageUrl) {
+              <img
+                [src]="getImageSrc(service.imageUrl)"
+                [alt]="service.titleTr"
+                loading="lazy"
+              />
+            } @else {
+              <div class="image-placeholder">
+                <span>Görsel yüklenmemiş</span>
+              </div>
+            }
+
+          </div>
+
+          <!-- HIZMET BILGILERI -->
+          <div class="service-content">
+
+            <div class="service-status">
+              @if (service.isPublished) {
+                <span class="status-badge published">
+                  Yayında
+                </span>
+              } @else {
+                <span class="status-badge draft">
+                  Taslak
+                </span>
+              }
+
+              <span class="display-order">
+                Sıra: {{ service.displayOrder }}
+              </span>
+            </div>
+
+            <div class="service-titles">
+              <h3>{{ service.titleTr }}</h3>
+              <p class="english-title">
+                {{ service.titleEn }}
+              </p>
+            </div>
+
+            <div class="service-descriptions">
+              <div>
+                <strong>Türkçe Açıklama</strong>
+                <p>{{ service.descriptionTr }}</p>
+              </div>
+
+              <div>
+                <strong>İngilizce Açıklama</strong>
+                <p>{{ service.descriptionEn }}</p>
+              </div>
+            </div>
+
+            <div class="service-meta">
+              <span>Hizmet No: {{ service.id }}</span>
+            </div>
+
+          </div>
+
+        </article>
+
+      }
+
+    </div>
+  }
+
+</section>
+

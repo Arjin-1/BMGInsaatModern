@@ -3,3 +3,7 @@
 }
 
 <router-outlet />
+
+@if (!router.url.startsWith('/admin')) {
+  <app-footer />
+}
