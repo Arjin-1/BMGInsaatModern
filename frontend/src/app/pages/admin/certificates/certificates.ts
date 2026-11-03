@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { switchMap } from 'rxjs';
+import { toast } from 'ngx-sonner';
 
 interface Certificate {
   id: number;
@@ -68,14 +69,6 @@ export class Certificates implements OnInit {
   
   // Ozel silme onay penceresi
   pendingDeleteCertificate: Certificate | null = null;
-
-  // Toast bildirimleri
-  toastMessage = '';
-  toastType: 'success' | 'error' = 'success';
-
-  private toastTimer: ReturnType<typeof setTimeout> | null = null;
-
-
 
 
   ngOnInit(): void {
@@ -504,37 +497,17 @@ export class Certificates implements OnInit {
   }
 
   
-  // Basari veya hata bildirimi goster
+  // Ortak ngx-sonner bildirim sistemi
   showToast(
     message: string,
     type: 'success' | 'error' = 'success'
   ): void {
-    if (this.toastTimer !== null) {
-      clearTimeout(this.toastTimer);
+    if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast.error(message);
     }
-
-    this.toastMessage = message;
-    this.toastType = type;
-    this.cdr.markForCheck();
-
-    this.toastTimer = setTimeout(() => {
-      this.toastMessage = '';
-      this.toastTimer = null;
-      this.cdr.markForCheck();
-    }, 4000);
   }
-
-  // Toast bildirimini elle kapat
-  closeToast(): void {
-    if (this.toastTimer !== null) {
-      clearTimeout(this.toastTimer);
-      this.toastTimer = null;
-    }
-
-    this.toastMessage = '';
-    this.cdr.markForCheck();
-  }
-
   
   // Sil butonuna basildiginda ozel onay penceresini ac
   deleteCertificate(certificate: Certificate): void {

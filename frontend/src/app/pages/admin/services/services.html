@@ -1,4 +1,3 @@
-
 <section class="admin-services">
 
   <!-- SAYFA BASLIGI -->
@@ -22,121 +21,428 @@
     </div>
   </div>
 
-  <!-- YUKLENME DURUMU -->
-  @if (loading) {
+
+  <!-- YENI HIZMET EKLEME FORMU -->
+  <section class="service-create-section">
+
+    <div class="form-header">
+      <div>
+        <span class="page-label">
+          YENİ HİZMET
+        </span>
+
+        <h2>Yeni Hizmet Ekle</h2>
+
+        <p>
+          Hizmetin Türkçe ve İngilizce bilgilerini
+          doldurarak yeni bir kayıt oluşturabilirsiniz.
+        </p>
+      </div>
+    </div>
+
+    <form (ngSubmit)="createService()" #serviceForm="ngForm">
+
+      <div class="form-grid">
+
+        <!-- TURKCE BASLIK -->
+        <div class="form-field">
+          <label for="service-title-tr">
+            Hizmet Başlığı (Türkçe) *
+          </label>
+
+          <input id="service-title-tr" type="text" name="titleTr" [(ngModel)]="titleTr" maxlength="200"
+            placeholder="Örn: Altyapı İnşaatı" required [disabled]="saving" />
+        </div>
+
+        <!-- TURKCE ACIKLAMA -->
+        <div class="form-field full-width">
+          <label for="service-description-tr">
+            Hizmet Açıklaması (Türkçe) *
+          </label>
+
+          <textarea id="service-description-tr" name="descriptionTr" [(ngModel)]="descriptionTr" rows="5"
+            placeholder="Hizmetin Türkçe açıklamasını yazınız..." required [disabled]="saving"></textarea>
+        </div>
+
+        <!-- GORUNTULENME SIRASI -->
+        <div class="form-field">
+          <label for="service-display-order">
+            Görüntülenme Sırası
+          </label>
+
+          <input id="service-display-order" type="number" name="displayOrder" [(ngModel)]="displayOrder" min="0"
+            max="2147483647" step="1" required [disabled]="saving" />
+
+          <small>
+            Küçük sayılar önce gösterilir.
+          </small>
+        </div>
+
+      </div>
+
+      <!-- HATA MESAJI -->
+      @if (formError) {
+      <div class="form-message error" role="alert">
+        {{ formError }}
+      </div>
+      }
+
+      <!-- KAYDET BUTONU -->
+      <div class="form-actions">
+
+        <button type="submit" class="save-button" [disabled]="saving || serviceForm.invalid">
+          @if (saving) {
+          Hizmet Kaydediliyor...
+          } @else {
+          + Yeni Hizmet Oluştur
+          }
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+  <!-- HIZMETLER LISTESI -->
+  <div class="services-content">
+
+    @if (loading) {
+
     <div class="state-message" role="status">
       <p>Hizmetler yükleniyor...</p>
     </div>
-  }
 
-  <!-- HATA DURUMU -->
-  @else if (errorMessage) {
+    } @else if (errorMessage) {
+
     <div class="state-message error" role="alert">
       <p>{{ errorMessage }}</p>
-
-      <button
-        type="button"
-        (click)="loadServices()">
+      <button type="button" (click)="loadServices()">
         Tekrar Dene
       </button>
     </div>
-  }
 
-  <!-- BOS LISTE -->
-  @else if (services.length === 0) {
+    } @else if (services.length === 0) {
+
     <div class="state-message empty">
-      <h2>Henüz hizmet eklenmemiş</h2>
-
+      <h2>Henüz hizmet eklenmedi</h2>
       <p>
-        Hizmetleriniz eklendiğinde burada
-        listelenecektir.
+        Şirketinize ait hizmetler eklendiğinde
+        burada listelenecektir.
       </p>
     </div>
-  }
 
-  <!-- HIZMET LISTESI -->
-  @else {
-    <div class="services-list-header">
-      <h2>Mevcut Hizmetler</h2>
+    } @else {
 
-      <span>
-        {{ services.length }} hizmet listeleniyor
-      </span>
+    <div class="list-heading">
+      <h2>Hizmet Listesi</h2>
+      <span>Toplam {{ services.length }} hizmet</span>
     </div>
 
-    <div class="services-grid">
+    <div class="table-wrapper">
 
-      @for (service of services; track service.id) {
+      <table class="services-table">
 
-        <article class="service-card">
+        <thead>
+          <tr>
+            <th scope="col">Görsel</th>
+            <th scope="col">Hizmet Adı</th>
+            <th scope="col">Sıra</th>
+            <th scope="col">Yayın Durumu</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Görsel İşlemleri</th>
+            <th scope="col">Yayın İşlemleri</th>
+            <th scope="col">Düzenleme</th>
+            <th scope="col">Silme</th>
+          </tr>
+        </thead>
 
-          <!-- HIZMET GORSELI -->
-          <div class="service-image">
+        <tbody>
 
-            @if (service.imageUrl) {
-              <img
-                [src]="getImageSrc(service.imageUrl)"
-                [alt]="service.titleTr"
-                loading="lazy"
-              />
-            } @else {
-              <div class="image-placeholder">
-                <span>Görsel yüklenmemiş</span>
-              </div>
-            }
+          @for (service of services; track service.id) {
 
-          </div>
+          <tr>
 
-          <!-- HIZMET BILGILERI -->
-          <div class="service-content">
-
-            <div class="service-status">
-              @if (service.isPublished) {
-                <span class="status-badge published">
-                  Yayında
-                </span>
+            <!-- GORSEL -->
+            <td>
+              @if (service.imageUrl) {
+              <img class="service-thumbnail" [src]="getImageSrc(service.imageUrl)" [alt]="service.titleTr"
+                loading="lazy" />
               } @else {
-                <span class="status-badge draft">
-                  Taslak
-                </span>
-              }
-
-              <span class="display-order">
-                Sıra: {{ service.displayOrder }}
+              <span class="no-image">
+                Görsel yok
               </span>
-            </div>
+              }
+            </td>
 
-            <div class="service-titles">
-              <h3>{{ service.titleTr }}</h3>
-              <p class="english-title">
+            <!-- HIZMET ADI -->
+            <td>
+              <strong>{{ service.titleTr }}</strong>
+              <span class="service-name-en">
                 {{ service.titleEn }}
-              </p>
-            </div>
+              </span>
+            </td>
 
-            <div class="service-descriptions">
-              <div>
-                <strong>Türkçe Açıklama</strong>
-                <p>{{ service.descriptionTr }}</p>
+            <!-- SIRALAMA -->
+            <td>
+              {{ service.displayOrder }}
+            </td>
+
+            <!-- YAYIN DURUMU -->
+            <td>
+              @if (service.isPublished) {
+              <span class="status status-published">
+                Yayında
+              </span>
+              } @else {
+              <span class="status status-draft">
+                Yayında Değil
+              </span>
+              }
+            </td>
+
+            <!-- ACIKLAMALAR -->
+            <td>
+              <details class="service-details">
+                <summary>Detayları Göster</summary>
+
+                <div class="service-details-content">
+                  <strong>Türkçe Açıklama</strong>
+                  <p>{{ service.descriptionTr }}</p>
+
+                  <strong>İngilizce Açıklama</strong>
+                  <p>{{ service.descriptionEn }}</p>
+                </div>
+              </details>
+            </td>
+
+            <!-- GORSEL YUKLEME -->
+            <td>
+              <input #serviceImageInput type="file" accept=".jpg,.jpeg,.png,.webp" hidden
+                [disabled]="uploadingServiceId !== null" (change)="uploadServiceImage(
+                    service.id,
+                    serviceImageInput
+                  )" />
+
+              <button type="button" class="image-upload-button" [disabled]="uploadingServiceId !== null"
+                (click)="serviceImageInput.click()">
+                @if (uploadingServiceId === service.id) {
+                Yükleniyor...
+                } @else if (service.imageUrl) {
+                Görseli Değiştir
+                } @else {
+                Görsel Yükle
+                }
+              </button>
+            </td>
+
+
+            <!-- HIZMET YAYINLAMA / YAYINDAN KALDIRMA -->
+            <td>
+              <button type="button" class="publish-button" [class.unpublish-button]="service.isPublished" [disabled]="
+                      publishingServiceId !== null ||
+                      uploadingServiceId !== null ||
+                      (!service.isPublished && !service.imageUrl)
+                      " (click)="toggleServicePublication(service)">
+
+                @if (publishingServiceId === service.id) {
+                İşleniyor...
+                } @else if (service.isPublished) {
+                Yayından Kaldır
+                } @else {
+                Yayınla
+                }
+
+              </button>
+            </td>
+
+            <!-- HIZMET DUZENLEME BUTONU -->
+            <td>
+              <button type="button" class="edit-button" [disabled]="
+                updatingService ||
+                uploadingServiceId !== null ||
+                publishingServiceId !== null
+                " (click)="startEditingService(service)">
+                Düzenle
+              </button>
+            </td>
+
+                        <!-- HIZMET SILME BUTONU -->
+            <td>
+              <button type="button" class="delete-button" [disabled]="
+                deletingServiceId !== null ||
+                updatingService ||
+                uploadingServiceId !== null ||
+                publishingServiceId !== null
+                " (click)="deleteService(service)">
+                @if (deletingServiceId === service.id) {
+                Siliniyor...
+                } @else {
+                Sil
+                }
+              </button>
+            </td>
+
+
+          </tr>
+
+
+          <!-- HIZMET DUZENLEME FORMU -->
+          @if (editingServiceId === service.id) {
+
+          <tr class="edit-row">
+            <td colspan="9">
+
+              <div class="service-edit-panel">
+
+                <h3>Hizmet Bilgilerini Düzenle</h3>
+
+                <p class="edit-description">
+                  Türkçe bilgileri güncelleyin.
+                  Değiştirilen metinler kaydedilirken
+                  İngilizceye otomatik çevrilecektir.
+                </p>
+
+                <form class="service-edit-form" (submit)="updateService(service); $event.preventDefault()">
+
+                  <div class="form-grid">
+
+                    <!-- TURKCE BASLIK -->
+                    <div class="form-field">
+
+                      <label [attr.for]="'edit-service-title-' + service.id">
+                        Hizmet Başlığı (Türkçe)
+                      </label>
+
+                      <input [id]="'edit-service-title-' + service.id" type="text" maxlength="200" required
+                        [value]="editTitleTr" (input)="editTitleTr = titleInput.value" #titleInput />
+
+                    </div>
+
+                    <!-- SIRALAMA -->
+                    <div class="form-field">
+
+                      <label [attr.for]="'edit-service-order-' + service.id">
+                        Görüntülenme Sırası
+                      </label>
+
+                      <input [id]="'edit-service-order-' + service.id" type="number" min="0" step="1" required
+                        [value]="editDisplayOrder" (input)="editDisplayOrder = orderInput.valueAsNumber" #orderInput />
+
+                    </div>
+
+                    <!-- TURKCE ACIKLAMA -->
+                    <div class="form-field description-field">
+
+                      <label [attr.for]="'edit-service-description-' + service.id">
+                        Hizmet Açıklaması (Türkçe)
+                      </label>
+
+                      <textarea [id]="'edit-service-description-' + service.id" rows="6" required
+                        [value]="editDescriptionTr" (input)="editDescriptionTr = descriptionInput.value"
+                        #descriptionInput></textarea>
+
+                      <small>
+                        Açıklamayı istediğiniz zaman değiştirebilirsiniz.
+                        İngilizce açıklama otomatik güncellenecektir.
+                      </small>
+
+                    </div>
+
+                  </div>
+
+                  <!-- ISLEM BUTONLARI -->
+                  <div class="edit-actions">
+
+                    <button type="button" class="cancel-edit-button" [disabled]="updatingService"
+                      (click)="cancelEditingService()">
+                      İptal
+                    </button>
+
+                    <button type="submit" class="save-edit-button" [disabled]="updatingService">
+                      @if (updatingService) {
+                      Kaydediliyor...
+                      } @else {
+                      Değişiklikleri Kaydet
+                      }
+                    </button>
+
+                  </div>
+
+                </form>
+
               </div>
 
-              <div>
-                <strong>İngilizce Açıklama</strong>
-                <p>{{ service.descriptionEn }}</p>
-              </div>
-            </div>
+            </td>
 
-            <div class="service-meta">
-              <span>Hizmet No: {{ service.id }}</span>
-            </div>
+          </tr>
 
-          </div>
+          }
 
-        </article>
 
-      }
+          }
+
+        </tbody>
+
+      </table>
 
     </div>
+
+    }
+
+  </div>
+
+
+  <!-- HIZMET SILME ONAY PENCERESI -->
+  @if (pendingDeleteService; as service) {
+
+  <div class="delete-modal-overlay">
+
+    <div class="delete-modal" role="dialog" aria-modal="true" aria-labelledby="service-delete-title"
+      aria-describedby="service-delete-description">
+
+      <div class="delete-modal-icon" aria-hidden="true">
+        !
+      </div>
+
+      <h2 id="service-delete-title">
+        Hizmeti Silmek İstiyor Musunuz?
+      </h2>
+
+      <p id="service-delete-description" class="delete-modal-description">
+        <strong>{{ service.titleTr }}</strong>
+        hizmeti ve ona ait görsel kalıcı olarak silinecektir.
+      </p>
+
+      <p class="delete-modal-warning">
+        Bu işlem geri alınamaz.
+      </p>
+
+      <div class="delete-modal-actions">
+
+        <button type="button" class="delete-modal-cancel" [disabled]="deletingServiceId !== null"
+          (click)="cancelDeleteService()">
+          Vazgeç
+        </button>
+
+        <button type="button" class="delete-modal-confirm" [disabled]="deletingServiceId !== null"
+          (click)="confirmDeleteService()">
+          @if (deletingServiceId !== null) {
+          Siliniyor...
+          } @else {
+          Evet, Sil
+          }
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
   }
+
+
 
 </section>
-

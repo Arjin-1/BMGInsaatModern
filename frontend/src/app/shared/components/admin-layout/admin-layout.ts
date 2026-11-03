@@ -2,10 +2,11 @@ import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { NgxSonnerToaster } from 'ngx-sonner';
 
 @Component({
   selector: 'app-admin-layout',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgxSonnerToaster],
   templateUrl: './admin-layout.html',
   styleUrl: './admin-layout.scss',
 })

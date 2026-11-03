@@ -1,1 +1,172 @@
-<p>services works!</p>
+
+<main class="services-page">
+
+  <!-- SAYFA BASLIGI -->
+  <section class="services-hero">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a routerLink="/">
+          {{ language() === 'tr' ? 'Ana Sayfa' : 'Home' }}
+        </a>
+
+        <span>/</span>
+
+        <span>
+          {{ language() === 'tr' ? 'Hizmetlerimiz' : 'Our Services' }}
+        </span>
+      </nav>
+
+      <div class="hero-content">
+
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'FAALİYET ALANLARIMIZ'
+            : 'OUR AREAS OF EXPERTISE' }}
+        </span>
+
+        <h1>
+          {{ language() === 'tr'
+            ? 'Hizmetlerimiz'
+            : 'Our Services' }}
+        </h1>
+
+        <p>
+          {{ language() === 'tr'
+            ? 'Altyapı ve üstyapı projelerinde kaliteli, güvenilir ve sürdürülebilir çözümler sunuyoruz.'
+            : 'We deliver high-quality, reliable and sustainable solutions in infrastructure and superstructure projects.' }}
+        </p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HIZMETLER LISTESI -->
+  <section class="services-section">
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'UZMANLIK ALANLARIMIZ'
+            : 'OUR EXPERTISE' }}
+        </span>
+
+        <h2>
+          {{ language() === 'tr'
+            ? 'Sunduğumuz Hizmetler'
+            : 'Services We Provide' }}
+        </h2>
+
+      </div>
+
+      <!-- YUKLENIYOR -->
+      @if (loading) {
+
+        <div class="state-message" role="status">
+          <p>
+            {{ language() === 'tr'
+              ? 'Hizmetler yükleniyor...'
+              : 'Loading services...' }}
+          </p>
+        </div>
+
+      } @else if (errorMessage) {
+
+        <!-- HATA DURUMU -->
+        <div class="state-message" role="alert">
+
+          <p>
+            {{ language() === 'tr'
+              ? errorMessage
+              : 'An error occurred while loading services.' }}
+          </p>
+
+          <button type="button" (click)="loadServices()">
+            {{ language() === 'tr' ? 'Tekrar Dene' : 'Try Again' }}
+          </button>
+
+        </div>
+
+      } @else if (services.length === 0) {
+
+        <!-- BOS LISTE -->
+        <div class="state-message">
+          <p>
+            {{ language() === 'tr'
+              ? 'Henüz yayınlanmış hizmet bulunmuyor.'
+              : 'No published services are available yet.' }}
+          </p>
+        </div>
+
+      } @else {
+
+        <!-- DINAMIK HIZMET KARTLARI -->
+        <div class="services-grid">
+
+          @for (service of services; track service.id) {
+
+            <article class="service-card">
+
+              <!-- HIZMET GORSELI -->
+              <div class="service-image">
+
+                @if (service.imageUrl) {
+
+                  <img
+                    [src]="getImageSrc(service.imageUrl)"
+                    [alt]="language() === 'tr'
+                      ? service.titleTr
+                      : (service.titleEn?.trim() || service.titleTr)"
+                    loading="lazy"
+                  />
+
+                } @else {
+
+                  <div class="image-placeholder">
+                    <span>
+                      {{ language() === 'tr'
+                        ? 'Görsel bulunmuyor'
+                        : 'No image available' }}
+                    </span>
+                  </div>
+
+                }
+
+              </div>
+
+              <!-- HIZMET BILGILERI -->
+              <div class="service-info">
+
+                <span class="service-label">
+                  {{ language() === 'tr' ? 'HİZMETLERİMİZ' : 'OUR SERVICES' }}
+                </span>
+
+                <h3>
+                  {{ language() === 'tr'
+                    ? service.titleTr
+                    : (service.titleEn?.trim() || service.titleTr) }}
+                </h3>
+
+                <p class="service-description">
+                  {{ language() === 'tr'
+                    ? service.descriptionTr
+                    : (service.descriptionEn?.trim() || service.descriptionTr) }}
+                </p>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+  </section>
+
+</main>
+

@@ -14,13 +14,16 @@ public class AdminConstructionServicesController : ControllerBase
 
     private readonly IConstructionServiceRepository _serviceRepository;
     private readonly IConstructionServiceImageStorage _serviceImageStorage;
+    private readonly ITranslationService _translationService;
 
     public AdminConstructionServicesController(
         IConstructionServiceRepository serviceRepository,
-        IConstructionServiceImageStorage serviceImageStorage)
+        IConstructionServiceImageStorage serviceImageStorage,
+        ITranslationService translationService)
     {
         _serviceRepository = serviceRepository;
         _serviceImageStorage = serviceImageStorage;
+        _translationService = translationService;
     }
 
 
@@ -49,40 +52,38 @@ public class AdminConstructionServicesController : ControllerBase
         return Ok(result);
     }
 
-    // Yeni hizmet olustur
+
+    // Yeni hizmet olustur - Otomatik Ingilizce ceviri
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(
         [FromBody] CreateConstructionServiceRequest request,
         CancellationToken cancellationToken)
     {
+        // Turkce bilgileri al
         var titleTr = request.TitleTr?.Trim();
-        var titleEn = request.TitleEn?.Trim();
-
         var descriptionTr = request.DescriptionTr?.Trim();
-        var descriptionEn = request.DescriptionEn?.Trim();
 
-        // Zorunlu alanlari kontrol et
+        // Zorunlu alan kontrolu
         if (string.IsNullOrWhiteSpace(titleTr) ||
-            string.IsNullOrWhiteSpace(titleEn) ||
-            string.IsNullOrWhiteSpace(descriptionTr) ||
-            string.IsNullOrWhiteSpace(descriptionEn))
+            string.IsNullOrWhiteSpace(descriptionTr))
         {
             return BadRequest(new
             {
-                message = "Turkce ve Ingilizce baslik ve aciklamalar zorunludur."
+                message = "Turkce baslik ve aciklama zorunludur."
             });
         }
 
-        // Veritabani karakter sinirini kontrol et
-        if (titleTr.Length > 200 || titleEn.Length > 200)
+        // Baslik karakter siniri
+        if (titleTr.Length > 200)
         {
             return BadRequest(new
             {
-                message = "Hizmet basliklari 200 karakteri asamaz."
+                message = "Hizmet basligi 200 karakteri asamaz."
             });
         }
 
+        // Goruntulenme sirasi kontrolu
         if (request.DisplayOrder < 0)
         {
             return BadRequest(new
@@ -91,30 +92,71 @@ public class AdminConstructionServicesController : ControllerBase
             });
         }
 
+        // Azure Translator ile otomatik Ingilizce ceviri
+        var titleEn = await _translationService
+            .TranslateToEnglishAsync(
+                titleTr,
+                cancellationToken);
+
+        var descriptionEn = await _translationService
+            .TranslateToEnglishAsync(
+                descriptionTr,
+                cancellationToken);
+
+        // Ceviri sonucunu kontrol et
+        if (string.IsNullOrWhiteSpace(titleEn) ||
+            string.IsNullOrWhiteSpace(descriptionEn))
+        {
+            return StatusCode(502, new
+            {
+                message = "Otomatik ceviri tamamlanamadi. Hizmet kaydedilmedi."
+            });
+        }
+
+        titleEn = titleEn.Trim();
+        descriptionEn = descriptionEn.Trim();
+
+        if (titleEn.Length > 200)
+        {
+            return BadRequest(new
+            {
+                message = "Cevrilen hizmet basligi 200 karakteri asiyor."
+            });
+        }
+
+        // Hizmet kaydini olustur
         var service = new ConstructionService
         {
             TitleTr = titleTr,
             TitleEn = titleEn,
+
             DescriptionTr = descriptionTr,
             DescriptionEn = descriptionEn,
+
             ImageUrl = string.Empty,
             IsPublished = false,
+
             DisplayOrder = request.DisplayOrder,
             CreatedAtUtc = DateTime.UtcNow
         };
 
+        // PostgreSQL'e kaydet
         var serviceId = await _serviceRepository
-            .CreateAsync(service, cancellationToken);
+            .CreateAsync(
+                service,
+                cancellationToken);
 
         return Ok(new
         {
             id = serviceId,
-            message = "Hizmet basariyla olusturuldu."
+            message = "Hizmet otomatik ceviriyle basariyla olusturuldu."
         });
     }
 
 
-    // Hizmet bilgilerini guncelle ve yayin durumunu yonet
+
+    
+    // Hizmet bilgilerini guncelle - Otomatik Ingilizce ceviri
     [HttpPut("{id:int}")]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Update(
@@ -141,34 +183,30 @@ public class AdminConstructionServicesController : ControllerBase
             });
         }
 
+        // Turkce bilgileri al
         var titleTr = request.TitleTr?.Trim();
-        var titleEn = request.TitleEn?.Trim();
-
         var descriptionTr = request.DescriptionTr?.Trim();
-        var descriptionEn = request.DescriptionEn?.Trim();
 
-        // Zorunlu alanlari kontrol et
+        // Zorunlu alan kontrolu
         if (string.IsNullOrWhiteSpace(titleTr) ||
-            string.IsNullOrWhiteSpace(titleEn) ||
-            string.IsNullOrWhiteSpace(descriptionTr) ||
-            string.IsNullOrWhiteSpace(descriptionEn))
+            string.IsNullOrWhiteSpace(descriptionTr))
         {
             return BadRequest(new
             {
-                message = "Turkce ve Ingilizce baslik ve aciklamalar zorunludur."
+                message = "Turkce baslik ve aciklama zorunludur."
             });
         }
 
-        // Baslik uzunluklarini kontrol et
-        if (titleTr.Length > 200 || titleEn.Length > 200)
+        // Baslik karakter siniri
+        if (titleTr.Length > 200)
         {
             return BadRequest(new
             {
-                message = "Hizmet basliklari 200 karakteri asamaz."
+                message = "Hizmet basligi 200 karakteri asamaz."
             });
         }
 
-        // Goruntulenme sirasini kontrol et
+        // Goruntulenme sirasi kontrolu
         if (request.DisplayOrder < 0)
         {
             return BadRequest(new
@@ -187,18 +225,64 @@ public class AdminConstructionServicesController : ControllerBase
             });
         }
 
-        // Hizmet bilgilerini guncelle
+        // Mevcut Ingilizce bilgileri koru
+        var titleEn = service.TitleEn;
+        var descriptionEn = service.DescriptionEn;
+
+        // Turkce baslik degistiyse yeniden cevir
+        if (service.TitleTr != titleTr ||
+            string.IsNullOrWhiteSpace(titleEn))
+        {
+            titleEn = await _translationService
+                .TranslateToEnglishAsync(
+                    titleTr,
+                    cancellationToken);
+        }
+
+        // Turkce aciklama degistiyse yeniden cevir
+        if (service.DescriptionTr != descriptionTr ||
+            string.IsNullOrWhiteSpace(descriptionEn))
+        {
+            descriptionEn = await _translationService
+                .TranslateToEnglishAsync(
+                    descriptionTr,
+                    cancellationToken);
+        }
+
+        // Ceviri sonucunu kontrol et
+        if (string.IsNullOrWhiteSpace(titleEn) ||
+            string.IsNullOrWhiteSpace(descriptionEn))
+        {
+            return StatusCode(502, new
+            {
+                message = "Otomatik ceviri tamamlanamadi. Hizmet guncellenmedi."
+            });
+        }
+
+        titleEn = titleEn.Trim();
+        descriptionEn = descriptionEn.Trim();
+
+        if (titleEn.Length > 200)
+        {
+            return BadRequest(new
+            {
+                message = "Cevrilen hizmet basligi 200 karakteri asiyor."
+            });
+        }
+
+        // Turkce ve Ingilizce bilgileri guncelle
         service.TitleTr = titleTr;
         service.TitleEn = titleEn;
 
         service.DescriptionTr = descriptionTr;
         service.DescriptionEn = descriptionEn;
 
+        // Diger bilgileri guncelle
         service.DisplayOrder = request.DisplayOrder;
         service.IsPublished = request.IsPublished;
-
         service.UpdatedAtUtc = DateTime.UtcNow;
 
+        // PostgreSQL'e kaydet
         await _serviceRepository.UpdateAsync(
             cancellationToken);
 
@@ -209,6 +293,7 @@ public class AdminConstructionServicesController : ControllerBase
             message = "Hizmet basariyla guncellendi."
         });
     }
+
 
     
     // Hizmete gorsel yukle veya mevcut gorseli degistir

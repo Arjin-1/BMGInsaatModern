@@ -407,35 +407,4 @@
 
   }
 
-  <!-- SAG UST TOAST BILDIRIMI -->
-  @if (toastMessage) {
-
-  <div class="certificate-toast" [class.toast-success]="toastType === 'success'"
-    [class.toast-error]="toastType === 'error'" role="status" aria-live="polite">
-
-    <div class="toast-icon">
-      @if (toastType === 'success') {
-      ✓
-      } @else {
-      !
-      }
-    </div>
-
-    <div class="toast-content">
-      <strong>
-        {{ toastType === 'success' ? 'İşlem Başarılı' : 'İşlem Uyarısı' }}
-      </strong>
-
-      <p>{{ toastMessage }}</p>
-    </div>
-
-    <button type="button" class="toast-close" aria-label="Bildirimi kapat" (click)="closeToast()">
-      ×
-    </button>
-
-  </div>
-
-  }
-
-
 </section>

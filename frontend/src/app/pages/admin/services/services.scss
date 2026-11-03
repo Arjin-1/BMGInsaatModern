@@ -94,231 +94,6 @@
     font-weight: 800;
   }
 }
-
-// LISTE BASLIGI
-.services-list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 15px;
-
-  margin-bottom: 25px;
-
-  h2 {
-    margin: 0;
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  span {
-    color: var(--muted);
-    font-size: 13px;
-  }
-}
-
-// HIZMET KARTLARI
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(min(100%, 330px), 1fr)
-  );
-  gap: 25px;
-}
-
-.service-card {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  overflow: hidden;
-
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.045);
-
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    border-color: rgba(196, 160, 82, 0.5);
-    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.09);
-  }
-}
-
-// HIZMET GORSELI
-.service-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 230px;
-  overflow: hidden;
-
-  background: #f2f3f4;
-  border-bottom: 1px solid var(--border);
-
-  img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-
-    transition: transform 0.35s ease;
-  }
-
-  .service-card:hover & img {
-    transform: scale(1.035);
-  }
-}
-
-.image-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 100%;
-  padding: 20px;
-
-  color: #9aa0a6;
-  font-size: 14px;
-  text-align: center;
-}
-
-// HIZMET ICERIGI
-.service-content {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  min-width: 0;
-  padding: 24px;
-}
-
-// YAYIN DURUMU
-.service-status {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-
-  margin-bottom: 20px;
-}
-
-.status-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-
-  padding: 7px 12px;
-  border-radius: 30px;
-
-  font-size: 11px;
-  font-weight: 700;
-
-  &::before {
-    content: "";
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: currentColor;
-  }
-
-  &.published {
-    color: #227348;
-    background: #e8f5ec;
-  }
-
-  &.draft {
-    color: #996b20;
-    background: #fff3db;
-  }
-}
-
-.display-order {
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 600;
-}
-
-// BASLIKLAR
-.service-titles {
-  margin-bottom: 20px;
-
-  h3 {
-    margin: 0 0 8px;
-    color: var(--dark);
-    font-size: 19px;
-    font-weight: 700;
-    line-height: 1.4;
-    overflow-wrap: anywhere;
-  }
-
-  .english-title {
-    margin: 0;
-    color: var(--gold);
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.6;
-    overflow-wrap: anywhere;
-  }
-}
-
-// ACIKLAMALAR
-.service-descriptions {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-  padding-top: 18px;
-  border-top: 1px solid var(--border);
-
-  div {
-    min-width: 0;
-  }
-
-  strong {
-    display: block;
-    margin-bottom: 7px;
-
-    color: #555e68;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
-    overflow-wrap: anywhere;
-    white-space: pre-line;
-  }
-}
-
-// KART ALT BILGISI
-.service-meta {
-  margin-top: auto;
-  padding-top: 20px;
-
-  span {
-    display: block;
-    padding-top: 14px;
-
-    color: #9299a2;
-    font-size: 11px;
-
-    border-top: 1px solid var(--border);
-  }
-}
-
 // YUKLENME / HATA / BOS LISTE
 .state-message {
   padding: 65px 25px;
@@ -385,10 +160,6 @@
   .page-header {
     padding: 25px;
   }
-
-  .services-grid {
-    gap: 20px;
-  }
 }
 
 // MOBIL
@@ -410,38 +181,1040 @@
   .service-count {
     width: 100%;
   }
+  .state-message {
+    padding: 45px 18px;
+  }
+}
+// ==========================================
+// YENI HIZMET EKLEME FORMU
+// ==========================================
 
-  .services-grid {
+.service-create-section {
+  margin-bottom: 35px;
+  padding: 32px;
+
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.035);
+}
+
+// FORM BASLIGI
+.form-header {
+  margin-bottom: 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+
+  h2 {
+    margin: 10px 0;
+    color: var(--dark);
+    font-size: 23px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+// FORM YERLESIMI
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+// FORM ALANLARI
+.form-field {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 9px;
+
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 13px 15px;
+
+    color: var(--dark);
+    background: #fafbfc;
+
+    border: 1px solid #dce0e5;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.6;
+
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      background 0.2s ease;
+
+    &::placeholder {
+      color: #9aa2ad;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: #b9bec6;
+    }
+
+    &:focus {
+      outline: none;
+      background: #ffffff;
+      border-color: var(--gold);
+
+      box-shadow: 0 0 0 3px rgba(196, 160, 82, 0.15);
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+  }
+
+  textarea {
+    min-height: 125px;
+    resize: vertical;
+  }
+
+  small {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+}
+
+// BASARI VE HATA MESAJLARI
+.form-message {
+  margin-top: 25px;
+  padding: 14px 18px;
+
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.7;
+
+  &.success {
+    color: #226b46;
+    background: #eaf6ee;
+    border: 1px solid #bddfc9;
+  }
+
+  &.error {
+    color: #a12e2e;
+    background: #fff0f0;
+    border: 1px solid #efc5c5;
+  }
+}
+
+// FORM BUTON ALANI
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 30px;
+  padding-top: 25px;
+
+  border-top: 1px solid var(--border);
+}
+
+// KAYDET BUTONU
+.save-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 46px;
+  padding: 13px 26px;
+
+  color: #ffffff;
+  background: var(--dark);
+
+  border: 1px solid var(--dark);
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+  }
+}
+
+// TABLET
+@media (max-width: 992px) {
+  .service-create-section {
+    padding: 25px;
+  }
+
+  .form-grid {
+    gap: 20px;
+  }
+}
+
+// MOBIL
+@media (max-width: 600px) {
+  .service-create-section {
+    padding: 20px;
+    margin-bottom: 25px;
+  }
+
+  .form-header {
+    h2 {
+      font-size: 21px;
+    }
+
+    p {
+      font-size: 13px;
+    }
+  }
+
+  .form-grid {
     grid-template-columns: minmax(0, 1fr);
     gap: 20px;
   }
 
-  .service-image {
-    height: 210px;
+  .form-field.full-width {
+    grid-column: auto;
   }
 
-  .service-content {
-    padding: 20px;
+  .form-actions {
+    justify-content: stretch;
   }
 
-  .services-list-header {
+  .save-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-field input,
+  .form-field textarea,
+  .save-button {
+    transition: none;
+  }
+
+  .save-button:hover {
+    transform: none;
+  }
+}
+/* ==========================================
+   HIZMETLER YONETIMI - TABLO TASARIMI
+   Sertifikalar paneli ile uyumlu
+   ========================================== */
+
+.services-content {
+  min-width: 0;
+  padding: 28px;
+  margin-top: 28px;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+/* LISTE BASLIGI */
+
+.services-content .list-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  h2 {
+    margin: 0;
+    color: #172b4d;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  span {
+    color: #64748b;
+    font-size: 14px;
+  }
+}
+
+/* TABLO KAPSAYICISI */
+
+.services-content .table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+/* HIZMETLER TABLOSU */
+
+.services-table {
+  width: 100%;
+  min-width: 940px;
+
+  border-collapse: collapse;
+  text-align: left;
+
+  thead {
+    background: #f8fafc;
+  }
+
+  th {
+    padding: 16px;
+
+    color: #475569;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 16px;
+
+    border-top: 1px solid #e2e8f0;
+
+    color: #334155;
+    font-size: 14px;
+    vertical-align: middle;
+  }
+
+  tbody tr:hover {
+    background: #fafbfc;
+  }
+
+  td strong {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #172b4d;
+    font-weight: 600;
+  }
+}
+
+/* HIZMET GORSELI */
+
+.service-thumbnail {
+  display: block;
+
+  width: 90px;
+  height: 70px;
+
+  object-fit: cover;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+.services-table .no-image {
+  display: inline-block;
+  padding: 10px;
+
+  border-radius: 6px;
+  background: #f1f5f9;
+
+  color: #64748b;
+  font-size: 12px;
+}
+
+/* TURKCE / INGILIZCE BASLIKLAR */
+
+.service-name-en {
+  display: block;
+
+  color: #64748b;
+  font-size: 13px;
+}
+
+/* YAYIN DURUMU */
+
+.services-table .status {
+  display: inline-block;
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.services-table .status-published {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.services-table .status-draft {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* ACIKLAMA DETAYLARI */
+
+.service-details {
+  min-width: 150px;
+
+  summary {
+    color: #172b4d;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    &:hover {
+      color: #c59a30;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #c59a30;
+      outline-offset: 4px;
+    }
+  }
+}
+
+.service-details-content {
+  max-width: 260px;
+  margin-top: 14px;
+  padding: 14px;
+
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  strong {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #172b4d;
+    font-size: 12px;
+  }
+
+  p {
+    margin: 0 0 14px;
+
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.7;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* GORSEL YUKLEME BUTONU */
+
+.services-table .image-upload-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 40px;
+  padding: 10px 16px;
+
+  border: 1px solid #c59a30;
+  border-radius: 8px;
+
+  background: #fffaf0;
+  color: #8a681b;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #c59a30;
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(197, 154, 48, 0.35);
+    outline-offset: 3px;
+  }
+}
+
+/* TABLET VE MOBIL */
+
+@media (max-width: 768px) {
+  .services-content {
+    padding: 18px;
+  }
+
+  .services-content .list-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .services-table {
+    min-width: 940px;
+  }
+
+  .services-table .image-upload-button {
+    min-height: 42px;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-table .image-upload-button {
+    transition: none;
+
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+
+/* HIZMET YAYINLAMA BUTONU */
+
+.services-table .publish-button {
+  min-height: 40px;
+  padding: 10px 18px;
+
+  border: 1px solid #15803d;
+  border-radius: 8px;
+
+  background: #f0fdf4;
+  color: #166534;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #15803d;
+    color: #ffffff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* YAYINDAN KALDIR BUTONU */
+
+.services-table .unpublish-button {
+  border-color: #dc2626;
+  background: #fef2f2;
+  color: #b91c1c;
+
+  &:hover:not(:disabled) {
+    background: #dc2626;
+    color: #ffffff;
+  }
+}
+
+
+/* ==========================================
+   HIZMET DUZENLEME PANELI
+   Sertifikalar Yonetimi ile uyumlu
+   ========================================== */
+
+/* DUZENLEME TABLO SATIRI */
+
+.services-table .edit-row {
+  background: #f8fafc;
+
+  &:hover {
+    background: #f8fafc;
+  }
+
+  > td {
+    padding: 24px;
+    border-top: 1px solid #e2e8f0;
+  }
+}
+
+/* DUZENLEME PANELI */
+
+.service-edit-panel {
+  padding: 26px;
+
+  border: 1px solid #dbe3ee;
+  border-left: 4px solid #c59a30;
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  h3 {
+    margin: 0 0 10px;
+
+    color: #172b4d;
+    font-size: 19px;
+    font-weight: 700;
+  }
+
+  .edit-description {
+    margin: 0 0 24px;
+
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+}
+
+/* FORM ALANLARI */
+
+.service-edit-form {
+  width: 100%;
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+
+    label {
+      color: #334155;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+
+      padding: 12px 14px;
+
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+
+      outline: none;
+      background: #ffffff;
+      color: #172b4d;
+
+      font: inherit;
+      font-size: 14px;
+
+      transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &:focus {
+        border-color: #c59a30;
+        box-shadow: 0 0 0 3px rgba(197, 154, 48, 0.15);
+      }
+    }
+
+    input {
+      min-height: 46px;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    small {
+      color: #64748b;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  }
+
+  /* ACIKLAMA TAM GENISLIKTE */
+
+  .description-field {
+    grid-column: 1 / -1;
+  }
+}
+
+/* KAYDET VE IPTAL BUTONLARI */
+
+.service-edit-panel .edit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+
+  margin-top: 28px;
+  padding-top: 20px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.service-edit-panel .cancel-edit-button,
+.service-edit-panel .save-edit-button {
+  min-height: 44px;
+  padding: 11px 20px;
+
+  border-radius: 8px;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* IPTAL BUTONU */
+
+.service-edit-panel .cancel-edit-button {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+
+  &:hover:not(:disabled) {
+    background: #f1f5f9;
+  }
+}
+
+/* KAYDET BUTONU */
+
+.service-edit-panel .save-edit-button {
+  border: 1px solid #172b4d;
+  background: #172b4d;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    border-color: #c59a30;
+    background: #c59a30;
+  }
+}
+
+/* DUZENLE BUTONU */
+
+.services-table .edit-button {
+  min-height: 40px;
+  padding: 10px 18px;
+
+  border: 1px solid #172b4d;
+  border-radius: 8px;
+
+  background: #f1f5f9;
+  color: #172b4d;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background: #172b4d;
+    color: #ffffff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* MOBIL UYUMLULUK */
+
+@media (max-width: 768px) {
+  .services-table .edit-row > td {
+    padding: 14px;
+  }
+
+  .service-edit-panel {
+    padding: 18px;
+  }
+
+  .service-edit-form .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .service-edit-panel .edit-actions {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .service-edit-panel .cancel-edit-button,
+  .service-edit-panel .save-edit-button {
+    width: 100%;
+  }
+}
+
+
+/* ==========================================
+   HIZMET SILME BUTONU
+   ========================================== */
+
+.services-table .delete-button {
+  min-height: 40px;
+  padding: 10px 18px;
+
+  border: 1px solid #dc2626;
+  border-radius: 8px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* ==========================================
+   HIZMET SILME ONAY PENCERESI
+   ========================================== */
+
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(5px);
+}
+
+.delete-modal {
+  width: 100%;
+  max-width: 480px;
+  padding: 34px;
+  box-sizing: border-box;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  background: #ffffff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.25);
+
+  text-align: center;
+  animation: serviceModalAppear 0.2s ease-out;
+
+  h2 {
+    margin: 20px 0 14px;
+
+    color: #172b4d;
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+}
+
+/* UYARI SIMGESI */
+
+.delete-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+  margin: 0 auto;
+
+  border-radius: 50%;
+
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 34px;
+  font-weight: 800;
+}
+
+/* ACIKLAMA */
+
+.delete-modal-description {
+  margin: 0;
+
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.8;
+
+  strong {
+    color: #172b4d;
+    font-weight: 700;
+  }
+}
+
+.delete-modal-warning {
+  margin: 18px 0 0;
+
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* ISLEM BUTONLARI */
+
+.delete-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.delete-modal-cancel,
+.delete-modal-confirm {
+  flex: 1;
+  min-height: 46px;
+  padding: 12px 20px;
+
+  border-radius: 9px;
+
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.delete-modal-cancel {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+
+  &:hover:not(:disabled) {
+    background: #f1f5f9;
+  }
+}
+
+.delete-modal-confirm {
+  border: 1px solid #dc2626;
+  background: #dc2626;
+  color: #ffffff;
+
+  &:hover:not(:disabled) {
+    background: #b91c1c;
+  }
+}
+
+/* ACILIS ANIMASYONU */
+
+@keyframes serviceModalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* MOBIL UYUMLULUK */
+
+@media (max-width: 768px) {
+  .delete-modal {
+    padding: 26px 20px;
+
     h2 {
       font-size: 20px;
     }
   }
 
-  .state-message {
-    padding: 45px 18px;
+  .delete-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .services-table .delete-button {
+    min-height: 42px;
+    font-size: 12px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .service-card,
-  .service-image img {
-    transition: none;
-  }
-
-  .service-card:hover {
-    transform: none;
+  .delete-modal {
+    animation: none;
   }
 }
+

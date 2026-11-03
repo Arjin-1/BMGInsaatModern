@@ -879,101 +879,6 @@
     transform: translateY(-1px);
   }
 }
-
-/* ========================================
-   MODERN TOAST BILDIRIMLERI
-======================================== */
-
-.certificate-toast {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 3000;
-
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-
-  width: min(390px, calc(100vw - 32px));
-  padding: 18px;
-  box-sizing: border-box;
-
-  border: 1px solid #e2e8f0;
-  border-left: 4px solid #16a34a;
-  border-radius: 12px;
-
-  background: #ffffff;
-  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.18);
-
-  animation: toastAppear 0.25s ease-out;
-}
-
-.toast-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-
-  border-radius: 50%;
-  background: #dcfce7;
-  color: #166534;
-
-  font-size: 19px;
-  font-weight: 800;
-}
-
-.toast-content {
-  flex: 1;
-  min-width: 0;
-
-  strong {
-    display: block;
-    margin-bottom: 5px;
-
-    color: #172b4d;
-    font-size: 14px;
-  }
-
-  p {
-    margin: 0;
-    color: #64748b;
-    font-size: 13px;
-    line-height: 1.6;
-  }
-}
-
-.toast-close {
-  flex-shrink: 0;
-
-  padding: 0 4px;
-  border: none;
-  background: transparent;
-
-  color: #94a3b8;
-  font-size: 23px;
-  line-height: 1;
-
-  cursor: pointer;
-
-  &:hover {
-    color: #172b4d;
-  }
-}
-
-/* HATA TOAST BILDIRIMI */
-
-.toast-error {
-  border-left-color: #dc2626;
-
-  .toast-icon {
-    background: #fee2e2;
-    color: #b91c1c;
-  }
-}
-
 /* ANIMASYONLAR */
 
 @keyframes modalAppear {
@@ -985,18 +890,6 @@
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes toastAppear {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
   }
 }
 
@@ -1014,16 +907,9 @@
   .delete-modal-actions {
     flex-direction: column-reverse;
   }
-
-  .certificate-toast {
-    top: 16px;
-    right: 16px;
-  }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .delete-modal,
-  .certificate-toast {
+  .delete-modal {
     animation: none;
   }
 }
