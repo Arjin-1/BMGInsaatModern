@@ -35,7 +35,7 @@ public static class DependencyInjection
         services.AddScoped<ICompanyValueRepository, CompanyValueRepository>();
         services.AddScoped<ICertificateRepository, CertificateRepository>();
         services.AddScoped<IConstructionServiceRepository, ConstructionServiceRepository>();
-
+        services.AddScoped<IProjectVideoRepository, ProjectVideoRepository>();
 
         // Proje fotograflarini sunucuda saklama
         services.AddScoped<IProjectImageStorage>(provider =>
@@ -54,6 +54,15 @@ public static class DependencyInjection
             new LocalConstructionServiceImageStorage(
                 provider.GetRequiredService<IHostEnvironment>().ContentRootPath));
 
+
+        services.AddScoped<IProjectVideoStorage>(provider =>
+        {
+            var environment =
+                provider.GetRequiredService<IHostEnvironment>();
+
+            return new LocalProjectVideoStorage(
+                environment.ContentRootPath);
+        });
 
         services.AddHttpClient<ITranslationService, AzureTranslationService>();
 

@@ -24,6 +24,8 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
 
     public DbSet<ConstructionService> ConstructionServices
         => Set<ConstructionService>();
+    public DbSet<ProjectVideo> ProjectVideos
+    => Set<ProjectVideo>();
 
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -242,6 +244,60 @@ public class AppDbContext : IdentityDbContext<ApplicationUser>
                 s.DisplayOrder
             });
         });
+
+        
+        // Proje videolari yapilandirmasi
+        modelBuilder.Entity<ProjectVideo>(entity =>
+        {
+            entity.HasKey(v => v.Id);
+
+            // Turkce ve Ingilizce video basliklari
+            entity.Property(v => v.TitleTr)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            entity.Property(v => v.TitleEn)
+                .IsRequired()
+                .HasMaxLength(200);
+
+            // Video aciklamalari
+            entity.Property(v => v.DescriptionTr)
+                .IsRequired()
+                .HasColumnType("text");
+
+            entity.Property(v => v.DescriptionEn)
+                .IsRequired()
+                .HasColumnType("text");
+
+            // Sunucuda saklanan video dosyasinin yolu
+            entity.Property(v => v.VideoUrl)
+                .IsRequired()
+                .HasMaxLength(1000);
+
+            // Yayin durumu
+            entity.Property(v => v.IsPublished)
+                .IsRequired()
+                .HasDefaultValue(false);
+
+            // Goruntulenme sirasi
+            entity.Property(v => v.DisplayOrder)
+                .IsRequired()
+                .HasDefaultValue(0);
+
+            // Kayit tarihleri
+            entity.Property(v => v.CreatedAtUtc)
+                .IsRequired();
+
+            entity.Property(v => v.UpdatedAtUtc);
+
+            // Yayinlanan videolari sirali listelemek icin
+            entity.HasIndex(v => new
+            {
+                v.IsPublished,
+                v.DisplayOrder
+            });
+        });
+
 
 
 

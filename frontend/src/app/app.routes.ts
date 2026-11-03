@@ -30,7 +30,12 @@ export const routes: Routes = [
     title: 'Hizmetlerimiz | BMG İnşaat',
     loadComponent: () => import('./pages/services/services').then((m) => m.Services),
   },
-
+  {
+    path: 'project-videos',
+    title: 'Proje Videoları | BMG İnşaat',
+    loadComponent: () =>
+      import('./pages/project-videos/project-videos').then((m) => m.ProjectVideos),
+  },
   {
     path: 'contact',
     title: 'İletişim | BMG İnşaat',
@@ -83,6 +88,14 @@ export const routes: Routes = [
         title: 'Hizmetler Yönetimi | BMG İnşaat',
         canActivate: [adminAuthGuard],
         loadComponent: () => import('./pages/admin/services/services').then((m) => m.Services),
+      },
+
+      {
+        path: 'project-videos',
+        title: 'Proje Videoları Yönetimi | BMG İnşaat',
+        canActivate: [adminAuthGuard],
+        loadComponent: () =>
+          import('./pages/admin/project-videos/project-videos').then((m) => m.ProjectVideos),
       },
 
       {

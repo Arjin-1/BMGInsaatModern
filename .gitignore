@@ -45,3 +45,5 @@ Thumbs.db
 
 # Runtime uploaded images (admin panel)
 **/wwwroot/uploads/
+# Runtime uploaded videos (admin panel)
+**/private-uploads/

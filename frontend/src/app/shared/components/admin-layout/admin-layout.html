@@ -10,25 +10,21 @@
       </a>
 
       <nav class="admin-nav" aria-label="Yönetim paneli menüsü">
-
         <a routerLink="/admin/projects" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: false }">
           Projeler
         </a>
-
         <a routerLink="/admin/about" routerLinkActive="active">
           Hakkımızda
         </a>
-
-
         <a routerLink="/admin/certificates" routerLinkActive="active">
           Sertifikalar
         </a>
-
         <a routerLink="/admin/services" routerLinkActive="active">
           Hizmetler
         </a>
-
-
+        <a routerLink="/admin/project-videos" routerLinkActive="active">
+          Proje Videoları
+        </a>
       </nav>
 
       <button type="button" class="admin-logout-button" [disabled]="loggingOut" (click)="logout()">

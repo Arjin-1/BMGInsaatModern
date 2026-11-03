@@ -1,0 +1,185 @@
+<main class="project-videos-page">
+
+  <!-- SAYFA BASLIGI -->
+  <section class="videos-hero">
+    <div class="container">
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+
+        <a routerLink="/">
+          {{ language() === 'tr' ? 'Ana Sayfa' : 'Home' }}
+        </a>
+
+        <span>/</span>
+
+        <span>
+          {{ language() === 'tr'
+            ? 'Proje Videoları'
+            : 'Project Videos' }}
+        </span>
+
+      </nav>
+
+      <div class="hero-content">
+
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'PROJELERİMİZDEN GÖRÜNTÜLER'
+            : 'HIGHLIGHTS FROM OUR PROJECTS' }}
+        </span>
+
+        <h1>
+          {{ language() === 'tr'
+            ? 'Proje Videoları'
+            : 'Project Videos' }}
+        </h1>
+
+        <p>
+          {{ language() === 'tr'
+            ? 'Tamamladığımız ve devam eden projelerimizin yapım süreçlerini, çalışmalarımızı ve sahadan görüntüleri keşfedin.'
+            : 'Explore construction progress, on-site activities and highlights from our ongoing and completed projects.' }}
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- PROJE VIDEOLARI LISTESI -->
+  <section class="videos-section">
+    <div class="container">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          {{ language() === 'tr'
+            ? 'SAHADAN GÖRÜNTÜLER'
+            : 'ON-SITE HIGHLIGHTS' }}
+        </span>
+
+        <h2>
+          {{ language() === 'tr'
+            ? 'Projelerimizden Videolar'
+            : 'Videos From Our Projects' }}
+        </h2>
+
+      </div>
+
+
+      <!-- YUKLENIYOR -->
+      @if (loading) {
+
+        <div class="state-message" role="status">
+          <p>
+            {{ language() === 'tr'
+              ? 'Proje videoları yükleniyor...'
+              : 'Loading project videos...' }}
+          </p>
+        </div>
+
+      } @else if (errorMessage) {
+
+        <!-- HATA DURUMU -->
+        <div class="state-message" role="alert">
+
+          <p>
+            {{ language() === 'tr'
+              ? 'Proje videoları şu anda görüntülenemiyor.'
+              : 'Project videos are currently unavailable.' }}
+          </p>
+
+          <button type="button" (click)="loadVideos()">
+            {{ language() === 'tr' ? 'Tekrar Dene' : 'Try Again' }}
+          </button>
+
+        </div>
+
+      } @else if (videos.length === 0) {
+
+        <!-- BOS LISTE -->
+        <div class="state-message">
+          <p>
+            {{ language() === 'tr'
+              ? 'Henüz yayınlanmış proje videosu bulunmuyor.'
+              : 'No published project videos are available yet.' }}
+          </p>
+        </div>
+
+      } @else {
+
+        <!-- DINAMIK VIDEO KARTLARI -->
+        <div class="videos-grid">
+
+          @for (video of videos; track video.id) {
+
+            <article class="video-card">
+
+              <!-- VIDEO OYNATICI -->
+              <div class="video-media">
+
+                @if (video.videoUrl) {
+
+                  <video
+                    class="video-player"
+                    controls
+                    preload="none"
+                    playsinline
+                    [attr.aria-label]="
+                      language() === 'tr'
+                        ? video.titleTr
+                        : (video.titleEn.trim() || video.titleTr)
+                    "
+                    [src]="getVideoSrc(video.id)">
+                  </video>
+
+                } @else {
+
+                  <div class="video-placeholder">
+                    <span>
+                      {{ language() === 'tr'
+                        ? 'Video bulunmuyor'
+                        : 'Video unavailable' }}
+                    </span>
+                  </div>
+
+                }
+
+              </div>
+
+
+              <!-- VIDEO BILGILERI -->
+              <div class="video-info">
+
+                <span class="video-label">
+                  {{ language() === 'tr'
+                    ? 'PROJE VİDEOLARI'
+                    : 'PROJECT VIDEOS' }}
+                </span>
+
+                <h3>
+                  {{ language() === 'tr'
+                    ? video.titleTr
+                    : (video.titleEn.trim() || video.titleTr) }}
+                </h3>
+
+                <p class="video-description">
+                  {{ language() === 'tr'
+                    ? video.descriptionTr
+                    : (video.descriptionEn.trim() || video.descriptionTr) }}
+                </p>
+
+              </div>
+
+            </article>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+  </section>
+
+</main>

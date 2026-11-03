@@ -1,0 +1,506 @@
+<section class="admin-services">
+
+    <!-- SAYFA BASLIGI -->
+    <div class="page-header">
+        <div>
+            <span class="page-label">
+                BMG İNŞAAT YÖNETİM PANELİ
+            </span>
+
+            <h1>Proje Videoları Yönetimi</h1>
+
+            <p>
+                Proje videolarınızı, açıklamalarını
+                ve yayın durumlarını buradan yönetebilirsiniz.
+            </p>
+        </div>
+
+        <div class="service-count">
+            <span>Toplam Video</span>
+            <strong>{{ videos.length }}</strong>
+        </div>
+    </div>
+
+
+    <!-- YENI PROJE VIDEOSU EKLEME FORMU -->
+    <section class="service-create-section">
+
+        <div class="form-header">
+            <div>
+                <span class="page-label">
+                    YENİ PROJE VİDEOSU
+                </span>
+
+                <h2>Yeni Proje Videosu Ekle</h2>
+
+                <p>
+                    Proje videosunun Türkçe bilgilerini giriniz.
+                    İngilizce başlık ve açıklama otomatik çevrilecektir.
+                    Kaydı oluşturduktan sonra MP4 dosyasını yükleyebilirsiniz.
+                </p>
+            </div>
+        </div>
+
+        <form (submit)="createVideo(); $event.preventDefault()">
+
+            <div class="form-grid">
+
+                <!-- TURKCE BASLIK -->
+                <div class="form-field">
+                    <label for="video-title-tr">
+                        Video Başlığı (Türkçe) *
+                    </label>
+
+                    <input id="video-title-tr" type="text" maxlength="200" required
+                        placeholder="Örn: Kars Barajı Sulama Projesi" [value]="titleTr"
+                        (input)="titleTr = titleInput.value" #titleInput [disabled]="saving" />
+                </div>
+
+                <!-- GORUNTULENME SIRASI -->
+                <div class="form-field">
+                    <label for="video-display-order">
+                        Görüntülenme Sırası
+                    </label>
+
+                    <input id="video-display-order" type="number" min="0" max="2147483647" step="1" required
+                        [value]="displayOrder" (input)="displayOrder = orderInput.valueAsNumber" #orderInput
+                        [disabled]="saving" />
+
+                    <small>
+                        Küçük sayılar önce gösterilir.
+                    </small>
+                </div>
+
+                <!-- TURKCE ACIKLAMA -->
+                <div class="form-field full-width">
+                    <label for="video-description-tr">
+                        Video Açıklaması (Türkçe) *
+                    </label>
+
+                    <textarea id="video-description-tr" rows="5" required
+                        placeholder="Proje videosunun açıklamasını yazınız..." [value]="descriptionTr"
+                        (input)="descriptionTr = descriptionInput.value" #descriptionInput
+                        [disabled]="saving"></textarea>
+
+                    <small>
+                        İngilizce açıklama Azure Translator ile
+                        otomatik oluşturulacaktır.
+                    </small>
+                </div>
+
+            </div>
+
+            <!-- KAYDET BUTONU -->
+            <div class="form-actions">
+                <button type="submit" class="save-button" [disabled]="saving">
+
+                    @if (saving) {
+                    Video Kaydediliyor...
+                    } @else {
+                    + Yeni Proje Videosu Oluştur
+                    }
+
+                </button>
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- VIDEO LISTESI -->
+    <div class="services-content">
+
+        @if (loading) {
+
+        <div class="state-message" role="status">
+            <p>Proje videoları yükleniyor...</p>
+        </div>
+
+        } @else if (errorMessage) {
+
+        <div class="state-message error" role="alert">
+            <p>{{ errorMessage }}</p>
+
+            <button type="button" (click)="loadVideos()">
+                Tekrar Dene
+            </button>
+        </div>
+
+        } @else if (videos.length === 0) {
+
+        <div class="state-message empty">
+            <h2>Henüz proje videosu eklenmedi</h2>
+
+            <p>
+                Proje videolarınız eklendiğinde
+                burada listelenecektir.
+            </p>
+        </div>
+
+        } @else {
+
+        <div class="list-heading">
+            <h2>Proje Videoları Listesi</h2>
+            <span>Toplam {{ videos.length }} video</span>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table class="services-table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">Video</th>
+                        <th scope="col">Proje Videosu Adı</th>
+                        <th scope="col">Sıra</th>
+                        <th scope="col">Yayın Durumu</th>
+                        <th scope="col">Açıklama</th>
+                        <th scope="col">Video İşlemleri</th>
+                        <th scope="col">Yayın İşlemleri</th>
+                        <th scope="col">Düzenleme</th>
+                        <th scope="col">Silme</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @for (video of videos; track video.id) {
+
+                    <tr>
+
+                        <!-- VIDEO ONIZLEMESI -->
+                        <td>
+                            @if (video.videoUrl && video.isPublished) {
+
+                            <video class="video-preview" controls preload="none"
+                                [src]="'/api/project-videos/' + video.id + '/stream'">
+                            </video>
+
+                            } @else if (video.videoUrl) {
+
+                            <span class="no-video">
+                                Video yüklendi (taslak)
+                            </span>
+
+                            } @else {
+
+                            <span class="no-video">
+                                Video yüklenmedi
+                            </span>
+
+                            }
+                        </td>
+
+                        <!-- VIDEO BASLIGI -->
+                        <td>
+                            <strong>{{ video.titleTr }}</strong>
+
+                            <span class="service-name-en">
+                                {{ video.titleEn }}
+                            </span>
+                        </td>
+
+                        <!-- GORUNTULENME SIRASI -->
+                        <td>
+                            {{ video.displayOrder }}
+                        </td>
+
+                        <!-- YAYIN DURUMU -->
+                        <td>
+                            @if (video.isPublished) {
+
+                            <span class="status status-published">
+                                Yayında
+                            </span>
+
+                            } @else {
+
+                            <span class="status status-draft">
+                                Yayında Değil
+                            </span>
+
+                            }
+                        </td>
+
+                        <!-- ACIKLAMALAR -->
+                        <td>
+                            <details class="service-details">
+                                <summary>Detayları Göster</summary>
+
+                                <div class="service-details-content">
+
+                                    <strong>Türkçe Açıklama</strong>
+                                    <p>{{ video.descriptionTr }}</p>
+
+                                    <strong>İngilizce Açıklama</strong>
+                                    <p>{{ video.descriptionEn }}</p>
+
+                                </div>
+                            </details>
+                        </td>
+
+
+                        <!-- VIDEO YUKLEME VE DEGISTIRME -->
+                        <td>
+
+                            <input #videoFileInput type="file" accept=".mp4,video/mp4" hidden
+                                [disabled]="uploadingVideoId !== null"
+                                (change)="uploadVideo(video.id, videoFileInput)" />
+
+                            <button type="button" class="image-upload-button" [disabled]="uploadingVideoId !== null"
+                                (click)="videoFileInput.click()">
+
+                                @if (uploadingVideoId === video.id) {
+                                Video Yükleniyor...
+                                } @else if (video.videoUrl) {
+                                Videoyu Değiştir
+                                } @else {
+                                Video Yükle
+                                }
+
+                            </button>
+
+                        </td>
+
+
+                        <!-- VIDEO YAYINLAMA / YAYINDAN KALDIRMA -->
+                        <td>
+
+                            <button type="button" class="publish-button" [class.unpublish-button]="video.isPublished"
+                                [disabled]="
+                                publishingVideoId !== null ||
+                                uploadingVideoId !== null ||
+                                (!video.isPublished && !video.videoUrl)
+                                " (click)="toggleVideoPublication(video)">
+
+                                @if (publishingVideoId === video.id) {
+                                İşleniyor...
+                                } @else if (video.isPublished) {
+                                Yayından Kaldır
+                                } @else {
+                                Yayınla
+                                }
+
+                            </button>
+
+                        </td>
+
+
+                        <!-- VIDEO DUZENLEME BUTONU -->
+                        <td>
+                            <button type="button" class="edit-button" [disabled]="
+                                updatingVideo ||
+                                uploadingVideoId !== null ||
+                                publishingVideoId !== null
+                                " (click)="startEditingVideo(video)">
+                                Düzenle
+                            </button>
+                        </td>
+
+
+                        <!-- VIDEO SILME BUTONU -->
+                        <td>
+                            <button type="button" class="delete-button" [disabled]="
+                                deletingVideoId !== null ||
+                                updatingVideo ||
+                                uploadingVideoId !== null ||
+                                publishingVideoId !== null
+                                " (click)="deleteVideo(video)">
+
+                                @if (deletingVideoId === video.id) {
+                                Siliniyor...
+                                } @else {
+                                Sil
+                                }
+
+                            </button>
+                        </td>
+
+
+
+
+
+                    </tr>
+
+                    <!-- VIDEO DUZENLEME FORMU -->
+                    @if (editingVideoId === video.id) {
+
+                    <tr class="edit-row">
+                        <td colspan="9">
+
+                            <div class="service-edit-panel">
+
+                                <h3>Proje Videosu Bilgilerini Düzenle</h3>
+
+                                <p class="edit-description">
+                                    Türkçe bilgileri güncelleyin.
+                                    Değiştirilen metinler kaydedilirken
+                                    İngilizceye otomatik çevrilecektir.
+                                </p>
+
+                                <form class="service-edit-form" (submit)="updateVideo(video); $event.preventDefault()">
+
+                                    <div class="form-grid">
+
+                                        <!-- TURKCE BASLIK -->
+                                        <div class="form-field">
+
+                                            <label [attr.for]="'edit-video-title-' + video.id">
+                                                Video Başlığı (Türkçe)
+                                            </label>
+
+                                            <input [id]="'edit-video-title-' + video.id" type="text" maxlength="200"
+                                                required [value]="editTitleTr" (input)="editTitleTr = titleInput.value"
+                                                #titleInput />
+
+                                        </div>
+
+                                        <!-- GORUNTULENME SIRASI -->
+                                        <div class="form-field">
+
+                                            <label [attr.for]="'edit-video-order-' + video.id">
+                                                Görüntülenme Sırası
+                                            </label>
+
+                                            <input [id]="'edit-video-order-' + video.id" type="number" min="0"
+                                                max="2147483647" step="1" required [value]="editDisplayOrder"
+                                                (input)="editDisplayOrder = orderInput.valueAsNumber" #orderInput />
+
+                                        </div>
+
+                                        <!-- TURKCE ACIKLAMA -->
+                                        <div class="form-field description-field">
+
+                                            <label [attr.for]="'edit-video-description-' + video.id">
+                                                Video Açıklaması (Türkçe)
+                                            </label>
+
+                                            <textarea [id]="'edit-video-description-' + video.id" rows="6" required
+                                                [value]="editDescriptionTr"
+                                                (input)="editDescriptionTr = descriptionInput.value"
+                                                #descriptionInput></textarea>
+
+                                            <small>
+                                                Açıklamayı değiştirdiğinizde İngilizce
+                                                açıklama otomatik güncellenecektir.
+                                            </small>
+
+                                        </div>
+
+                                    </div>
+
+                                    <!-- ISLEM BUTONLARI -->
+                                    <div class="edit-actions">
+
+                                        <button type="button" class="cancel-edit-button" [disabled]="updatingVideo"
+                                            (click)="cancelEditingVideo()">
+                                            İptal
+                                        </button>
+
+                                        <button type="submit" class="save-edit-button" [disabled]="updatingVideo">
+
+                                            @if (updatingVideo) {
+                                            Kaydediliyor...
+                                            } @else {
+                                            Değişiklikleri Kaydet
+                                            }
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+                    </tr>
+
+                    }
+
+
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        }
+
+    </div>
+
+    
+<!-- PROJE VIDEOSU SILME ONAY PENCERESI -->
+@if (pendingDeleteVideo; as video) {
+
+  <div class="delete-modal-overlay">
+
+    <div
+      class="delete-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="video-delete-title"
+      aria-describedby="video-delete-description">
+
+      <div class="delete-modal-icon" aria-hidden="true">
+        !
+      </div>
+
+      <h2 id="video-delete-title">
+        Proje Videosunu Silmek İstiyor Musunuz?
+      </h2>
+
+      <p
+        id="video-delete-description"
+        class="delete-modal-description">
+
+        <strong>{{ video.titleTr }}</strong>
+        adlı proje videosu ve ona ait MP4 dosyası
+        kalıcı olarak silinecektir.
+
+      </p>
+
+      <p class="delete-modal-warning">
+        Bu işlem geri alınamaz.
+      </p>
+
+      <div class="delete-modal-actions">
+
+        <button
+          type="button"
+          class="delete-modal-cancel"
+          [disabled]="deletingVideoId !== null"
+          (click)="cancelDeleteVideo()">
+
+          Vazgeç
+
+        </button>
+
+        <button
+          type="button"
+          class="delete-modal-confirm"
+          [disabled]="deletingVideoId !== null"
+          (click)="confirmDeleteVideo()">
+
+          @if (deletingVideoId !== null) {
+            Siliniyor...
+          } @else {
+            Evet, Sil
+          }
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+}
+
+
+</section>
