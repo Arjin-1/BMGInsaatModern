@@ -42,3 +42,6 @@ Thumbs.db
 *.tmp
 *.bak
 *~
+
+# Runtime uploaded images (admin panel)
+**/wwwroot/uploads/
