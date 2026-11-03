@@ -195,153 +195,6 @@
     font-size: 23px;
   }
 }
-
-/* ==========================================
-   SAG: ILETISIM FORMU
-   ========================================== */
-
-.contact-form-card {
-  min-width: 0;
-  padding: 45px;
-
-  border: 1px solid #e8eaed;
-  border-top: 4px solid #c4a052;
-  border-radius: 12px;
-
-  background: #fff;
-  box-shadow: 0 16px 50px rgba(20, 32, 43, 0.06);
-
-  h2 {
-    margin: 0 0 17px;
-    color: #243746;
-    font-size: clamp(26px, 3vw, 35px);
-    font-weight: 750;
-    line-height: 1.25;
-    letter-spacing: -0.7px;
-  }
-
-  &__intro {
-    margin: 0 0 35px;
-    color: #66717a;
-    font-size: 15px;
-    line-height: 1.8;
-  }
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-
-  &__field {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-
-    label {
-      color: #33434f;
-      font-size: 14px;
-      font-weight: 650;
-    }
-
-    input,
-    textarea {
-      display: block;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 15px 17px;
-
-      border: 1px solid #dce1e5;
-      border-radius: 8px;
-
-      background: #fff;
-      color: #263745;
-
-      font: inherit;
-      font-size: 15px;
-      line-height: 1.5;
-
-      transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-
-      &::placeholder {
-        color: #9aa3aa;
-      }
-
-      &:hover {
-        border-color: #b7c0c8;
-      }
-
-      &:focus {
-        outline: none;
-        border-color: #c4a052;
-        box-shadow: 0 0 0 3px rgba(196, 160, 82, 0.13);
-      }
-    }
-
-    textarea {
-      min-height: 155px;
-      resize: vertical;
-    }
-  }
-
-  &__submit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-
-    min-height: 54px;
-    padding: 15px 26px;
-
-    border: 1px solid #243746;
-    border-radius: 8px;
-
-    background: #243746;
-    color: #fff;
-
-    font: inherit;
-    font-size: 15px;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition:
-      background-color 0.25s ease,
-      transform 0.25s ease;
-
-    &:not(:disabled):hover {
-      background: #354e61;
-      transform: translateY(-2px);
-    }
-
-    &:disabled {
-      border-color: #a9b0b6;
-      background: #a9b0b6;
-      color: #fff;
-      cursor: not-allowed;
-    }
-
-    &:focus-visible {
-      outline: 3px solid #c4a052;
-      outline-offset: 4px;
-    }
-
-    span {
-      font-size: 20px;
-    }
-  }
-
-  &__notice {
-    margin: -10px 0 0;
-    color: #88939c;
-    font-size: 12px;
-    line-height: 1.7;
-    text-align: center;
-  }
-}
-
 /* ==========================================
    HARITA ALANI
    ========================================== */
@@ -396,10 +249,6 @@
   .contact-grid {
     grid-template-columns: 1fr 1fr;
     gap: 35px;
-  }
-
-  .contact-form-card {
-    padding: 30px;
   }
 }
 
@@ -460,19 +309,6 @@
       font-size: 20px;
     }
   }
-
-  .contact-form-card {
-    padding: 25px 20px;
-  }
-
-  .contact-form {
-    gap: 20px;
-
-    &__submit {
-      width: 100%;
-    }
-  }
-
   .contact-map {
     padding: 65px 0 85px;
 
@@ -486,21 +322,12 @@
 /* ==========================================
    HAREKET AZALTMA TERCIHI
    ========================================== */
-
 @media (prefers-reduced-motion: reduce) {
   .contact-info__item,
-  .contact-info__item a,
-  .contact-form__field input,
-  .contact-form__field textarea,
-  .contact-form__submit {
+  .contact-info__item a {
     transition: none;
   }
-
-  .contact-form__submit:hover {
-    transform: none;
-  }
 }
-
 // GOOGLE HARITALAR
 .contact-map__frame {
   width: 100%;
@@ -563,11 +390,6 @@
     align-items: flex-start;
     padding: 25px 20px;
   }
-}
-
-/* Form, e-posta gonderimi etkinlestirilene kadar gizli */
-.contact-form-card {
-  display: none;
 }
 
 @media (max-width: 780px) {
