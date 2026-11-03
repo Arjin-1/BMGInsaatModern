@@ -13,13 +13,16 @@ public class AdminCertificatesController : ControllerBase
 {
     private readonly ICertificateRepository _certificateRepository;
     private readonly ICertificateImageStorage _certificateImageStorage;
+    private readonly ITranslationService _translationService;
 
     public AdminCertificatesController(
         ICertificateRepository certificateRepository,
-        ICertificateImageStorage certificateImageStorage)
+        ICertificateImageStorage certificateImageStorage,
+        ITranslationService translationService)
     {
         _certificateRepository = certificateRepository;
         _certificateImageStorage = certificateImageStorage;
+        _translationService = translationService;
     }
 
     // Yonetici panelinde tum sertifikalari listele
@@ -53,16 +56,30 @@ public class AdminCertificatesController : ControllerBase
         CancellationToken cancellationToken)
     {
         var nameTr = request.NameTr?.Trim();
-        var nameEn = request.NameEn?.Trim();
 
-        if (string.IsNullOrWhiteSpace(nameTr) ||
-            string.IsNullOrWhiteSpace(nameEn))
+        if (string.IsNullOrWhiteSpace(nameTr))
         {
             return BadRequest(new
             {
-                message = "Turkce ve Ingilizce sertifika adlari zorunludur."
+                message = "Turkce sertifika adi zorunludur."
             });
         }
+
+        var nameEn = await _translationService
+            .TranslateToEnglishAsync(
+                nameTr,
+                cancellationToken);
+        
+         if (string.IsNullOrWhiteSpace(nameEn))
+        {
+            return StatusCode(502, new
+            {
+                message = "Otomatik ceviri tamamlanamadi. Sertifika kaydedilmedi."
+            });
+        }
+
+        nameEn = nameEn.Trim();
+
 
         var certificate = new Certificate
         {
@@ -80,7 +97,7 @@ public class AdminCertificatesController : ControllerBase
         return Ok(new
         {
             id = certificateId,
-            message = "Sertifika basariyla olusturuldu."
+            message = "Sertifika otomatik ceviriyle basariyla olusturuldu."
         });
     }
 
@@ -307,14 +324,13 @@ public class AdminCertificatesController : ControllerBase
         }
 
         var nameTr = request.NameTr?.Trim();
-        var nameEn = request.NameEn?.Trim();
+  
 
-        if (string.IsNullOrWhiteSpace(nameTr) ||
-            string.IsNullOrWhiteSpace(nameEn))
+        if (string.IsNullOrWhiteSpace(nameTr))
         {
             return BadRequest(new
             {
-                message = "Turkce ve Ingilizce sertifika adlari zorunludur."
+                message = "Turkce sertifika adi zorunludur."
             });
         }
 
@@ -328,8 +344,27 @@ public class AdminCertificatesController : ControllerBase
             });
         }
 
+        var nameEn = certificate.NameEn;
+
+        if (certificate.NameTr != nameTr ||
+            string.IsNullOrWhiteSpace(nameEn))
+        {
+            nameEn = await _translationService
+                .TranslateToEnglishAsync(
+                    nameTr,
+                    cancellationToken);
+        }
+
+        if (string.IsNullOrWhiteSpace(nameEn))
+        {
+            return StatusCode(502, new
+            {
+                message = "Otomatik ceviri tamamlanamadi. Sertifika guncellenmedi."
+            });
+        }
+
         certificate.NameTr = nameTr;
-        certificate.NameEn = nameEn;
+        certificate.NameEn = nameEn.Trim();
         certificate.DisplayOrder = request.DisplayOrder;
         certificate.IsPublished = request.IsPublished;
         certificate.UpdatedAtUtc = DateTime.UtcNow;

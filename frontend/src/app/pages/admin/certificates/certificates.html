@@ -41,15 +41,6 @@
         </div>
 
         <div class="form-field">
-          <label for="certificate-name-en">
-            Sertifika Adı (İngilizce)
-          </label>
-
-          <input id="certificate-name-en" type="text" placeholder="Örn: Quality Management System Certificate"
-            maxlength="200" autocomplete="off" [value]="nameEn" (input)="nameEn = nameEnInput.value" #nameEnInput />
-        </div>
-
-        <div class="form-field">
           <label for="certificate-display-order">
             Görüntülenme Sırası
           </label>
@@ -298,15 +289,6 @@
 
                       <input id="edit-name-tr" type="text" maxlength="200" [value]="editNameTr"
                         (input)="editNameTr = editTrInput.value" #editTrInput />
-                    </div>
-
-                    <div class="form-field">
-                      <label for="edit-name-en">
-                        Sertifika Adı (İngilizce)
-                      </label>
-
-                      <input id="edit-name-en" type="text" maxlength="200" [value]="editNameEn"
-                        (input)="editNameEn = editEnInput.value" #editEnInput />
                     </div>
 
                     <div class="form-field">

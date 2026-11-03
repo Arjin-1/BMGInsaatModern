@@ -35,7 +35,6 @@ export class Certificates implements OnInit {
 
   // Yeni sertifika formu
   nameTr = '';
-  nameEn = '';
   displayOrder = 0;
 
   saving = false;
@@ -56,7 +55,6 @@ export class Certificates implements OnInit {
   editingCertificateId: number | null = null;
 
   editNameTr = '';
-  editNameEn = '';
   editDisplayOrder = 0;
 
   editingError = '';
@@ -106,24 +104,23 @@ export class Certificates implements OnInit {
     this.formError = '';
 
     const nameTr = this.nameTr.trim();
-    const nameEn = this.nameEn.trim();
     const displayOrder = Number(this.displayOrder);
 
-    if (!nameTr || !nameEn) {
+    if (!nameTr) {
       this.formError =
-        'Türkçe ve İngilizce sertifika adlarını giriniz.';
+        'Türkçe sertifika adını giriniz.';
       return;
     }
 
-    if (nameTr.length > 200 || nameEn.length > 200) {
+    if (nameTr.length > 200) {
       this.formError =
-        'Sertifika adları en fazla 200 karakter olabilir.';
+        'Sertifika adı en fazla 200 karakter olabilir.';
       return;
     }
 
     if (
       !Number.isInteger(displayOrder) ||
-      displayOrder < 0
+      displayOrder < 0 || displayOrder > 2147483647
     ) {
       this.formError =
         'Görüntülenme sırası sıfır veya pozitif bir tam sayı olmalıdır.';
@@ -142,7 +139,6 @@ export class Certificates implements OnInit {
             '/api/admin/certificates',
             {
               nameTr,
-              nameEn,
               displayOrder,
             },
             {
@@ -163,11 +159,10 @@ export class Certificates implements OnInit {
        
 
           this.nameTr = '';
-          this.nameEn = '';
           this.displayOrder = 0;
 
           this.showToast(
-            'Sertifika oluşturuldu. Şimdi görsel yükleyebilirsiniz.',
+            'Sertifika oluşturuldu ve İngilizce adı otomatik çevrildi. Şimdi görsel yükleyebilirsiniz.',
             'success'
           );
 
@@ -312,7 +307,6 @@ export class Certificates implements OnInit {
             `/api/admin/certificates/${certificate.id}`,
             {
               nameTr: certificate.nameTr,
-              nameEn: certificate.nameEn,
               displayOrder: certificate.displayOrder,
               isPublished: newPublishedStatus,
             },
@@ -370,7 +364,6 @@ export class Certificates implements OnInit {
     this.editingCertificateId = certificate.id;
 
     this.editNameTr = certificate.nameTr;
-    this.editNameEn = certificate.nameEn;
     this.editDisplayOrder = certificate.displayOrder;
 
     this.editingError = '';
@@ -386,7 +379,6 @@ export class Certificates implements OnInit {
     this.editingCertificateId = null;
 
     this.editNameTr = '';
-    this.editNameEn = '';
     this.editDisplayOrder = 0;
 
     this.editingError = '';
@@ -404,20 +396,19 @@ export class Certificates implements OnInit {
     
 
     const nameTr = this.editNameTr.trim();
-    const nameEn = this.editNameEn.trim();
     const displayOrder = Number(this.editDisplayOrder);
 
     // Zorunlu alan kontrolu
-    if (!nameTr || !nameEn) {
+    if (!nameTr) {
       this.editingError =
-        'Türkçe ve İngilizce sertifika adları zorunludur.';
+        'Türkçe sertifika adı zorunludur.';
       return;
     }
 
     // Karakter siniri kontrolu
-    if (nameTr.length > 200 || nameEn.length > 200) {
+    if (nameTr.length > 200) {
       this.editingError =
-        'Sertifika adları en fazla 200 karakter olabilir.';
+        'Sertifika adı en fazla 200 karakter olabilir.';
       return;
     }
 
@@ -444,7 +435,6 @@ export class Certificates implements OnInit {
             `/api/admin/certificates/${certificate.id}`,
             {
               nameTr,
-              nameEn,
               displayOrder,
 
               // Mevcut yayin durumunu koru
@@ -466,14 +456,13 @@ export class Certificates implements OnInit {
           this.editingCertificateId = null;
 
           this.editNameTr = '';
-          this.editNameEn = '';
           this.editDisplayOrder = 0;
 
           this.editingError = '';
       
 
           this.showToast(
-            'Sertifika bilgileri başarıyla güncellendi.',
+            'Sertifika güncellendi. İngilizce adı otomatik çevrildi.',
             'success'
           );
 
@@ -482,8 +471,6 @@ export class Certificates implements OnInit {
         },
         error: () => {
           this.updating = false;
-
-         
 
           this.showToast(
             'Sertifika güncellenemedi. Lütfen tekrar deneyin.',
