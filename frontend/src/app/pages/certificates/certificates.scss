@@ -174,19 +174,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 320px;
-  padding: 20px;
+  height: 440px;
+  padding: 24px;
   overflow: hidden;
   background: #fafaf8;
   border-bottom: 1px solid #f0eee9;
 
   img {
     display: block;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-
-    transition: transform 0.35s ease;
   }
 
   .certificate-card:hover & img {
@@ -364,3 +362,159 @@
     transition: none;
   }
 }
+
+
+/* Sertifika görselini tıklanabilir yap */
+.certificate-image-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: zoom-in;
+
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  &:focus-visible {
+    outline: 3px solid  #c4a052;
+    outline-offset: 3px;
+  }
+}
+
+
+/* Sertifika buyutme penceresi */
+.certificate-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.88);
+  box-sizing: border-box;
+}
+
+/* Modal ana kutusu */
+.certificate-modal__content {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  
+  width: min(700px, 100%);
+  height: min(850px, calc(100dvh - 32px));
+  min-width: 0;
+  min-height: 0;
+
+  padding: 14px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+/* Kaydirilabilir sertifika alani */
+.certificate-modal__viewport {
+  display: flex;
+  align-items: safe center;
+  justify-content: safe center;
+
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+
+  overflow: auto;
+  overscroll-behavior: contain;
+
+  background: #f5f3ee;
+  border-radius: 8px;
+}
+
+/* Sertifika gorseli */
+.certificate-modal__image {
+  display: block;
+  flex: none;
+
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+
+  margin: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+/* Kapatma butonu */
+.certificate-modal__close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #20252b;
+  color: #ffffff;
+
+  font-size: 28px;
+  cursor: pointer;
+
+  &:hover {
+    background: #b91c1c;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #c4a052;
+    outline-offset: 2px;
+  }
+}
+
+/* Telefon ekranlari */
+@media (max-width: 600px) {
+  .certificate-modal {
+    padding: 8px;
+  }
+
+  .certificate-modal__content {
+    width: 100%;
+    height: calc(100dvh - 16px);
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .certificate-modal__close {
+    top: 8px;
+    right: 8px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+

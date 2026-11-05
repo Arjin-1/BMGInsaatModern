@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, HostListener, inject, OnInit, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RouterLink } from '@angular/router';
 import { LanguageService } from '../../core/services/language.service';
@@ -26,6 +26,8 @@ export class Certificates implements OnInit {
   readonly certificates = signal<PublicCertificate[]>([]);
   readonly loading = signal(true);
   readonly error = signal(false);
+  readonly selectedCertificate = signal<PublicCertificate | null>(null);
+  readonly zoomLevel = signal(1);
 
   ngOnInit(): void {
     this.loadCertificates();
@@ -37,9 +39,7 @@ export class Certificates implements OnInit {
 
     this.http.get<PublicCertificate[]>('/api/certificates').subscribe({
       next: (data) => {
-        this.certificates.set(
-          [...data].sort((a, b) => a.displayOrder - b.displayOrder)
-        );
+        this.certificates.set([...data].sort((a, b) => a.displayOrder - b.displayOrder));
         this.loading.set(false);
       },
       error: (err) => {
@@ -48,6 +48,24 @@ export class Certificates implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  openCertificate(certificate: PublicCertificate): void {
+    if (!certificate.imageUrl) {
+      return;
+    }
+
+    this.zoomLevel.set(1);
+    this.selectedCertificate.set(certificate);
+  }
+
+  closeCertificate(): void {
+    this.selectedCertificate.set(null);
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeCertificate();
   }
 
   getImageSrc(imageUrl: string): string {
