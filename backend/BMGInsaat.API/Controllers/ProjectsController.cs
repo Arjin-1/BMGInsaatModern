@@ -41,7 +41,7 @@ public class ProjectsController : ControllerBase
                 .Select(image => new
                 {
                     image.Id,
-                    image.ImageUrl,
+                    ImageUrl = $"/api/projects/{project.Id}/images/{image.Id}",
                     image.IsCover,
                     image.DisplayOrder
                 })
@@ -86,7 +86,7 @@ public class ProjectsController : ControllerBase
                 .Select(image => new
                 {
                     image.Id,
-                    image.ImageUrl,
+                    ImageUrl = $"/api/projects/{project.Id}/images/{image.Id}",
                     image.IsCover,
                     image.DisplayOrder
                 })
@@ -95,5 +95,73 @@ public class ProjectsController : ControllerBase
 
         return Ok(result);
     }
+
+    
+    // Proje fotograflarini yayin durumuna gore goster.
+    [HttpGet("{id:int}/images/{imageId:int}")]
+    public async Task<IActionResult> GetProjectImage(
+        int id,
+        int imageId,
+        [FromServices] IProjectImageStorage imageStorage,
+        CancellationToken cancellationToken)
+    {
+        var project = await _projectRepository.GetByIdAsync(
+            id,
+            cancellationToken);
+
+        if (project is null)
+        {
+            return NotFound();
+        }
+
+        // Yayinlanmamis projelerin fotograflarini
+        // yalnizca SuperAdmin gorebilir.
+        if (!project.IsPublished &&
+            !User.IsInRole("SuperAdmin"))
+        {
+            return NotFound();
+        }
+
+        var image = project.Images
+            .FirstOrDefault(x => x.Id == imageId);
+
+        if (image is null)
+        {
+            return NotFound();
+        }
+
+        var contentType = Path.GetExtension(image.ImageUrl)
+            .ToLowerInvariant() switch
+        {
+            ".jpg" or ".jpeg" => "image/jpeg",
+            ".png" => "image/png",
+            ".webp" => "image/webp",
+            _ => null
+        };
+
+        if (contentType is null)
+        {
+            return NotFound();
+        }
+
+        try
+        {
+            var stream = imageStorage.OpenRead(image.ImageUrl);
+
+            if (stream is null)
+            {
+                return NotFound();
+            }
+
+            Response.Headers.CacheControl = "no-store";
+
+            return File(stream, contentType);
+        }
+        catch (ArgumentException)
+        {
+            return NotFound();
+        }
+    }
+
 
 }

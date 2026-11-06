@@ -12,4 +12,7 @@ public interface ICertificateImageStorage
     Task DeleteAsync(
         string imageUrl,
         CancellationToken cancellationToken = default);
+    
+    Stream? OpenRead(string imageUrl);
+
 }

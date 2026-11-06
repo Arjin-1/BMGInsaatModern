@@ -42,7 +42,9 @@ public class AdminConstructionServicesController : ControllerBase
             service.TitleEn,
             service.DescriptionTr,
             service.DescriptionEn,
-            service.ImageUrl,
+            ImageUrl = string.IsNullOrWhiteSpace(service.ImageUrl)
+                ? string.Empty
+                : $"/api/services/{service.Id}/image",
             service.IsPublished,
             service.DisplayOrder,
             service.CreatedAtUtc,
@@ -155,7 +157,7 @@ public class AdminConstructionServicesController : ControllerBase
 
 
 
-    
+
     // Hizmet bilgilerini guncelle - Otomatik Ingilizce ceviri
     [HttpPut("{id:int}")]
     [ValidateAntiForgeryToken]
@@ -295,7 +297,7 @@ public class AdminConstructionServicesController : ControllerBase
     }
 
 
-    
+
     // Hizmete gorsel yukle veya mevcut gorseli degistir
     [HttpPost("{id:int}/image")]
     [ValidateAntiForgeryToken]
@@ -482,12 +484,12 @@ public class AdminConstructionServicesController : ControllerBase
         return Ok(new
         {
             service.Id,
-            service.ImageUrl,
+            ImageUrl = $"/api/services/{service.Id}/image",
             message = "Hizmet gorseli basariyla kaydedildi."
         });
     }
 
-    
+
     // Hizmeti ve ona ait gorseli sil
     [HttpDelete("{id:int}")]
     [ValidateAntiForgeryToken]

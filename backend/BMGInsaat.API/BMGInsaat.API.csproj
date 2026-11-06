@@ -20,4 +20,11 @@
     <ProjectReference Include="..\BMGInsaat.Infrastructure\BMGInsaat.Infrastructure.csproj" />
   </ItemGroup>
 
+  
+<ItemGroup>
+  <Content Update="appsettings.Development.json"
+           CopyToPublishDirectory="Never" />
+</ItemGroup>
+
+
 </Project>

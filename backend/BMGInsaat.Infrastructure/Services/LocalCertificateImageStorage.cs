@@ -21,8 +21,7 @@ public class LocalCertificateImageStorage : ICertificateImageStorage
     {
         _storagePath = Path.Combine(
             contentRootPath,
-            "wwwroot",
-            "uploads",
+            "private-uploads",
             "certificates");
     }
 
@@ -91,12 +90,18 @@ public class LocalCertificateImageStorage : ICertificateImageStorage
 
         var fileName = imageUrl[UrlPrefix.Length..];
 
+
         if (string.IsNullOrWhiteSpace(fileName) ||
-            fileName != Path.GetFileName(fileName))
+            fileName != Path.GetFileName(fileName) ||
+            !Guid.TryParseExact(
+                Path.GetFileNameWithoutExtension(fileName),
+                "N",
+                out _))
         {
             throw new ArgumentException(
                 "Gecersiz dosya adi.");
         }
+
 
         var extension = Path.GetExtension(fileName);
 
@@ -117,4 +122,52 @@ public class LocalCertificateImageStorage : ICertificateImageStorage
 
         return Task.CompletedTask;
     }
+
+    
+    // Sertifika gorselini API uzerinden okumak icin acar.
+    public Stream? OpenRead(string imageUrl)
+    {
+        if (string.IsNullOrWhiteSpace(imageUrl) ||
+            !imageUrl.StartsWith(
+                UrlPrefix,
+                StringComparison.Ordinal))
+        {
+            throw new ArgumentException(
+                "Gecersiz sertifika gorseli adresi.");
+        }
+
+        var fileName = imageUrl[UrlPrefix.Length..];
+
+        // Yalnizca sistemin olusturdugu dosya adlarini kabul et.
+        if (string.IsNullOrWhiteSpace(fileName) ||
+            fileName != Path.GetFileName(fileName) ||
+            !Guid.TryParseExact(
+                Path.GetFileNameWithoutExtension(fileName),
+                "N",
+                out _) ||
+            !AllowedExtensions.Contains(
+                Path.GetExtension(fileName)))
+        {
+            throw new ArgumentException(
+                "Gecersiz sertifika gorseli dosya adi.");
+        }
+
+        var filePath = Path.Combine(
+            _storagePath,
+            fileName);
+
+        if (!File.Exists(filePath))
+        {
+            return null;
+        }
+
+        return new FileStream(
+            filePath,
+            FileMode.Open,
+            FileAccess.Read,
+            FileShare.Read,
+            bufferSize: 81920,
+            useAsync: true);
+    }
+
 }

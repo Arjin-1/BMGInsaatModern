@@ -10,4 +10,6 @@ public interface IProjectImageStorage
     Task DeleteAsync(
         string imageUrl,
         CancellationToken cancellationToken = default);
+
+    Stream? OpenRead(string imageUrl);
 }

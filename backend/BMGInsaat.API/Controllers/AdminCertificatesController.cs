@@ -38,7 +38,9 @@ public class AdminCertificatesController : ControllerBase
             certificate.Id,
             certificate.NameTr,
             certificate.NameEn,
-            certificate.ImageUrl,
+            ImageUrl = string.IsNullOrWhiteSpace(certificate.ImageUrl)
+                ? string.Empty
+                : $"/api/certificates/{certificate.Id}/image",
             certificate.IsPublished,
             certificate.DisplayOrder,
             certificate.CreatedAtUtc,
@@ -289,7 +291,7 @@ public class AdminCertificatesController : ControllerBase
         return Ok(new
         {
             certificate.Id,
-            certificate.ImageUrl,
+            ImageUrl = $"/api/certificates/{certificate.Id}/image",
             message = "Sertifika gorseli basariyla kaydedildi."
         });
 

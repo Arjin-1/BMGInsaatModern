@@ -59,7 +59,7 @@ public class AdminProjectsController : ControllerBase
                 .Select(image => new
                 {
                     image.Id,
-                    image.ImageUrl,
+                    ImageUrl = $"/api/projects/{project.Id}/images/{image.Id}",
                     image.IsCover,
                     image.DisplayOrder
                 })
@@ -223,7 +223,7 @@ public class AdminProjectsController : ControllerBase
         return Ok(new
         {
             image.Id,
-            image.ImageUrl,
+            ImageUrl = $"/api/projects/{project.Id}/images/{image.Id}",
             image.IsCover,
             image.DisplayOrder,
             message = "Fotograf basariyla yuklendi."

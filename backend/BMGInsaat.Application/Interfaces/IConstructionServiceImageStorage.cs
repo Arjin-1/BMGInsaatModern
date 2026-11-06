@@ -12,4 +12,7 @@ public interface IConstructionServiceImageStorage
     Task DeleteAsync(
         string imageUrl,
         CancellationToken cancellationToken = default);
+    
+    Stream? OpenRead(string imageUrl);
+        
 }
