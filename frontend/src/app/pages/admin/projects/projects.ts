@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RouterLink } from '@angular/router';
 import { ProjectEdit } from '../project-edit/project-edit';
 import { ProjectCreate } from '../project-create/project-create';
 import { switchMap } from 'rxjs';
@@ -20,7 +19,7 @@ interface AdminProject {
 }
 
 @Component({
-  imports: [RouterLink, ProjectEdit, ProjectCreate],
+  imports: [ProjectEdit, ProjectCreate],
   selector: 'app-projects',
   styleUrl: './projects.scss',
   templateUrl: './projects.html',

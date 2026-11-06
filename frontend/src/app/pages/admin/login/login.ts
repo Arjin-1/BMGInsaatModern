@@ -14,13 +14,13 @@ export class Login {
    private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
-  username = '';
+  email = '';
   password = '';
   loading = false;
   errorMessage = '';
 
   onSubmit(): void {
-    if (this.loading || !this.username.trim() || !this.password) {
+    if (this.loading || !this.email.trim() || !this.password) {
       return;
     }
 
@@ -36,7 +36,7 @@ export class Login {
           this.http.post(
             '/api/auth/login',
             {
-              username: this.username.trim(),
+              email: this.email.trim(),
               password: this.password,
             },
             {

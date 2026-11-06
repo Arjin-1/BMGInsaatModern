@@ -54,6 +54,27 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/admin/login/login').then((m) => m.Login),
   },
 
+  // E-POSTA DOGRULAMA SAYFASI
+  // Giris yapmadan erisilebilir.
+  {
+    path: 'admin/confirm-email',
+    title: 'E-posta Doğrulama | BMG İnşaat',
+    loadComponent: () =>
+      import('./pages/admin/confirm-email/confirm-email').then((m) => m.ConfirmEmail),
+  },
+
+  {
+    path: 'admin/forgot-password',
+    loadComponent: () =>
+      import('./pages/admin/forgot-password/forgot-password').then((m) => m.ForgotPassword),
+  },
+
+  {
+    path: 'admin/reset-password',
+    loadComponent: () =>
+      import('./pages/admin/reset-password/reset-password').then((m) => m.ResetPassword),
+  },
+
   // ORTAK YÖNETİM PANELİ
   {
     path: 'admin',

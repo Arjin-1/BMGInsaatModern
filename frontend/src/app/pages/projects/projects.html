@@ -128,7 +128,7 @@
                             @for (image of project.images; track image.id) {
 
                             @if (image.isCover) {
-                            <img [src]="'http://localhost:5056' + image.imageUrl" [alt]="language() === 'tr'
+                            <img [src]="image.imageUrl" [alt]="language() === 'tr'
                           ? project.nameTr
                           : (project.nameEn || project.nameTr)" loading="lazy" decoding="async" />
                             }

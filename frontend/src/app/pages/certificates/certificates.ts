@@ -75,6 +75,8 @@ export class Certificates implements OnInit {
 
     // Mevcut geliştirme ortamındaki backend adresi.
     // Production aşamasında merkezi API yapılandırmasına taşınacak.
-    return `http://localhost:5056/${imageUrl.replace(/^\/+/, '')}`;
+    
+    return `/${imageUrl.replace(/^\/+/, '')}`;
+
   }
 }

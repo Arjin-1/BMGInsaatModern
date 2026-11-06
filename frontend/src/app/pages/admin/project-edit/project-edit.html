@@ -121,8 +121,7 @@
                     <div class="images-grid">
                         @for (image of p.images; track image.id) {
                         <div class="image-card">
-                            <img [src]="'http://localhost:5056' + image.imageUrl" [alt]="p.nameTr + ' proje fotoğrafı'"
-                                loading="lazy" />
+                            <img [src]="image.imageUrl" [alt]="p.nameTr + ' proje fotoğrafı'" loading="lazy" />
 
 
                             @if (image.isCover) {

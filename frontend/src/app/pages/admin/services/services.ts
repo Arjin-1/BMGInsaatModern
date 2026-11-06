@@ -112,7 +112,9 @@ export class Services implements OnInit {
       return imageUrl;
     }
 
-    return `http://localhost:5056/${imageUrl.replace(/^\/+/, '')}`;
+    
+    return `/${imageUrl.replace(/^\/+/, '')}`;
+
   }
 
   // Yeni hizmet olustur

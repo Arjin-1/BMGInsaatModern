@@ -111,7 +111,7 @@
           >
 
             <img
-              [src]="'http://localhost:5056' + cover.imageUrl"
+              [src]="cover.imageUrl"
               [alt]="language() === 'tr'
                 ? project.nameTr
                 : (project.nameEn || project.nameTr)"
@@ -322,7 +322,7 @@
                 >
 
                   <img
-                    [src]="'http://localhost:5056' + image.imageUrl"
+                    [src]="image.imageUrl"
                     [alt]="
                       (language() === 'tr'
                         ? project.nameTr
@@ -400,7 +400,7 @@
 
             <img
               class="project-lightbox__image"
-              [src]="'http://localhost:5056' + image.imageUrl"
+              [src]="image.imageUrl"
               [alt]="
                 (language() === 'tr'
                   ? project.nameTr
